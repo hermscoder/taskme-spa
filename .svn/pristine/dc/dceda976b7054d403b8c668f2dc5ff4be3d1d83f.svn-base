@@ -1,0 +1,51 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../environments/environment';
+import { UserDTO } from '../_models/UserDTO';
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  baseUrl = environment.apiUrl + 'auth/';
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
+  currentUser: UserDTO;
+  photoUrl = new BehaviorSubject<string>('../../assets/images/no_profile_image.png');
+  currentPhotoUrl = this.photoUrl.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  changeUserPhoto(photoUrl: string) {
+    this.photoUrl.next(photoUrl);
+  }
+
+  login(model: any) {
+    return this.http.post(this.baseUrl + 'login', model)
+    .pipe (
+      map((response: any) => {
+        const userAuth = response;
+        if (userAuth) {
+          localStorage.setItem('token', userAuth.token);
+          localStorage.setItem('user', JSON.stringify(userAuth.user));
+          this.decodedToken = this.jwtHelper.decodeToken(userAuth.token);
+          this.currentUser = userAuth.user;
+          this.changeUserPhoto(this.currentUser.profilePhoto.url);
+        }
+      })
+    );
+  }
+
+  register(model: any) {
+    return this.http.post(this.baseUrl + 'register', model);
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+
+
+}

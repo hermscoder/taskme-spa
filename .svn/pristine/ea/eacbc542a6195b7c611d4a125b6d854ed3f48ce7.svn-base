@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header w-100">Media</div>
+  <div class="card-body">
+    <div class="container " *ngIf="mediaList && mediaList[0] && mediaList.length > 0; else noMediaFound" ngelse>
+        <div class="row " style="height: 200px">
+            <img *ngIf="activeMedia.type == '1'" src="{{activeMedia?.url}}" alt="{{activeMedia?.description}}" class="card-img-top img-thumpnail mediaContent">
+            <video *ngIf="activeMedia.type == '2'" autoplay="" class="card-img-top img-thumpnail embed-responsive-ite mediaContent" >
+                <source src="{{activeMedia?.url}}" type="video/mp4">
+            </video>
+
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <button class="btn btn-link text-black-50" (click)="prev()" *ngIf="!onFirstMedia" >
+                    <i class="fa fa-angle-left"></i>
+                </button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-link text-black-50" (click)="next()" *ngIf="!onLastMedia" >
+                    <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <ng-template #noMediaFound>
+      <div class="container " style="height: 200px;">
+        <img src="../../../assets/images/no_image_found.png" alt="No image found" class="card-img-top img-thumpnail mediaContent">
+      </div>
+    </ng-template>
+
+  </div>
+</div>

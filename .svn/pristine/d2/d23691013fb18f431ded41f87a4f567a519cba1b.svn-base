@@ -1,0 +1,17 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { TaskSomeone } from '../../_models/TaskSomeone';
+
+@Component({
+  selector: 'app-task-someone-card',
+  templateUrl: './task-someone-card.component.html',
+  styleUrls: ['./task-someone-card.component.css']
+})
+export class TaskSomeoneCardComponent implements OnInit {
+  @Input() taskSomeone: TaskSomeone;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

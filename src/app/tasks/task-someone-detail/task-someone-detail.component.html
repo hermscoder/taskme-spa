@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="tab-panel">
+        <tabset class="task-someone-tabset">
+          <tab heading="Details">
+            <div class="card">
+              <div class="card-header">
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <h4>{{taskSomeone.title}}</h4>
+                      <small class="text-muted">created {{taskSomeone.createdOn | timeAgo}}</small>
+                    </div>
+                    <div class="col-sm-2">
+                        <img src="{{taskSomeone.user.profilePhoto.url}}" alt="{{taskSomeone.user.givenName}}" width="30px" height="30px">
+                        <small class="ml-1 text-muted text-truncate">{{taskSomeone.user.givenName}}</small>
+                    </div>
+                  </div>
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{taskSomeone.description}}</p>
+              </div>
+            </div>
+          </tab>
+          <tab heading="Location">
+            <div class="card">
+              <div class="card-body">
+                <p class="card-text">{{taskSomeone.local}}</p>
+              </div>
+            </div>
+          </tab>
+          <tab heading="About {{taskSomeone.user.givenName}}">
+            <div class="card">
+              <div class="card-body">
+                <img src="{{taskSomeone.user.profilePhoto.url}}" alt="{{taskSomeone.user.givenName}}" width="60px" height="60px">
+                {{taskSomeone.user.givenName}} {{taskSomeone.user.familyName}}
+                <p class="card-text">
+                  <br/>
+                  Age: {{taskSomeone.user.birthDate | timeAgo | slice:0:2}}
+                  <br/>
+                  Contact: {{taskSomeone.user.contact}}
+                  <br/>
+                  Tasks: <font color="red"> 21</font>
+                </p>
+              </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+
+    </div>
+    <div class="col-sm-3">
+      <app-media-gallery [mediaList]="taskSomeone.mediaList" ></app-media-gallery>
+    </div>
+  </div>
+</div>
+

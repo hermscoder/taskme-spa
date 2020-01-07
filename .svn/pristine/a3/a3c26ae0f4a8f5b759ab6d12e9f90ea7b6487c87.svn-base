@@ -1,0 +1,91 @@
+
+<form [formGroup]=registerForm (ngSubmit)="register()" >
+  <h2 class="text-center text-primary">Sign up</h2>
+  <hr>
+  <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputFirstNameLabel">Given Name</label>
+        <input id="inputFirstName" type="text"
+                [ngClass]="{'is-invalid': registerForm.get('givenName').errors
+                              && registerForm.get('givenName').touched}"
+                class="form-control"
+                formControlName="givenName">
+        <div class="invalid-feedback"
+              *ngIf="registerForm.get('givenName').touched
+                    && registerForm.get('givenName').hasError('required')">Mandatory field</div>
+      </div>
+      <div class="form-group col-md-6">
+          <label for="inputLastNameLabel">Family Name</label>
+          <input id="inputLastName" type="text"
+                  [ngClass]="{'is-invalid':registerForm.get('familyName').errors
+                                      && registerForm.get('familyName').touched}"
+                  class="form-control" formControlName="familyName">
+          <div class="invalid-feedback"
+              *ngIf="registerForm.get('familyName').touched
+                    && registerForm.get('familyName').hasError('required')">Mandatory field</div>
+        </div>
+    </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputUsernameLabel">Username</label>
+      <input id="inputUsername" type="text"
+              [ngClass]="{'is-invalid':registerForm.get('username').errors
+                                  && registerForm.get('username').touched}"
+              class="form-control" formControlName="username"  placeholder="Username">
+      <div class="invalid-feedback"
+              *ngIf="registerForm.get('username').touched
+                    && registerForm.get('username').hasError('required')">Mandatory field</div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPasswordLabel">Password</label>
+      <input id="inputPassword" type="password"
+                [ngClass]="{'is-invalid':registerForm.get('password').errors
+                && registerForm.get('password').touched}"
+                class="form-control"
+                formControlName="password" placeholder="Password">
+      <div class="invalid-feedback"
+              *ngIf="registerForm.get('password').touched
+                      && registerForm.get('password').hasError('required')">Mandatory field</div>
+      <div class="invalid-feedback"
+              *ngIf="registerForm.get('password').touched
+                    && registerForm.get('password').hasError('minlength')">Passwords must be 4 characters long!</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddressLabel">Address</label>
+    <input id="inputAddress" type="text"
+            [ngClass]="{'is-invalid':registerForm.get('address').errors
+            && registerForm.get('address').touched}"
+            class="form-control"
+            formControlName="address"
+            placeholder="1234 Main St, Budapest, Hungary">
+    <div class="invalid-feedback"
+              *ngIf="registerForm.get('address').touched && registerForm.get('address').hasError('required')">Mandatory field</div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputContactLabel">Contact</label>
+      <input id="inputContact" type="text"
+              [ngClass]="{'is-invalid':registerForm.get('contact').errors
+                    && registerForm.get('contact').touched}"
+              class="form-control"
+              formControlName="contact" placeholder="+36 70 205 2560">
+      <div class="invalid-feedback"
+              *ngIf="registerForm.get('contact').touched && registerForm.get('contact').hasError('required')">Mandatory field</div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputBirthDateLabel">Birth date</label>
+      <input id="inputBirthDate" type="text"
+              [ngClass]="{'is-invalid':registerForm.get('birthDate').errors
+              && registerForm.get('birthDate').touched}"
+              class="form-control"
+              formControlName="birthDate" placeholder="01/01/1990" bsDatepicker [bsConfig]="bsConfig">
+      <div class="invalid-feedback"
+              *ngIf="registerForm.get('birthDate').touched && registerForm.get('birthDate').hasError('required')">Mandatory field</div>
+    </div>
+  </div>
+  <div class="form-group text-center">
+    <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid" type="submit" >Sign up</button>
+    <button type="submit" class="btn btn-default" (click)="cancel()">Cancel</button>
+  </div>
+</form>

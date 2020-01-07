@@ -1,0 +1,79 @@
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../_services/user.service';
+import { UserDTO } from '../../_models/UserDTO';
+import { AlertifyService } from '../../_services/alertify.service';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../../_services/auth.service';
+import { NgbPopover, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgTemplateOutlet } from '@angular/common';
+import { Media } from '../../_models/Media';
+
+@Component({
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
+})
+export class UserEditComponent implements OnInit {
+  @ViewChild('editForm') editForm: NgForm;
+  @ViewChild('pswdPopover') pswdPopover: NgbPopover;
+  @ViewChild('changPswdForm') changPswdForm: NgForm;
+
+  user: any;
+  passChange: any = {};
+  photoUrl: string;
+
+  // method that will be called when the user tries to close the browser while not saved the form.
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
+
+
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService,
+    private alertify: AlertifyService, private modalService: NgbModal) { }
+
+  ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.user = data['user'];
+
+      this.passChange.id = this.user.id;
+      this.passChange.username = this.user.username;
+    });
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+  }
+
+  updateUser() {
+    this.userService.updateUser(this.user).subscribe(() => {
+      this.alertify.success('Profile updated sucessfully!');
+    }, error => {
+      this.alertify.error(error.message);
+    });
+    this.editForm.reset(this.user);
+  }
+
+  changePassword() {
+    this.passChange.id = this.user.id;
+    this.passChange.username = this.user.username;
+
+    if (this.passChange.newPassword === this.passChange.newPasswordRpt) {
+      this.userService.updateUserPassword(this.passChange).subscribe(() => {
+        this.alertify.success('Password updated sucessfully!');
+        this.pswdPopover.close();
+        this.changPswdForm.reset();
+      }, error => {
+        this.alertify.error(error.message);
+      });
+    } else {
+      this.alertify.error('Passwords do not match');
+    }
+
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+}

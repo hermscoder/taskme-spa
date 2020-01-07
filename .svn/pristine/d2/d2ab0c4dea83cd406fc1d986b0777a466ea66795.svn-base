@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { TaskSomeone } from '../../_models/TaskSomeone';
+import { TaskSomeoneService } from '../../_services/task-someone.service';
+import { AlertifyService } from '../../_services/alertify.service';
+
+@Component({
+  selector: 'app-list-tasks',
+  templateUrl: './list-tasks.component.html',
+  styleUrls: ['./list-tasks.component.css']
+})
+export class ListTasksComponent implements OnInit {
+  tasks: TaskSomeone[];
+
+  constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService) { }
+
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  loadTasks() {
+    this.taskSomeoneService.listTasks().subscribe((tasks: TaskSomeone[]) => {
+      this.tasks = tasks;
+    }, error => {
+      this.alertify.error(error.message);
+    });
+  }
+
+}

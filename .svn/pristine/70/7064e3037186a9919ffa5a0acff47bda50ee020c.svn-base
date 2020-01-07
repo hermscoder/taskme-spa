@@ -1,0 +1,17 @@
+img.img-thumbnail {
+  height: 180px;
+  min-width: 190px !important;
+  margin-bottom: 2px;
+}
+
+.nv-file-over {
+  border: dotted 3px #46b8da;
+}
+
+input[type=file] {
+  color: transparent;
+}
+
+.btn-file:hover {
+  color: #46b8da;
+}

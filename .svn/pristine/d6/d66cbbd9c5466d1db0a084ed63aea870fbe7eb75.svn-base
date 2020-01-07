@@ -1,0 +1,50 @@
+<div class="container">
+
+    <div class="row">
+        <div ng2FileDrop
+              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+              (fileOver)="fileOverBase($event)"
+              [uploader]="uploader"
+              class="card bg-faded p-3 text-center drop-zone col-md-12"
+              style="min-height: 100px">
+              <div class="col-md-12 mt-5" *ngIf="uploader.queue.length > 0">
+                  <ul class="text-left">
+                      <li *ngFor="let item of uploader.queue; let i = index" class="col-md-2" (contextmenu)="onRightClick($event)">
+                        <div class="queue-element-container">
+                          <button type="button" (click)="removeItemFromQueue(i)" class="ml-1 close" >
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                          <img src="{{urlPreviewList[i]}}" alt="{{'Image_' + i}}" class="img-thumbnail">
+                          <div class="small ellipsis" nowrap><strong>{{ item?.file?.name }}</strong></div>
+                          <div class="small" *ngIf="uploader.options.isHTML5">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</div>
+                          <div class="progress" style="margin-bottom: 0;" *ngIf="uploader.options.isHTML5 && item.progress > 0">
+                              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                          </div>
+                          <div class="text-center">
+                              <span *ngIf="item.isSuccess"><i class="fa fa-check text-success"></i></span>
+                              <span *ngIf="item.isCancel"><i class="fa fa-ban text-warning"></i></span>
+                              <span *ngIf="item.isError"><i class="fa fa-exclamation-circle text-error"></i></span>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  <div class="text-right">
+                        <button type="button" class="btn btn-link btn-s text-danger"
+                                (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                <i class="fa fa-trash"></i>
+                                <span class="glyphicon glyphicon-trash"></span> Remove all
+                        </button>
+                        <button *ngIf="!hideUploadAllBtn" type="button" class="btn btn-success btn-s"
+                              (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                          <span class="glyphicon glyphicon-upload"></span> Upload all
+                      </button>
+                  </div>
+              </div>
+            <label class="btn btn-default btn-file upload-label">
+                <i class="fa fa-upload fa-2x mr-2"></i>
+                Click here or drop your files <input type="file" class="btn btn-default" ng2FileSelect [uploader]="uploader" style="display: none;" multiple/>
+            </label>
+        </div>
+    </div>
+
+  </div>

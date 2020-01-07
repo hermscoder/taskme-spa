@@ -1,0 +1,19 @@
+<section class="jumbotron text-center">
+<div class="container">
+  <h1 class="jumbotron-heading">Find some tasks</h1>
+  <p class="lead text-muted">Find some tasks that you would love to do and receive money when you finish those! Filter them however you want!</p>
+  <h1 class="jumbotron-heading">Create tasks</h1>
+  <p class="lead text-muted">Problems with your shower? Don't fell like going to the supermarket? Find someone to get those task done!</p>
+    <a href="#registerForm" class="btn btn-primary my-2 mr-2" (click)="registerToggle()" >Register</a>
+    <a href="#" class="btn btn-info my-2 mr-2">Learn More</a>
+</div>
+</section>
+
+<div *ngIf="registerMode" class="container" id="registerForm">
+    <div class="row justify-content-center">
+        <div class="col-6">
+          <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+        </div>
+    </div>
+</div>
+

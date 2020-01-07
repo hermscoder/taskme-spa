@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { TaskSomeone } from '../_models/TaskSomeone';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TaskSomeoneService {
+  baseUrl = environment.apiUrl + 'logged';
+
+  constructor(private http: HttpClient) { }
+
+  listTasks(): Observable<TaskSomeone[]> {
+    return this.http.get<TaskSomeone[]>(this.baseUrl + '/listtasks');
+  }
+
+  getTask(id): Observable<TaskSomeone> {
+    return this.http.get<TaskSomeone>(this.baseUrl + '/tasksomeone/' + id);
+  }
+
+  createTaskSomeone(model: any) {
+    return this.http.post(this.baseUrl + '/tasksomeone', model);
+  }
+}

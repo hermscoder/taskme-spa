@@ -1,0 +1,29 @@
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { TaskSomeone } from '../../_models/TaskSomeone';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'app-task-someone-card',
+  templateUrl: './task-someone-card.component.html',
+  styleUrls: ['./task-someone-card.component.css']
+})
+export class TaskSomeoneCardComponent implements OnInit {
+  @Input() taskSomeone: TaskSomeone;
+  @Input() editMode: boolean;
+
+  @Output() onTaskUpdated = new EventEmitter<any>();
+
+  constructor(private modalService: NgbModal) { }
+
+  ngOnInit() {
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  onTaskUpdatedSuccessfully(res: any) {
+    this.onTaskUpdated.emit(res);
+  }
+
+}

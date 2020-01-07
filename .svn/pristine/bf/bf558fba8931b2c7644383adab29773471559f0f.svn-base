@@ -1,0 +1,49 @@
+<div class="container mt-4" id="taskSomeoneForm">
+    <div class="row ">
+        <div class="col-sm-9">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="text-left text-primary">Task Someone</h2>
+              </div>
+              <div class="card-body mb-10" *ngIf="!this.uploaderAvailable">
+                <form [formGroup]=taskSomeoneForm (ngSubmit)="addTaskSomeone()">
+                  <div class="form-group">
+                    <label for="inputTitleLabel">Title</label>
+                    <input type="text"
+                            [ngClass]="{'is-invalid':taskSomeoneForm.get('title').errors
+                                        && taskSomeoneForm.get('title').touched}"
+                            class="form-control"
+                            formControlName="title" placeholder="Give it a flashy title!">
+                  </div>
+                  <div class="form-group">
+                      <label for="inputFirstNameLabel">Description</label>
+                      <textarea [ngClass]="{'is-invalid':taskSomeoneForm.get('description').errors
+                                        && taskSomeoneForm.get('description').touched}"
+                                class="form-control"
+                                formControlName="description" rows="3" placeholder="What is the task about?"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputLocationLabel">Address</label>
+                    <input type="text"
+                            [ngClass]="{'is-invalid':taskSomeoneForm.get('location').errors
+                                      && taskSomeoneForm.get('location').touched}"
+                            class="form-control"
+                            formControlName="location" placeholder="1234 Main St, Budapest, Hungary">
+                  </div>
+
+
+                  <div class="form-group text-right mt-2">
+                    <button type="submit" class="btn btn-success" [disabled]="taskSomeoneForm.invalid" type="submit" >Next</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-body mb-10" *ngIf="this.uploaderAvailable">
+                  <h4 class="form-title">Media</h4>
+                  <label class="hint-message">The more details you provide, the faster you will find someone to accomplish your task!</label>
+                  <app-media-upload #mediaUploader (uploadSuccessful)="onMediaUploadSuccessfully();" [url]="this.baseUrl + 'logged/tasksomeone/addMedia/' + this.taskSomeone.id" [authToken]="this.authToken"></app-media-upload>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+

@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/bootswatch/dist/yeti/bootstrap.min.css';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+@import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
+
+
+.tab-panel {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.nav-tabs > li.open, .task-someone-tabset > .nav-tabs > li:hover {
+  border-bottom: 4px solid #9cd1e6;
+}
+
+.task-someone-tabset > .nav-tabs > li.open > a, .task-someone-tabset > .nav-tabs > li:hover > a {
+  border: 0;
+  background: none !important;
+  color: #333333;
+}
+
+.task-someone-tabset > .nav-tabs > li.open > a > i, .task-someone-tabset > .nav-tabs > li:hover > a > i {
+  color: #a6a6a6;
+}
+
+.task-someone-tabset > .nav-tabs > li.open .dropdown-menu, .task-someone-tabset > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0px;
+}
+
+.task-someone-tabset > .nav-tabs > li.active {
+  border-bottom: 4px solid #46b8da;
+  position: relative;
+}
+
+.task-someone-tabset > .nav-tabs > li.active > a {
+  border: 0 !important;
+  color: #333333;
+}
+
+.task-someone-tabset > .nav-tabs > li.active > a > i {
+  color: #404040;
+}
+
+.task-someone-tabset > .nav-tabs > li > a {
+  border: 0 !important;
+  color: #404040;
+  background: none
+}
+
+.task-someone-tabset > .tab-content {
+  margin-top: -3px;
+  background-color: #fff;
+  border: 0;
+  border-top: 1px solid #eee;
+  padding: 15px 0;
+}

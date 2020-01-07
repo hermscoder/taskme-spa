@@ -1,0 +1,122 @@
+<div class="container mt-4" id="editUserForm">
+  <div class="row ">
+      <div class="col-sm-9">
+        <form id="editForm" (ngSubmit)="updateUser()" #editForm="ngForm">
+          <div class="card">
+              <div class="card-header">
+                <h2 class="text-left text-primary">Edit Profile</h2>
+              </div>
+            <div class="card-body">
+              <div class="form-row">
+                  <div class="form-group col-md-3 img-thumbnail">
+
+                      <div class="carte_button">
+                        <img src="{{photoUrl}}" alt="" width="190px" height="180px">
+                      </div>
+                      <div class="carte">
+                        <div class="carte-text">
+                            <ng-template #profilePhotoUpdate let-modal>
+                              <div class="modal-header">
+                                  <h4 class="modal-title" id="modal-basic-title">Photo update</h4>
+                                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <app-photo-editor [photo]="user.profilePhoto" (uploadSuccessful)="modal.dismiss();"></app-photo-editor>
+
+                              <div class="mt-3 mb-3" >
+                                  <button type="button" class="btn btn-secondary btn-lg offset-md-1 col-md-10" (click)="modal.dismiss()">
+                                      Close
+                                  </button>
+                              </div>
+                            </ng-template>
+                            <button type="button" class="btn btn-outline-dark" (click)="open(profilePhotoUpdate)">
+                              <i class="fa fa-picture-o" aria-hidden="true"></i>
+                              Change image
+                            </button>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group col-md-9 mt-4">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                          <label for="inputFirstNameLabel">Given Name</label>
+                          <input id="inputFirstName" type="text" class="form-control" required name="givenName" [(ngModel)]="user.givenName" >
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="inputLastNameLabel">Family Name</label>
+                          <input id="inputLastName" type="text" class="form-control" required name="familyName" [(ngModel)]="user.familyName">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputUsernameLabel">Username</label>
+                        <input id="inputUsername" type="text" class="form-control" required name="username" [(ngModel)]="user.username" placeholder="Username">
+                      </div>
+                      <div class="form-group col-md-6" >
+                        <label for="inputPasswordLabel">Password</label>
+                        <button type="button" [ngbPopover]="popContent" [autoClose]="false" #pswdPopover="ngbPopover" placement="bottom" class="form-row form-control hoverMe btn-secondary text-left" data-html="true" data-content="<form><input type='text'/></form>" data-trigger="click" rel="popover">
+                            <div class="col-sm-11">*********</div>
+                            <div class="col-sm-1"><i class="fa fa-pencil " aria-hidden="true"></i></div>
+                        </button>
+                        <ng-template #popContent>
+                            <div class="form-group">
+                                <button (click)="changPswdForm.reset(); pswdPopover.close();" type="button" class="close">
+                                  <span aria-hidden="true">&times;</span>
+                                  <span class="sr-only">Close</span>
+                                </button>
+                            </div>
+
+                            <form id="changPswdForm" (ngSubmit)="changePassword()" #changPswdForm="ngForm">
+                              <div class="form-group col-md-12">
+                                <label for="previousPasswordLabel">Current password:</label>
+                                <input id="previousPassword" type="password" class="form-control" required name="previousPassword" [(ngModel)]="passChange.currentPassword" placeholder="******">
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label for="newPasswordLabel">New password:</label>
+                                  <input id="newPassword" type="password" class="form-control" required name="newPassword" [(ngModel)]="passChange.newPassword" placeholder="******">
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label for="newPasswordRepeatLabel">Repeat new password:</label>
+                                  <input id="newPasswordRepeat" type="password" class="form-control" required name="newPasswordRpt" [(ngModel)]="passChange.newPasswordRpt" placeholder="******" >
+                              </div>
+                              <div class="form-group row justify-content-center">
+                                  <button [disabled]="!changPswdForm.dirty" form="changPswdForm" class="btn btn-info col-md-10" >Change password</button>
+                                  <button (click)="changPswdForm.reset(); pswdPopover.close();" class="btn btn-light col-md-10 mt-1" >Cancel</button>
+                              </div>
+
+                          </form>
+                        </ng-template>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputBirthDateLabel">Birth date</label>
+                    <input id="inputBirthDate" type="date" class="form-control" required name="birthDate" [(ngModel)]="user.birthDate" placeholder="01/01/1990">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputContactLabel">Contact</label>
+                    <input id="inputContact" type="text" class="form-control" required name="contact" [(ngModel)]="user.contact" placeholder="+36 70 205 2560">
+                  </div>
+              </div>
+              <div class="form-group">
+                <label for="inputAddressLabel">Address</label>
+                <input type="text" class="form-control" id="inputAddress" required name="address" [(ngModel)]="user.address" placeholder="1234 Main St, Budapest, Hungary">
+              </div>
+
+              <div class="form-group text-right">
+                <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success" >Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+
+

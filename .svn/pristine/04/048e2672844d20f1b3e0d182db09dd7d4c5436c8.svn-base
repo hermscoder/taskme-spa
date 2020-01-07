@@ -1,0 +1,21 @@
+<div class="card mt-2">
+  <div class="card-header">
+    <div class="row">
+        <div class="col-sm-10 text-left">
+          <h5>{{taskSomeone.title}}</h5>
+          <small class="text-muted">created {{taskSomeone.createdOn | timeAgo}}</small>
+        </div>
+        <div class="col-sm-2 text-left">
+          <img src="{{taskSomeone.user.profilePhoto?.url}}" alt="" width="30px" height="30">
+          <small class="ml-1 text-muted text-truncate">{{taskSomeone.user.givenName}}</small>
+        </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <p class="card-text">{{taskSomeone.description}}</p>
+    <a href="#" class="btn btn-primary" [routerLink]="['/taskDetails/',taskSomeone.id]" routerLinkActive="router-link-active" >
+      More information
+    </a>
+  </div>
+</div>

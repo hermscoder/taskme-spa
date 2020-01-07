@@ -1,0 +1,51 @@
+.nv-file-over {
+  border: dotted 3px #46b8da;
+}
+
+input[type=file] {
+  color: transparent;
+}
+
+.btn-file:hover {
+  color: #46b8da;
+}
+
+.img-thumbnail {
+  max-width: 100px;
+  max-height: 100px;
+  height: 100px;
+}
+
+ul {
+  list-style: none
+}
+
+li {
+  display: inline-block;
+  /* inline block hack for IE 6&7 */
+  zoom: 1;
+  *display: inline;
+  padding: 4px;
+}
+.queue-element-container {
+  min-height: 160px;
+}
+
+.queue-element-container .img-thumbnail{
+  min-height: 100px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.upload-label {
+  z-index: 99;
+  position: absolute;
+  margin-left: 30%;
+  margin-right: 30%;
+}
