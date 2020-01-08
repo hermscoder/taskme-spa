@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://taskme-app.herokuapp.com/',
-  whitelistedDomains: ['https://taskme-app.herokuapp.com', 'taskme-app.herokuapp.com'],
-  blacklistedRoutes: ['https://taskme-app.herokuapp.com/auth', 'https://taskme-app.herokuapp.com/auth']
+  apiUrl: 'http://localhost:8080/',
+  whitelistedDomains: ['localhost:8080', 'http://localhost:8080'],
+  blacklistedRoutes: ['localhost:8080/auth', 'http://localhost:8080/auth']
 };
 
 /*
