@@ -36,6 +36,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { MediaUploadComponent } from './media/media-upload/media-upload.component';
 import { CreatedTasksComponent } from './tasks/created-tasks/created-tasks.component';
 import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
+import { GenericPaginatorComponent } from './generics/generic-paginator/generic-paginator.component';
 
 
 export function tokenGetter() {
@@ -60,7 +61,8 @@ export function tokenGetter() {
       PhotoEditorComponent,
       MediaUploadComponent,
       CreatedTasksComponent,
-      EditTaskComponent
+      EditTaskComponent,
+      GenericPaginatorComponent
    ],
    imports: [
       BrowserModule,

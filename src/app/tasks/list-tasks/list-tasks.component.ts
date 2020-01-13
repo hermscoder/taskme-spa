@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TaskSomeone } from '../../_models/TaskSomeone';
 import { TaskSomeoneService } from '../../_services/task-someone.service';
 import { AlertifyService } from '../../_services/alertify.service';
+import { Pageable } from 'src/app/_models/Pageable';
+import { PaginationInfo } from 'src/app/_models/PaginationInfo';
 
 @Component({
   selector: 'app-list-tasks',
@@ -11,6 +13,8 @@ import { AlertifyService } from '../../_services/alertify.service';
 export class ListTasksComponent implements OnInit {
   tasks: TaskSomeone[];
   filteredTasks: TaskSomeone[];
+  pageable: Pageable;
+  paginationInfo: PaginationInfo;
 
   // we changed this to private, because we want to execute something everytime we change the value
   // of the property on the screen. So now with the getter and setter we can do this
@@ -39,6 +43,16 @@ export class ListTasksComponent implements OnInit {
     this.taskSomeoneService.listTasks().subscribe((tasks: TaskSomeone[]) => {
       this.tasks = tasks;
       this.filteredTasks = tasks;
+    }, error => {
+      this.alertify.error(error.message);
+    });
+  }
+
+  listWithPagination(pageable: Pageable) {
+    this.taskSomeoneService.listWithPagination(pageable).subscribe((page: any[]) => {
+      this.tasks = page['content'];
+      this.filteredTasks = this.tasks;
+      this.paginationInfo = new PaginationInfo(page);
     }, error => {
       this.alertify.error(error.message);
     });

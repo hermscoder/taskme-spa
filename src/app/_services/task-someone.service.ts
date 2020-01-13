@@ -4,15 +4,22 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { TaskSomeone } from '../_models/TaskSomeone';
 import { Media } from '../_models/Media';
+import { GPaginator } from '../_interfaces/GPaginator';
+import { Pageable } from '../_models/Pageable';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskSomeoneService {
+export class TaskSomeoneService implements GPaginator {
+
   baseUrl = environment.apiUrl + 'logged';
 
   constructor(private http: HttpClient) { }
+
+  listWithPagination(pageable: Pageable): Observable<any[]> {
+    return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeona?' + (pageable ? pageable.buildRequestParamString() : '') );
+  }
 
   listTasks(): Observable<TaskSomeone[]> {
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/listtasks');
