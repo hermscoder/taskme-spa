@@ -3,5 +3,5 @@ import { Pageable } from "../_models/Pageable";
 
 export interface GPaginator {
 
-  listWithPagination(pageable: Pageable): Observable<any[]>;
+  listWithPagination(pageable: Pageable, term: string): Observable<any[]>;
 }

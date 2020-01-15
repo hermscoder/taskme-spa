@@ -17,7 +17,10 @@ export class TaskSomeoneService implements GPaginator {
 
   constructor(private http: HttpClient) { }
 
-  listWithPagination(pageable: Pageable): Observable<any[]> {
+  listWithPagination(pageable: Pageable, term: string = null): Observable<any[]> {
+    if (term) {
+      pageable.term = term;
+    }
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeona?' + (pageable ? pageable.buildRequestParamString() : '') );
   }
 

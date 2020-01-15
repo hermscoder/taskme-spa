@@ -12,9 +12,8 @@ import { PaginationInfo } from 'src/app/_models/PaginationInfo';
   styleUrls: ['./generic-paginator.component.css']
 })
 export class GenericPaginatorComponent implements OnInit {
-  @Input() pageable: Pageable;
+  pageable: Pageable;
   @Input() paginationInfo: PaginationInfo;
-  @Input() test: string;
   @Output() loadContent = new EventEmitter<any>();
 
   constructor() { }
@@ -23,23 +22,37 @@ export class GenericPaginatorComponent implements OnInit {
   }
 
   nextPage() {
-    if (this.pageable) {
-      this.pageable.page++;
-    } else {
+    if (!this.pageable) {
       this.pageable = new Pageable();
       this.pageable.page = 0;
     }
-    console.log(this.pageable);
+    this.pageable.page++;
+    console.log(this.paginationInfo);
     this.loadContent.emit(this.pageable);
   }
 
   previousPage() {
-    if (this.pageable) {
-      this.pageable.page--;
-    } else {
+    if (!this.pageable) {
       this.pageable = new Pageable();
       this.pageable.page = 0;
     }
+    this.pageable.page--;
+    this.loadContent.emit(this.pageable);
+  }
+
+  firstPage() {
+    if (!this.pageable) {
+      this.pageable = new Pageable();
+    }
+    this.pageable.page = 0;
+    this.loadContent.emit(this.pageable);
+  }
+
+  lastPage() {
+    if (!this.pageable) {
+      this.pageable = new Pageable();
+    }
+    this.pageable.page = this.paginationInfo.totalPages - 1;
     this.loadContent.emit(this.pageable);
   }
 }

@@ -5,7 +5,7 @@
         <label>Search for Title</label>
         <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="searchTerm" />
       </div>
-      <app-generic-paginator (loadContent)="listWithPagination($event)" [pageable]="pageable" [paginationInfo]="paginationInfo" [test]="test">
+      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
         <p *ngFor="let task of filteredTasks">
           <app-task-someone-card [taskSomeone]="task"></app-task-someone-card>
         </p>

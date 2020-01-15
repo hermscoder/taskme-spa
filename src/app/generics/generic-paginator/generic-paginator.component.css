@@ -10,9 +10,13 @@
 }
 
 .display-none {
-  opacity: 0;
+  opacity: 0.5;
+  pointer-events:none;
 }
 
 
 
-.fill-w { width: 100%;}
+.pages-navigation-group {
+  width: 100%;
+  margin-bottom: 20px;
+}

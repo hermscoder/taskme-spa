@@ -1,7 +1,10 @@
 <ng-content></ng-content>
 
 <div class="btn-toolbar">
-  <div class="btn-group mr-2 fill-w" role="group" aria-label="First group">
+  <div class="btn-group mr-2 pages-navigation-group" role="group" aria-label="First group">
+    <button type="button" class="btn btn-default" (click)="firstPage()" [ngClass]="paginationInfo?.curPageNumber > 1 ? '' : 'display-none'">
+      <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>
+    </button>
     <button type="button" class="btn btn-default" (click)="previousPage()" [ngClass]="paginationInfo?.curPageNumber > 1 ? '' : 'display-none'">
       <i class="fa fa-angle-left"></i>
     </button>
@@ -10,6 +13,9 @@
     </a>
     <button type="button" class="btn btn-default" (click)="nextPage()" [ngClass]="!paginationInfo?.last ? '' : 'display-none'">
       <i class="fa fa-angle-right"></i>
+    </button>
+    <button type="button" class="btn btn-default" (click)="lastPage()" [ngClass]="!paginationInfo?.last ? '' : 'display-none'">
+      <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
     </button>
   </div>
 </div>
