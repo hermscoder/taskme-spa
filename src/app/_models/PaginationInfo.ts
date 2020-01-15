@@ -18,9 +18,19 @@ export class PaginationInfo {
       this.totalPages = response.totalPages;
       this.last = response.last;
       this.size = response.size;
-      this.curPageNumber = response.curPageNumber;
+      this.curPageNumber = response.number + 1;
       this.first = response.first;
       this.empty = response.empty;
     }
+  }
+
+  toString(): string {
+    return '' + this.numberOfElementsShown +
+    ' totalElements' + this.totalElements +
+    ' totalPages' + this.totalPages +
+    ' last' + this.last +
+    ' size' + this.size +
+    ' curPageNumber' + this.curPageNumber +
+    ' first' + this.first;
   }
 }

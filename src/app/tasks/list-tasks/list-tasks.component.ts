@@ -11,11 +11,11 @@ import { PaginationInfo } from 'src/app/_models/PaginationInfo';
   styleUrls: ['./list-tasks.component.css']
 })
 export class ListTasksComponent implements OnInit {
-  tasks: TaskSomeone[];
-  filteredTasks: TaskSomeone[];
+  tasks: TaskSomeone[] = [];
+  filteredTasks: TaskSomeone[] = [];
   pageable: Pageable;
   paginationInfo: PaginationInfo;
-
+  test = 'abacate';
   // we changed this to private, because we want to execute something everytime we change the value
   // of the property on the screen. So now with the getter and setter we can do this
   private _searchTerm: string;
@@ -50,6 +50,7 @@ export class ListTasksComponent implements OnInit {
 
   listWithPagination(pageable: Pageable) {
     this.taskSomeoneService.listWithPagination(pageable).subscribe((page: any[]) => {
+      this.test = 'blablabla';
       this.tasks = page['content'];
       this.filteredTasks = this.tasks;
       this.paginationInfo = new PaginationInfo(page);

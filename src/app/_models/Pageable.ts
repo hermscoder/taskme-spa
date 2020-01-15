@@ -7,10 +7,10 @@ export class Pageable {
 
   buildRequestParamString(): string {
     let result = '';
-    result += this.page != null ? 'page=' + this.page : null;
-    result += this.linesPerPage != null ? 'linesPerPage=' + this.linesPerPage : null;
-    result += this.orderBy != null ? 'orderBy=' + this.orderBy : null;
-    result += this.direction != null ? 'direction=' + this.direction : null;
+    result += this.page ? 'page=' + this.page : '';
+    result += this.linesPerPage ? 'linesPerPage=' + this.linesPerPage : '';
+    result += this.orderBy ? 'orderBy=' + this.orderBy : '';
+    result += this.direction ? 'direction=' + this.direction : '';
     return result;
   }
 }

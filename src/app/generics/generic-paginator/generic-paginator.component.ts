@@ -14,6 +14,7 @@ import { PaginationInfo } from 'src/app/_models/PaginationInfo';
 export class GenericPaginatorComponent implements OnInit {
   @Input() pageable: Pageable;
   @Input() paginationInfo: PaginationInfo;
+  @Input() test: string;
   @Output() loadContent = new EventEmitter<any>();
 
   constructor() { }
@@ -21,9 +22,23 @@ export class GenericPaginatorComponent implements OnInit {
   ngOnInit() {
   }
 
-  onNextPage() {
+  nextPage() {
     if (this.pageable) {
       this.pageable.page++;
+    } else {
+      this.pageable = new Pageable();
+      this.pageable.page = 0;
+    }
+    console.log(this.pageable);
+    this.loadContent.emit(this.pageable);
+  }
+
+  previousPage() {
+    if (this.pageable) {
+      this.pageable.page--;
+    } else {
+      this.pageable = new Pageable();
+      this.pageable.page = 0;
     }
     this.loadContent.emit(this.pageable);
   }
