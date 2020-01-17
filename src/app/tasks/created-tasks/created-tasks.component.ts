@@ -17,15 +17,6 @@ export class CreatedTasksComponent implements OnInit {
 
   ngOnInit() {
     this.listWithPagination(new Pageable());
-    // this.loadMyTasks();
-  }
-
-  loadMyTasks() {
-    // this.taskSomeoneService.listCurrentUserTasks().subscribe((tasks: TaskSomeone[]) => {
-    //   this.tasks = tasks;
-    // }, error => {
-    //   this.alertify.error(error.message);
-    // });
   }
 
   listWithPagination(pageable: Pageable) {
