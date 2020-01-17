@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TaskSomeone } from '../../_models/TaskSomeone';
 import { TaskSomeoneService } from '../../_services/task-someone.service';
 import { AlertifyService } from '../../_services/alertify.service';
+import { Pageable } from 'src/app/_models/Pageable';
+import { PaginationInfo } from 'src/app/_models/PaginationInfo';
 
 @Component({
   selector: 'app-created-tasks',
@@ -11,14 +13,25 @@ import { AlertifyService } from '../../_services/alertify.service';
 export class CreatedTasksComponent implements OnInit {
   tasks: TaskSomeone[];
   constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService) { }
+  paginationInfo: PaginationInfo;
 
   ngOnInit() {
-    this.loadMyTasks();
+    this.listWithPagination(new Pageable());
+    // this.loadMyTasks();
   }
 
   loadMyTasks() {
-    this.taskSomeoneService.listCurrentUserTasks().subscribe((tasks: TaskSomeone[]) => {
-      this.tasks = tasks;
+    // this.taskSomeoneService.listCurrentUserTasks().subscribe((tasks: TaskSomeone[]) => {
+    //   this.tasks = tasks;
+    // }, error => {
+    //   this.alertify.error(error.message);
+    // });
+  }
+
+  listWithPagination(pageable: Pageable) {
+    this.taskSomeoneService.listCurrentUserTasks(pageable).subscribe((page: any[]) => {
+      this.tasks = page['content'];
+      this.paginationInfo = new PaginationInfo(page);
     }, error => {
       this.alertify.error(error.message);
     });

@@ -16,21 +16,23 @@ export class ListTasksComponent implements OnInit {
   paginationInfo: PaginationInfo;
   // we changed this to private, because we want to execute something everytime we change the value
   // of the property on the screen. So now with the getter and setter we can do this
-  private _searchTerm: string;
+  // private _searchTerm: string;
 
-  get searchTerm(): string {
-    return this._searchTerm;
-  }
+  // get searchTerm(): string {
+  //   return this._searchTerm;
+  // }
 
-  set searchTerm(value: string) {
-    this._searchTerm = value;
-    this.filteredTasks = this.filterTasks(value);
-  }
+  // set searchTerm(value: string) {
+  //   this._searchTerm = value;
+  //   this.filteredTasks = this.filterTasks(value);
+  // }
 
-  filterTasks(searchString: string) {
-    return this.tasks.filter( task => task.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
-                                  || task.description.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
-  }
+  // filterTasks(searchString: string) {
+  //   return this.tasks.filter( task => task.title.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
+  //                                 || task.description.toLowerCase().indexOf(searchString.toLowerCase()) !== -1);
+  // }
+  // Commenting everything above beacause we are not using this anymore, but maybe it will be usefull later
+
   constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService) { }
 
   ngOnInit() {
@@ -44,7 +46,6 @@ export class ListTasksComponent implements OnInit {
   listWithPagination(pageable: Pageable) {
     this.taskSomeoneService.listWithPagination(pageable).subscribe((page: any[]) => {
       this.tasks = page['content'];
-      this.filteredTasks = this.tasks;
       this.paginationInfo = new PaginationInfo(page);
     }, error => {
       this.alertify.error(error.message);

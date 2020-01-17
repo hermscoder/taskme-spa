@@ -19,8 +19,12 @@ export class GenericPaginatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.pageable = new Pageable();
   }
 
+  filterData() {
+    this.loadContent.emit(this.pageable);
+  }
   nextPage() {
     if (!this.pageable) {
       this.pageable = new Pageable();

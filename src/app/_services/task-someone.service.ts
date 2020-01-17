@@ -17,10 +17,7 @@ export class TaskSomeoneService implements GPaginator {
 
   constructor(private http: HttpClient) { }
 
-  listWithPagination(pageable: Pageable, term: string = null): Observable<any[]> {
-    if (term) {
-      pageable.term = term;
-    }
+  listWithPagination(pageable: Pageable): Observable<any[]> {
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeona?' + (pageable ? pageable.buildRequestParamString() : '') );
   }
 
@@ -28,8 +25,9 @@ export class TaskSomeoneService implements GPaginator {
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/listtasks');
   }
 
-  listCurrentUserTasks(): Observable<TaskSomeone[]> {
-    return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeone/createdTasks');
+  listCurrentUserTasks(pageable: Pageable): Observable<TaskSomeone[]> {
+    console.log(this.baseUrl + '/tasksomeone/createdTasks' + (pageable ? pageable.buildRequestParamString() : ''));
+    return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
   getTask(id): Observable<TaskSomeone> {
