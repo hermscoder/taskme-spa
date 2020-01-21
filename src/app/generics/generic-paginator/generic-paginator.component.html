@@ -1,4 +1,4 @@
-<form id="filterForm" (ngSubmit)="filterData(pageable.searchTerm)">
+<form id="filterForm" (ngSubmit)="filterData()">
   <div class="form-group">
     <label>Search for Title</label>
     <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
