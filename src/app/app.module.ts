@@ -19,7 +19,7 @@ import { AlertifyService } from './_services/alertify.service';
 import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
 import { TaskSomeoneComponent } from './task-someone/task-someone.component';
 import { TaskMeComponent } from './task-me/task-me.component';
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './messages/page/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { TaskSomeoneService } from './_services/task-someone.service';
@@ -37,6 +37,10 @@ import { MediaUploadComponent } from './media/media-upload/media-upload.componen
 import { CreatedTasksComponent } from './tasks/created-tasks/created-tasks.component';
 import { EditTaskComponent } from './tasks/edit-task/edit-task.component';
 import { GenericPaginatorComponent } from './generics/generic-paginator/generic-paginator.component';
+import { MessageListItemComponent } from './messages/message-list-item/message-list-item.component';
+import { MessagesContainerComponent } from './messages/messages-container/messages-container.component';
+import { ConversationService } from './_services/conversation.service';
+import { MessageService } from './_services/message.service';
 
 
 export function tokenGetter() {
@@ -62,7 +66,9 @@ export function tokenGetter() {
       MediaUploadComponent,
       CreatedTasksComponent,
       EditTaskComponent,
-      GenericPaginatorComponent
+      GenericPaginatorComponent,
+      MessageListItemComponent,
+      MessagesContainerComponent
    ],
    imports: [
       BrowserModule,
@@ -85,11 +91,13 @@ export function tokenGetter() {
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider,
-      AlertifyService,
-      AuthGuard,
       TaskSomeoneService,
       UserService,
+      ConversationService,
+      MessageService,
+      AlertifyService,
+      ErrorInterceptorProvider,
+      AuthGuard,
       TaskSomeoneDetailResolver,
       UserEditResolver,
       PreventUnsavedChanges

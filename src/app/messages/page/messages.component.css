@@ -1,0 +1,110 @@
+@media only screen
+and (max-device-width : 600px) {
+
+  .contacts-container{
+    display: none;
+    position: absolute;
+    width: 265px;
+  }
+
+  .contacts-container .untoggler{
+    display: block;
+  }
+
+  .toggler {
+    display: block;
+  }
+
+  .messages-container{
+    width: 100% !important;
+  }
+}
+
+
+@media only screen
+and (min-device-width : 601px)
+and (max-device-width : 799px) {
+
+  .contacts-container{
+    display: none;
+    position: absolute;
+    width: 265px;
+  }
+
+  .contacts-container .untoggler{
+    display: block;
+  }
+
+  .toggler {
+    display: block;
+  }
+
+  .messages-container{
+    width: 100% !important;
+  }
+}
+
+@media only screen
+and (min-device-width : 602px)
+and (max-device-width : 800px) {
+
+  .contacts-container{
+    display: block;
+    width: 40% !important;
+    position: inherit;
+    z-index: inherit;
+  }
+
+  .contacts-container .untoggler{
+    display: none;
+  }
+
+  .toggler {
+    display: none;
+  }
+
+  .messages-container{
+    width: 60% !important;
+  }
+}
+
+@media only screen
+and (min-device-width : 801px) {
+
+  .contacts-container{
+    display: block;
+    width: 20% !important;
+    position: inherit;
+    z-index: inherit;
+  }
+
+  .contacts-container .untoggler{
+    display: none;
+  }
+
+  .toggler {
+    display: none;
+  }
+
+  .messages-container{
+    width: 60% !important;
+  }
+}
+
+.contacts-container {
+  padding: 2px;
+  z-index: 2;
+  height: 100%;
+  background: white;
+}
+
+.container{
+  width: 100% !important;
+  display: flex;
+}
+
+.toggler {
+  position: absolute;
+  z-index: 1;
+  margin: 3px 0 0 5px;
+}

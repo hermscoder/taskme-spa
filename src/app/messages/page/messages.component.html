@@ -1,0 +1,22 @@
+<div class="container mt-4" >
+    <div id="contactsContainer" class="contacts-container" #contactsContainer>
+      <button type="button" class="close" aria-label="Close">
+        <button type="button" class="btn btn-outline-primary untoggler" (click)="toggleUntoggleConversations(contactsContainer)">
+          <i class="fa fa-times"></i>
+        </button>
+      </button>
+        <h4>Messages</h4>
+        <input  id="inputMsg" type="text" #inputMsg class="col-sm-12 mb-2" placeholder="Search for messages"/>
+        <span *ngFor="let conversation of conversations" >
+          <app-message-list-item [message]="conversation.messages[conversation.messages.length-1]" lastMessageMode="true" (click)="openConversation(conversation)"></app-message-list-item>
+        </span>
+    </div>
+    <div class="toggler">
+      <button type="button" class="btn btn-outline-primary" (click)="toggleUntoggleConversations(contactsContainer)">
+        <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+    <div class="messages-container ">
+      <app-messages-container [conversation]="selectedConversation" [stompClient]="stompClient" (onSendMessage)="sendMessage($event);"></app-messages-container>
+    </div>
+</div>

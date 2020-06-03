@@ -1,0 +1,15 @@
+<div class="conversation-container ml-1">
+  <div class="messages-container">
+    <p *ngFor="let message of conversation?.messages">
+      <app-message-list-item [message]="message" ></app-message-list-item>
+    </p>
+  </div>
+  <div class="footer-content d-inline-flex">
+    <section></section>
+    <!-- <textarea id="inputMsg" class="message-input" #inputMsg (input)="onInput($event)"></textarea> -->
+    <textarea id="inputMsg" class="message-input" #inputMsg (input)="onInput($event)" rows="1"></textarea>
+    <button type="button" class="btn btn-outline-primary send-btn" (click)="sendMessage(inputMsg)">
+      <i class="fa fa-send"></i>
+    </button>
+  </div>
+</div>
