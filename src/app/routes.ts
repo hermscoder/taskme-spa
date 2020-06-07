@@ -11,6 +11,7 @@ import { TaskSomeoneDetailComponent } from './tasks/task-someone-detail/task-som
 import { TaskSomeoneDetailResolver } from './_resolvers/task-someone-detail.resolver';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 
@@ -26,7 +27,7 @@ export const appRoutes: Routes = [
       { path: 'taskSomeone', component: TaskSomeoneComponent },
       { path: 'createdTasks', component: CreatedTasksComponent },
       { path: 'taskMe', component: TaskMeComponent },
-      { path: 'messages', component: MessagesComponent },
+      { path: 'messages', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'user/edit', component: UserEditComponent, resolve: {user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]},
     ]
    },

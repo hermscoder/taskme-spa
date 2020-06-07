@@ -8,7 +8,11 @@
         <h4>Messages</h4>
         <input  id="inputMsg" type="text" #inputMsg class="col-sm-12 mb-2" placeholder="Search for messages"/>
         <span *ngFor="let conversation of conversations" >
-          <app-message-list-item [message]="conversation.messages[conversation.messages.length-1]" lastMessageMode="true" (click)="openConversation(conversation)"></app-message-list-item>
+          <app-message-list-item [message]="getLastMessage(conversation)"
+                                  [sender]="getConversationContact(conversation)"
+                                  lastMessageMode="true"
+                                  (click)="openConversation(conversation)">
+          </app-message-list-item>
         </span>
     </div>
     <div class="toggler">
@@ -16,7 +20,7 @@
         <i class="fa fa-arrow-right"></i>
       </button>
     </div>
-    <div class="messages-container ">
-      <app-messages-container [conversation]="selectedConversation" [stompClient]="stompClient" (onSendMessage)="sendMessage($event);"></app-messages-container>
+    <div class="messages-container" *ngIf="selectedConversation != null">
+      <app-messages-container [conversation]="selectedConversation" ></app-messages-container>
     </div>
 </div>

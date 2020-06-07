@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Conversation } from 'src/app/_models/Conversation';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { ConversationDTO } from 'src/app/_models/ConversationDTO';
+import { MessageDTO } from 'src/app/_models/MessageDTO';
 import { Pageable } from 'src/app/_models/Pageable';
 import { PaginationInfo } from 'src/app/_models/PaginationInfo';
 import { MessageService } from 'src/app/_services/message.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { ChatService } from 'src/app/_services/chat.service';
 
 @Component({
   selector: 'app-messages-container',
@@ -12,40 +13,45 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   styleUrls: ['./messages-container.component.css']
 })
 export class MessagesContainerComponent implements OnInit {
-  @Input() conversation: Conversation;
+  @Input() conversation: ConversationDTO;
   @Input() stompClient: any;
   @Output() onSendMessage = new EventEmitter<any>();
 
   pageable: Pageable;
   paginationInfo: PaginationInfo;
-  constructor(private messageService: MessageService, private alertify: AlertifyService) { }
+  constructor(private messageService: MessageService, private alertify: AlertifyService, private chatService: ChatService) { }
 
   ngOnInit() {
     this.pageable = new Pageable();
-    this.loadMessages(new Pageable(), this.conversation.id);
-    this.subscribeToConversation();
+    this.subscribe();
   }
 
   loadMessages(pageable, conversationId) {
     this.messageService.listMessagesWithPagination(pageable, conversationId).subscribe((page: any[]) => {
-      this.conversation.messages.unshift(page['content']);
+      this.conversation.messagesList.unshift(page['content']);
       this.paginationInfo = new PaginationInfo(page);
     }, error => {
       this.alertify.error(error.message);
     });
   }
-  subscribeToConversation() {
-    this.stompClient.subscribe("/topic/chats." + this.conversation.id, (payload) => {
+  subscribe() {
+    this.chatService.subscribeToConversation(this.conversation.id, (payload) => {
       var message = JSON.parse(payload.body);
       if(message != null) {
-        this.conversation.messages.push(message);
-        // var messageElement = that.renderer.createElement('li');
-
-        // //append text to li element
-        // that.renderer.appendChild(messageElement, that.renderer.createText(message.content));
-        // that.renderer.appendChild(that.divMessages.nativeElement,messageElement);
+        this.conversation.messagesList.push(message);
       }
     });
+    // this.stompClient.subscribe("/topic/chats." + this.conversation.id, (payload) => {
+    //   var message = JSON.parse(payload.body);
+    //   if(message != null) {
+    //     this.conversation.messagesList.push(message);
+    //     // var messageElement = that.renderer.createElement('li');
+
+    //     // //append text to li element
+    //     // that.renderer.appendChild(messageElement, that.renderer.createText(message.content));
+    //     // that.renderer.appendChild(that.divMessages.nativeElement,messageElement);
+    //   }
+    // });
   }
 
   onInput(event) {
@@ -59,17 +65,7 @@ export class MessagesContainerComponent implements OnInit {
   }
 
   sendMessage(input){
-    var user = {id: 1, givenName: 'Emerson', username: 'emerson', address: '', birthDate: 1, contact: '', createdOn: new Date(), familyName: '', profilePhoto: { id: 1, url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQQF155GQULmsq1dK0a08FjDMBrNn1aiQWMMAzp7i3xAff3y6qA&usqp=CAU', type: 'I', description: 'eu'}};
-    var message = {
-      content: input.value,
-      sender: user,
-      type: 'CHAT'
-    }
-    var param = {
-      conversationId: 1,
-      message: message,
-    }
-    this.onSendMessage.emit(param);
+    this.chatService.sendMessage(this.conversation.id, input.value);
     input.value = '';
   }
 }

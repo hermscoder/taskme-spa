@@ -1,7 +1,7 @@
 <div class="conversation-container ml-1">
   <div class="messages-container">
-    <p *ngFor="let message of conversation?.messages">
-      <app-message-list-item [message]="message" ></app-message-list-item>
+    <p *ngFor="let message of conversation?.messagesList">
+      <app-message-list-item [message]="message" [sender]="conversation.userMap[message.userSenderId]"></app-message-list-item>
     </p>
   </div>
   <div class="footer-content d-inline-flex">

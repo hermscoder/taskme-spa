@@ -39,6 +39,7 @@
     "stompjs": "^2.3.3",
     "time-ago-pipe": "^1.3.2",
     "typescript": "^2.7.2",
+    "websocket-extensions": "^0.1.4",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

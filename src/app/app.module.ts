@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
+import { ChatService } from './_services/chat.service';
 import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
 import { TaskSomeoneComponent } from './task-someone/task-someone.component';
 import { TaskMeComponent } from './task-me/task-me.component';
@@ -32,6 +33,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
 import { UserService } from './_services/user.service';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { MediaUploadComponent } from './media/media-upload/media-upload.component';
 import { CreatedTasksComponent } from './tasks/created-tasks/created-tasks.component';
@@ -96,10 +98,12 @@ export function tokenGetter() {
       ConversationService,
       MessageService,
       AlertifyService,
+      ChatService,
       ErrorInterceptorProvider,
       AuthGuard,
       TaskSomeoneDetailResolver,
       UserEditResolver,
+      MessagesResolver,
       PreventUnsavedChanges
    ],
    bootstrap: [

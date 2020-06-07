@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Conversation } from '../_models/Conversation';
+import { ConversationDTO } from '../_models/ConversationDTO';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class ConversationService {
 
   constructor(private http: HttpClient) { }
 
-  getUserConversations(): Observable<Conversation> {
-    return this.http.get<Conversation>(this.baseUrl + '/conversation/');
+  getUserConversations(): Observable<ConversationDTO[]> {
+    return this.http.get<ConversationDTO[]>(this.baseUrl + '/conversation/');
   }
 
   createConversation(model: any) {

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Conversation } from 'src/app/_models/Conversation';
-import { Message } from 'src/app/_models/Message';
+import { ConversationDTO } from 'src/app/_models/ConversationDTO';
+import { MessageDTO } from 'src/app/_models/MessageDTO';
+import { UserDTO } from 'src/app/_models/UserDTO';
 
 @Component({
   selector: 'app-message-list-item',
@@ -8,7 +9,8 @@ import { Message } from 'src/app/_models/Message';
   styleUrls: ['./message-list-item.component.css']
 })
 export class MessageListItemComponent implements OnInit {
-  @Input() message: Message;
+  @Input() message: MessageDTO;
+  @Input() sender: UserDTO;
   @Input() lastMessageMode: Boolean;
 
   constructor() { }
