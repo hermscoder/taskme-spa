@@ -1,8 +1,22 @@
-<div class="w100 {{lastMessageMode ? 'last-message-div' : 'message-div'}}">
+<div *ngIf="listConversationMode" class="w100 {{listConversationMode ? 'last-message-div' : 'message-div'}}">
   <div class="h100 pr-0 ml-1">
-    <img src="{{sender.profilePhoto.url}}" class="message-sender-img"/>
+    <img src="{{getContact().profilePhoto.url}}" class="message-sender-img"/>
   </div>
   <div class="h100 pl-0 message-portion ellipsis">
-    <label class="ml-2 mt-1">{{sender.givenName}}: {{message?.content}}</label>
+  		<label *ngIf="lastMessageFromSameUser" class="ml-2">{{message?.content}}</label>
+  		<label *ngIf="!lastMessageFromSameUser" class="ml-2 mt-2">{{getSender().givenName}}: {{message?.content}}</label>
+  </div>
+</div>
+
+
+<div *ngIf="!listConversationMode" class="w100 {{listConversationMode ? 'last-message-div' : 'message-div'}}">
+  <div *ngIf="!lastMessageFromSameUser" class="h100 pr-0 ml-1">
+    <img src="{{getSender().profilePhoto.url}}" class="message-sender-img"/>
+  </div>
+  <div *ngIf="lastMessageFromSameUser" class="h100 pl-0">
+  		<label class="ml-2">{{message?.content}}</label>
+  </div>
+  <div *ngIf="!lastMessageFromSameUser" class="h100 pl-0">
+  		<label class="ml-2 mt-2">{{getSender().givenName}}: {{message?.content}}</label>
   </div>
 </div>

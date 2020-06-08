@@ -5,6 +5,9 @@ export interface MessageDTO {
   userSenderId: number;
   sentTime: Date;
   conversationId: number;
+
+  // variables used for better message display
+  lastMessageFromSameUser: boolean;
 }
 
 

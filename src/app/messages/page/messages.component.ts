@@ -22,9 +22,7 @@ export class MessagesComponent implements OnInit {
   selectedConversation: ConversationDTO;
   user: User;
 
-  constructor(private route: ActivatedRoute, private renderer: Renderer2, private conversationService: ConversationService, private chatService: ChatService) {
-    chatService.initializeWebSocketConnection();
-   }
+  constructor(private route: ActivatedRoute, private renderer: Renderer2, private conversationService: ConversationService, private chatService: ChatService) { }
 
   ngOnInit() {
     var that = this;
@@ -32,10 +30,29 @@ export class MessagesComponent implements OnInit {
       this.user = data['user'];
 
       that.conversationService.getUserConversations().subscribe((conversations: any[]) => {
-        that.conversations = conversations;
+        this.chatService.initializeWebSocketConnection(() => {
+          that.conversations = conversations;
+          this.subscribeToAllConversations(that.conversations);
+        });
       });
     });
 
+  }
+
+  subscribeToAllConversations(conversations) {
+    for(var conversation of conversations){
+      this.chatService.subscribeToConversation(conversation.id, (payload) => {
+        var message = JSON.parse(payload.body);
+        var targetConversation = this.conversations.find((conv) => conv.id == message.conversationId);
+        if(message != null) {
+          let lastMessage = this.getLastMessage(targetConversation);
+
+          message.lastMessageFromSameUser = lastMessage != null && lastMessage.userSenderId == message.userSenderId
+
+          targetConversation.messagesList.push(message);  
+        }
+      });
+    }
   }
 
   openConversation(conversation){

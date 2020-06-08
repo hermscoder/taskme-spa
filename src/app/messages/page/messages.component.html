@@ -9,8 +9,9 @@
         <input  id="inputMsg" type="text" #inputMsg class="col-sm-12 mb-2" placeholder="Search for messages"/>
         <span *ngFor="let conversation of conversations" >
           <app-message-list-item [message]="getLastMessage(conversation)"
-                                  [sender]="getConversationContact(conversation)"
-                                  lastMessageMode="true"
+                                  [userMap]="conversation.userMap"
+                                  [currentUser]="user"
+                                  listConversationMode="true"
                                   (click)="openConversation(conversation)">
           </app-message-list-item>
         </span>
@@ -21,6 +22,7 @@
       </button>
     </div>
     <div class="messages-container" *ngIf="selectedConversation != null">
-      <app-messages-container [conversation]="selectedConversation" ></app-messages-container>
+      <app-messages-container [conversation]="selectedConversation" [currentUser]="user"></app-messages-container>
     </div>
 </div>
+
