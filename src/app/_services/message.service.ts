@@ -17,4 +17,10 @@ export class MessageService {
   listMessagesWithPagination(pageable: Pageable, conversationId: number): Observable<any[]> {
     return this.http.get<MessageDTO[]>(this.baseUrl + '/messages/' + conversationId + '?' + (pageable ? pageable.buildRequestParamString() : '') );
   }
+
+  sendMessageTo(messageTxt, userId){
+  	var message = new MessageDTO();
+  	message.content = messageTxt;
+  	return this.http.post(this.baseUrl + '/message/send/' + userId, message);
+  }
 }

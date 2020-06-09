@@ -1,3 +1,11 @@
 .mediaContent {
   height: -webkit-fill-available;
+  overflow-y: hidden;
+  max-height: 250px;
+  min-height: 250px;
+}
+
+.media-navigation-btns {
+	position: relative;
+	top: -45px;
 }

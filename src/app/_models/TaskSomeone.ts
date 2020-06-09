@@ -1,12 +1,12 @@
-import { User } from './User';
+import { UserDTO } from './UserDTO';
 import { Media } from './Media';
 
 export interface TaskSomeone {
   id: number;
-  user: User;
+  user: UserDTO;
   title: string;
   description: string;
-  local: string;
+  location: string;
   mediaList?: Media[];
   createdOn: Date;
 }

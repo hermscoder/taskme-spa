@@ -70,9 +70,4 @@ export class MessagesComponent implements OnInit {
   getLastMessage(conversation: ConversationDTO): MessageDTO{
     return conversation.messagesList[conversation.messagesList.length-1];
   }
-
-  getConversationContact(conversation: ConversationDTO): UserDTO {
-    return Object.values(conversation.userMap).find(user => user.id != this.user.id);
-   // return conversation.userMap.get(conversation.userMap.keySet().find(key => key != this.user.id));
-  }
 }

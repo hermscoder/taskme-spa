@@ -1,9 +1,15 @@
 <div class="container mt-4">
   <div class="row">
+    <div class="col-sm-1">
+      <a *ngIf="!editMode" href="#" class="btn btn-primary d-inline-flex" [routerLink]="['/findTasks/']" routerLinkActive="router-link-active" >
+        <i class="fa fa-arrow-left mt-1 mr-2" aria-hidden="true"></i>Back
+      </a>
+    </div>
     <div class="col-sm-9">
       <div class="tab-panel">
-        <tabset class="task-someone-tabset">
+        <tabset class="task-someone-tabset" >
           <tab heading="Details">
+
             <div class="card">
               <div class="card-header">
                   <div class="row">
@@ -18,14 +24,21 @@
                   </div>
               </div>
               <div class="card-body">
+                <h4>Details</h4>
+                <hr class="h-ruler details">
                 <p class="card-text">{{taskSomeone.description}}</p>
-              </div>
-            </div>
-          </tab>
-          <tab heading="Location">
-            <div class="card">
-              <div class="card-body">
-                <p class="card-text">{{taskSomeone.local}}</p>
+
+                <h4>Location</h4>
+                <hr class="h-ruler location">
+                <p class="card-text">{{taskSomeone.location}}</p>
+
+                <h4>Medias</h4>
+                <hr class="h-ruler medias">
+                <div class="center">
+                  <div class="offset-sm-4 col-sm-5">
+                    <app-media-gallery [mediaList]="taskSomeone.mediaList" ></app-media-gallery>
+                  </div>
+                </div>
               </div>
             </div>
           </tab>
@@ -49,9 +62,33 @@
       </div>
 
     </div>
-    <div class="col-sm-3">
-      <app-media-gallery [mediaList]="taskSomeone.mediaList" ></app-media-gallery>
+    <div class="col-sm-2">
+      Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
+      <br/>
+      <button *ngIf="!editMode && !itsOwnTask()" type="button" class="btn btn-primary" (click)="open(sendMessageModal)" >
+        <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
+      </button>
     </div>
   </div>
 </div>
 
+<ng-template #sendMessageModal let-modal>
+  <div class="text-left mt-2 container mb-2">
+      Message to {{taskSomeone.user.givenName}}:
+      <br />
+      <textarea id="msgText" class="w-100 msgTextArea" #msgText>Hello {{taskSomeone.user.givenName}}! I saw that you created the task "{{taskSomeone.title}}" and I am interested in doing it.
+      </textarea>
+      <div class="text-right mt-2">
+        <button type="button" 
+          class="btn btn-ligth mr-2" 
+          (click)="modal.dismiss()">
+            Cancel
+        </button>
+        <button type="submit" 
+          class="btn btn-primary"  
+          (click)="sendInterestedMessage(modal, msgText.value)">
+            Save
+        </button>
+      </div>
+  </div>
+</ng-template>

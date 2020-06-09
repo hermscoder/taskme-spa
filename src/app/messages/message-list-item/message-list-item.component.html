@@ -1,22 +1,33 @@
-<div *ngIf="listConversationMode" class="w100 {{listConversationMode ? 'last-message-div' : 'message-div'}}">
+<div *ngIf="listConversationMode" class="w100 last-message-div">
   <div class="h100 pr-0 ml-1">
     <img src="{{getContact().profilePhoto.url}}" class="message-sender-img"/>
   </div>
-  <div class="h100 pl-0 message-portion ellipsis">
-  		<label *ngIf="lastMessageFromSameUser" class="ml-2">{{message?.content}}</label>
-  		<label *ngIf="!lastMessageFromSameUser" class="ml-2 mt-2">{{getSender().givenName}}: {{message?.content}}</label>
+  <div class="h100 pl-0 message-portion ellipsis" style="display: grid;">
+      <b class="ml-2" style="margin-top: -5px;">{{getContact().givenName}}</b>
+      <label class="ml-2 mt-1">{{getSender().givenName}}: {{message?.content}}</label>
   </div>
 </div>
 
 
-<div *ngIf="!listConversationMode" class="w100 {{listConversationMode ? 'last-message-div' : 'message-div'}}">
-  <div *ngIf="!lastMessageFromSameUser" class="h100 pr-0 ml-1">
-    <img src="{{getSender().profilePhoto.url}}" class="message-sender-img"/>
+
+<div *ngIf="isMyMsg(message)" class="pull-right" style="margin-left: 50%">
+  <div *ngIf="!listConversationMode" class="w100 message-div">
+    <div class="h100 pl-0 my-text-div {{lastMessageFromSameUser ? 'msg-same-user' : ''}}">
+    		<label class="mr-2">{{message?.content}}</label>
+    </div>
+    <div *ngIf="!lastMessageFromSameUser" class="h100 pr-0 ml-1">
+      <img src="{{getSender().profilePhoto.url}}" class="message-sender-img"/>
+    </div>
   </div>
-  <div *ngIf="lastMessageFromSameUser" class="h100 pl-0">
-  		<label class="ml-2">{{message?.content}}</label>
-  </div>
-  <div *ngIf="!lastMessageFromSameUser" class="h100 pl-0">
-  		<label class="ml-2 mt-2">{{getSender().givenName}}: {{message?.content}}</label>
+</div>
+
+<div *ngIf="!isMyMsg(message)" style="margin-right: 50%">
+  <div *ngIf="!listConversationMode" class="w100 message-div">
+    <div *ngIf="!lastMessageFromSameUser" class="h100 pr-0 mr-1">
+      <img src="{{getSender().profilePhoto.url}}" class="message-sender-img"/>
+    </div>
+    <div class="h100 pl-0 others-text-div {{lastMessageFromSameUser ? 'msg-other-user' : ''}} ">
+        <label class="ml-2">{{message?.content}}</label>
+    </div>
   </div>
 </div>

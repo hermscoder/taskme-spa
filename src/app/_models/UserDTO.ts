@@ -1,6 +1,6 @@
 import { Media } from './Media';
 
-export interface UserDTO {
+export class UserDTO {
   id: number;
   givenName: string;
   familyName: string;

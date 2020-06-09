@@ -46,7 +46,13 @@ export class RegisterComponent implements OnInit {
       this.authService.register(this.registerForm.value).subscribe(() => {
         this.alertify.success('Registration successfull');
       }, error => {
-        this.alertify.error(error.subErrors[0].message);
+        var errorMsg;
+        if(error.subErrors != null){
+          errorMsg = error.subErrors[0].message;
+        } else {
+          errorMsg = error.message
+        }
+        this.alertify.error(errorMsg);
       }, () => this.authService.login(this.registerForm.value).subscribe(() => {
         this.router.navigate(['/findTasks']);
       })

@@ -11,7 +11,6 @@ import { User } from 'src/app/_models/User';
 })
 export class MessageListItemComponent implements OnInit {
   @Input() message: MessageDTO;
-  // @Input() sender: UserDTO;
   @Input() listConversationMode: Boolean;
   @Input() userMap: Map<number, UserDTO>;
   @Input() currentUser: User;
@@ -26,14 +25,18 @@ export class MessageListItemComponent implements OnInit {
   }
 
   getSender(): UserDTO {
-  	let sender = Object.values(this.userMap).find(user => user.id == this.message.userSenderId);
+  	let sender = this.userMap[this.message.userSenderId];
   	if(sender.id == this.currentUser.id){
-		sender.givenName = 'You';
-	}
+  		sender.givenName = 'You';
+  	}
   	return sender;
   }
 
   getContact(): UserDTO{
-	return Object.values(this.userMap).find(user => user.id != this.currentUser.id);
+	  return Object.values(this.userMap).find(user => user.id != this.currentUser.id);
+  }
+
+  isMyMsg(message): boolean{
+    return this.currentUser.id == message.userSenderId;
   }
 }

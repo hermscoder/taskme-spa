@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export interface MessageDTO {
+export class MessageDTO {
   content: string;
   userSenderId: number;
   sentTime: Date;
@@ -8,6 +8,11 @@ export interface MessageDTO {
 
   // variables used for better message display
   lastMessageFromSameUser: boolean;
+
+  contructor(content: string, sentTime: Date){
+  	this.content = content;
+  	this.sentTime = sentTime;
+  };
 }
 
 
