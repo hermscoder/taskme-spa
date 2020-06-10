@@ -62,17 +62,28 @@
       </div>
 
     </div>
-    <div class="col-sm-2">
+    <div *ngIf="!taskSomeone.ownTask" class="col-sm-2">
       Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
       <br/>
-      <button *ngIf="!itsOwnTask()" type="button" class="btn btn-primary" (click)="open(sendMessageModal)" >
+      <button type="button" class="btn btn-primary" (click)="open(sendMessageModal, 'sendMessageModal')" >
         <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
       </button>
+    </div>
+    <div *ngIf="taskSomeone.ownTask" class="col-sm-2">
+      <button type="button" class="btn btn-light" (click)="open(editTaskModal, 'editTaskModal')" >
+        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit task information
+      </button>
+      <ng-template id="editTaskModal" #editTaskModal let-modal>
+          <app-edit-task [task]="taskSomeone" 
+                          (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" 
+                          (cancelChanges)="modal.dismiss();">
+          </app-edit-task>
+      </ng-template>
     </div>
   </div>
 </div>
 
-<ng-template #sendMessageModal let-modal>
+<ng-template id="sendMessageModal" #sendMessageModal let-modal>
   <div class="text-left mt-2 container mb-2">
       Message to {{taskSomeone.user.givenName}}:
       <br />

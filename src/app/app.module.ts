@@ -43,6 +43,8 @@ import { MessageListItemComponent } from './messages/message-list-item/message-l
 import { MessagesContainerComponent } from './messages/messages-container/messages-container.component';
 import { ConversationService } from './_services/conversation.service';
 import { MessageService } from './_services/message.service';
+import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
+import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
 
 
 export function tokenGetter() {
@@ -70,7 +72,8 @@ export function tokenGetter() {
       EditTaskComponent,
       GenericPaginatorComponent,
       MessageListItemComponent,
-      MessagesContainerComponent
+      MessagesContainerComponent,
+      TaskApplicationsComponent
    ],
    imports: [
       BrowserModule,
@@ -102,6 +105,7 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AuthGuard,
       TaskSomeoneDetailResolver,
+      TaskApplicationsResolver,
       UserEditResolver,
       MessagesResolver,
       PreventUnsavedChanges

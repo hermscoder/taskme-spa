@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { TaskSomeone } from '../_models/TaskSomeone';
+import { TaskSomeoneDetailsDTO } from '../_models/TaskSomeoneDetailsDTO';
+import { UserDTO } from '../_models/UserDTO';
 import { Media } from '../_models/Media';
 import { GPaginator } from '../_interfaces/GPaginator';
 import { Pageable } from '../_models/Pageable';
@@ -28,6 +30,16 @@ export class TaskSomeoneService implements GPaginator {
   listCurrentUserTasks(pageable: Pageable): Observable<TaskSomeone[]> {
     console.log(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
+  }
+
+  listCurrentUserApplications(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
+    console.log(this.baseUrl + '/tasksomeone/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
+    return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
+  }
+
+  listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
+    console.log(this.baseUrl + '/tasksomeone/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
+    return this.http.get<UserDTO[]>(this.baseUrl + '/tasksomeone/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
   getTask(id): Observable<TaskSomeone> {

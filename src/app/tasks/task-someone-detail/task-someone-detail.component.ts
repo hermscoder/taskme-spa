@@ -26,8 +26,12 @@ export class TaskSomeoneDetailComponent implements OnInit {
     });
   }
 
-  open(content) {
-    this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
+  open(content, modalName) {
+    if(modalName == 'editTaskModal'){
+      this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: false});
+    } else if(modalName == 'sendMessageModal'){
+      this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
+    }
   }
 
   sendInterestedMessage(modal, textMsg){
@@ -36,7 +40,7 @@ export class TaskSomeoneDetailComponent implements OnInit {
     });
   }
 
-  itsOwnTask(){
-    
+  onTaskUpdatedSuccessfully(res: any, modal){
+    this.taskSomeone = res;
   }
 }

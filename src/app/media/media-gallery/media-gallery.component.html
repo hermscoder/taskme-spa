@@ -14,7 +14,10 @@
                     <i class="fa fa-angle-left" style="font-size: 25px"></i>
                 </button>
             </div>
-            <div class="offset-6 col-3">
+            <div class="col-6 text-center mt-2" style="color: #008cba">
+                {{mediaList.indexOf(activeMedia) + 1}} of {{mediaList.length}}
+            </div>
+            <div class="col-3">
                 <button class="btn btn-primary text-black-50" (click)="next()" [disabled]="onLastMedia" >
                     <i class="fa fa-angle-right" style="font-size: 25px"></i>
                 </button>
