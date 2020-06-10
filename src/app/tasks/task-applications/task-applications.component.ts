@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TaskApplicationService } from '../../_services/task-application.service';
 
 @Component({
   selector: 'app-task-applications',
@@ -8,13 +9,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TaskApplicationsComponent implements OnInit {
 
-	taskApplications: any;
+	taskApplications: any[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private taskApplicationService: TaskApplicationService) { }
 
   ngOnInit() {
   	this.route.data.subscribe(data => {
-      this.taskApplications = data['taskApplications'];
+      if(data['taskApplications'] != null){
+      	this.taskApplications = data['taskApplications'].content;
+    	}
     });
   }
 

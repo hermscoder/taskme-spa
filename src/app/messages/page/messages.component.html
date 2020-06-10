@@ -15,14 +15,24 @@
                                   (click)="openConversation(conversation)">
           </app-message-list-item>
         </span>
+        <hr class="mt-0 mb-1"/>
+        <div *ngIf="conversations.length == 0" class="text-center mt-5" >
+          <h5>You don't have messages!</h5>
+          <span class="small text-muted p-3">You can use the chat after applying to a task.</span>
+        </div>
     </div>
     <div class="toggler">
       <button type="button" class="btn btn-outline-primary" (click)="toggleUntoggleConversations(contactsContainer)">
         <i class="fa fa-arrow-right"></i>
       </button>
     </div>
-    <div class="messages-container" *ngIf="selectedConversation != null">
-      <app-messages-container [conversation]="selectedConversation" [currentUser]="user"></app-messages-container>
+    <div class="messages-container">
+      <div *ngIf="selectedConversation != null">
+        <app-messages-container [conversation]="selectedConversation" [currentUser]="user"></app-messages-container>
+      </div>
+      <div *ngIf="selectedConversation == null" class="text-center mt-5">
+          <h5>Select a conversation to see details.</h5>
+      </div>
     </div>
 </div>
 

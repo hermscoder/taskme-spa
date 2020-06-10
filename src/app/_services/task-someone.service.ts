@@ -9,7 +9,6 @@ import { Media } from '../_models/Media';
 import { GPaginator } from '../_interfaces/GPaginator';
 import { Pageable } from '../_models/Pageable';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -32,18 +31,8 @@ export class TaskSomeoneService implements GPaginator {
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
-  listCurrentUserApplications(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
-    console.log(this.baseUrl + '/tasksomeone/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
-    return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
-  }
-
-  listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
-    console.log(this.baseUrl + '/tasksomeone/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
-    return this.http.get<UserDTO[]>(this.baseUrl + '/tasksomeone/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
-  }
-
-  getTask(id): Observable<TaskSomeone> {
-    return this.http.get<TaskSomeone>(this.baseUrl + '/tasksomeone/' + id);
+  getTask(id): Observable<TaskSomeoneDetailsDTO> {
+    return this.http.get<TaskSomeoneDetailsDTO>(this.baseUrl + '/tasksomeone/' + id);
   }
 
   createTaskSomeone(model: any) {

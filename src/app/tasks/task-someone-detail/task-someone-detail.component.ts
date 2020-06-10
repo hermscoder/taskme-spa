@@ -3,7 +3,9 @@ import { TaskSomeone } from '../../_models/TaskSomeone';
 import { ConversationDTO } from '../../_models/ConversationDTO';
 import { MessageDTO } from 'src/app/_models/MessageDTO';
 import { UserDTO } from 'src/app/_models/UserDTO';
+import { TaskSomeoneDetailsDTO } from '../../_models/TaskSomeoneDetailsDTO';
 import { TaskSomeoneService } from '../../_services/task-someone.service';
+import { TaskApplicationService } from '../../_services/task-application.service';
 import { MessageService } from '../../_services/message.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,10 +17,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./task-someone-detail.component.css']
 })
 export class TaskSomeoneDetailComponent implements OnInit {
-  taskSomeone: TaskSomeone;
+  taskSomeone: TaskSomeoneDetailsDTO;
 
   constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService,
-    private route: ActivatedRoute, private modalService: NgbModal, private messageService: MessageService) { }
+    private route: ActivatedRoute, private modalService: NgbModal, private messageService: MessageService,
+    private taskApplicationService: TaskApplicationService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -35,7 +38,7 @@ export class TaskSomeoneDetailComponent implements OnInit {
   }
 
   sendInterestedMessage(modal, textMsg){
-    this.messageService.sendMessageTo(textMsg, this.taskSomeone.user.id).subscribe((result)=>{
+    this.taskApplicationService.sendApplyMessageToTaskOwner(textMsg, this.taskSomeone.id).subscribe((result)=>{
       modal.dismiss();
     });
   }

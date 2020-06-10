@@ -21,6 +21,12 @@ export class MessageService {
   sendMessageTo(messageTxt, userId){
   	var message = new MessageDTO();
   	message.content = messageTxt;
-  	return this.http.post(this.baseUrl + '/message/send/' + userId, message);
+  	return this.http.post(this.baseUrl + '/message/sendApplying/' + userId, message);
+  }
+
+  sendApplyMessageToTaskOwner(messageTxt, taskSomeoneId){
+    var message = new MessageDTO();
+    message.content = messageTxt;
+    return this.http.post(this.baseUrl + '/message/sendApplying/' + taskSomeoneId, message);
   }
 }
