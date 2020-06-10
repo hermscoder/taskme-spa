@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ConversationDTO } from 'src/app/_models/ConversationDTO';
 import { MessageDTO } from 'src/app/_models/MessageDTO';
 import { User } from 'src/app/_models/User';
-import { UserDTO } from 'src/app/_models/UserDTO;
+import { UserDTO } from 'src/app/_models/UserDTO';
 import { Pageable } from 'src/app/_models/Pageable';
 import { PaginationInfo } from 'src/app/_models/PaginationInfo';
 import { MessageService } from 'src/app/_services/message.service';
