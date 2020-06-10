@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-sm-1">
-      <a *ngIf="!editMode" href="#" class="btn btn-primary d-inline-flex" [routerLink]="['/findTasks/']" routerLinkActive="router-link-active" >
+      <a href="#" class="btn btn-primary d-inline-flex" [routerLink]="['/findTasks/']" routerLinkActive="router-link-active" >
         <i class="fa fa-arrow-left mt-1 mr-2" aria-hidden="true"></i>Back
       </a>
     </div>
@@ -65,7 +65,7 @@
     <div class="col-sm-2">
       Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
       <br/>
-      <button *ngIf="!editMode && !itsOwnTask()" type="button" class="btn btn-primary" (click)="open(sendMessageModal)" >
+      <button *ngIf="!itsOwnTask()" type="button" class="btn btn-primary" (click)="open(sendMessageModal)" >
         <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
       </button>
     </div>
