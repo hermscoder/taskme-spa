@@ -10,6 +10,7 @@ import { MessageService } from '../../_services/message.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SendMessageComponent } from '../../generics/send-message/send-message.component';
 
 @Component({
   selector: 'app-task-someone-detail',
@@ -30,20 +31,19 @@ export class TaskSomeoneDetailComponent implements OnInit {
   }
 
   open(content, modalName) {
-    if(modalName == 'editTaskModal'){
-      this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: false});
-    } else if(modalName == 'sendMessageModal'){
-      this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
-    }
-  }
-
-  sendInterestedMessage(modal, textMsg){
-    this.taskApplicationService.sendApplyMessageToTaskOwner(textMsg, this.taskSomeone.id).subscribe((result)=>{
-      modal.dismiss();
+    // this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
+    const modalRef = this.modalService.open(SendMessageComponent);
+    modalRef.componentInstance.messageTo = this.taskSomeone.user.givenName;
+    modalRef.componentInstance.defaultMsg = 'Hello ' + this.taskSomeone.user.givenName + '! I saw that you created the task ' + this.taskSomeone.title + ' and I am interested in doing it.';
+    modalRef.result.then((result) => {
+      this.sendInterestedMessage(result.msg);
+    }, (reason) => {
     });
   }
 
-  onTaskUpdatedSuccessfully(res: any, modal){
-    this.taskSomeone = res;
+  sendInterestedMessage(textMsg){
+    this.taskApplicationService.sendApplyMessageToTaskOwner(textMsg, this.taskSomeone.id).subscribe((result)=>{
+      this.taskSomeone.alreadyApplied = true;
+    });
   }
 }

@@ -6,13 +6,14 @@
         </button>
       </button>
         <h4>Messages</h4>
-        <input  id="inputMsg" type="text" #inputMsg class="col-sm-12 mb-2" placeholder="Search for messages"/>
-        <span *ngFor="let conversation of conversations" >
+        <input  [(ngModel)]="inputContantsFilter" type="text" class="col-sm-12 mb-2" placeholder="Search for messages"/>
+        <span *ngFor="let conversation of conversations | filterParticipant : inputContantsFilter"  >
           <app-message-list-item [message]="getLastMessage(conversation)"
                                   [userMap]="conversation.userMap"
                                   [currentUser]="user"
                                   listConversationMode="true"
-                                  (click)="openConversation(conversation)">
+                                  (click)="openConversation(conversation)"
+                                  [selected]="conversation.id == selectedConversation?.id">
           </app-message-list-item>
         </span>
         <hr class="mt-0 mb-1"/>

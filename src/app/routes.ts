@@ -13,6 +13,7 @@ import { TaskMeComponent } from './task-me/task-me.component';
 
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
+import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
 
 import { MessagesComponent } from './messages/page/messages.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
@@ -34,9 +35,11 @@ export const appRoutes: Routes = [
       { path: 'findTasks', component: ListTasksComponent },
       { path: 'taskDetails/:id', component: TaskSomeoneDetailComponent, resolve: {taskSomeone: TaskSomeoneDetailResolver} },
       { path: 'taskSomeone', component: TaskSomeoneComponent },
+      { path: 'createdTasks/:title', component: CreatedTasksComponent, resolve: {taskSomeoneList: CreatedTasksResolver} },
       { path: 'createdTasks', component: CreatedTasksComponent },
       { path: 'taskMe', component: TaskMeComponent },
       { path: 'taskApplications', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
+      { path: 'messages/:participantName', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'messages', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'user/edit', component: UserEditComponent, resolve: {user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]},
     ]

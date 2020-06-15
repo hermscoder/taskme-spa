@@ -1,0 +1,15 @@
+.card {
+	min-height: 200px;
+}
+
+.card-footer {
+	display: inline-flex;
+}
+
+.light-text-muted {
+	color: #ffffff82 !important;
+}
+
+.bg-danger {
+	background-color: #b57878 !important
+}

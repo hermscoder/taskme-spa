@@ -17,12 +17,20 @@
     <a *ngIf="!editMode" href="#" class="btn btn-primary" [routerLink]="['/taskDetails/',taskSomeone.id]" routerLinkActive="router-link-active" >
       More information
     </a>
-    <ng-template #editTaskModal let-modal>
-      <app-edit-task [task]="taskSomeone" (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" (cancelChanges)="modal.dismiss();"></app-edit-task>
-    </ng-template>
-    <button *ngIf="editMode" type="button" class="btn btn-light" (click)="open(editTaskModal)" >
-      <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit information
-    </button>
+    <div *ngIf="editMode" class="d-inline-flex">
+      <button *ngIf="editMode" type="button" class="btn btn-light" (click)="open(editTaskModal, 'editTaskModal')" >
+        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit information
+      </button>
+      <button *ngIf="editMode" type="button" class="btn btn-light ml-3" (click)="open(taskApplicationsModal, 'taskApplicationsModal')" >
+        <i class="fa fa-users mr-2" aria-hidden="true"></i>Check applicants
+      </button>
 
+      <ng-template #editTaskModal let-modal>
+        <app-edit-task [task]="taskSomeone" (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" (cancelChanges)="modal.dismiss();"></app-edit-task>
+      </ng-template>
+      <ng-template #taskApplicationsModal let-modal>
+        <app-task-applicants-list [taskSomeone]="taskSomeone" ></app-task-applicants-list>
+      </ng-template>
+    </div>
   </div>
 </div>

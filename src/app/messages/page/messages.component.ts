@@ -33,6 +33,11 @@ export class MessagesComponent implements OnInit {
         this.chatService.initializeWebSocketConnection(() => {
           that.conversations = conversations;
           this.subscribeToAllConversations(that.conversations);
+          this.route.params.subscribe(value => {
+            if(value.participantName != null){
+              this.selectedConversation = that.conversations.find(item => item.participants.some(part => part.givenName.toUpperCase().indexOf(value.participantName.toUpperCase()) > -1));
+            }
+          });
         });
       });
     });

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskSomeone } from '../../_models/TaskSomeone';
+import { TaskSomeoneDetailsDTO } from '../../_models/TaskSomeoneDetailsDTO';
 import { TaskSomeoneService } from '../../_services/task-someone.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { Pageable } from 'src/app/_models/Pageable';
 import { PaginationInfo } from 'src/app/_models/PaginationInfo';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-created-tasks',
@@ -11,12 +13,24 @@ import { PaginationInfo } from 'src/app/_models/PaginationInfo';
   styleUrls: ['./created-tasks.component.css']
 })
 export class CreatedTasksComponent implements OnInit {
-  tasks: TaskSomeone[];
-  constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService) { }
+  tasks: TaskSomeoneDetailsDTO[];
+  constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService, private route: ActivatedRoute) { }
   paginationInfo: PaginationInfo;
+  initValueSearchTerm: string;
 
   ngOnInit() {
-    this.listWithPagination(new Pageable());
+    this.route.params.subscribe(value => {
+      if(value.title != null){
+        this.initValueSearchTerm = value.title;
+        var that = this;
+        this.route.data.subscribe(data => {
+          that.tasks = data['taskSomeoneList'].content;
+          that.paginationInfo = new PaginationInfo(data['taskSomeoneList']);
+        });
+      } else {
+        this.listWithPagination(new Pageable());
+      }
+    });
   }
 
   listWithPagination(pageable: Pageable) {

@@ -1,0 +1,19 @@
+.applicant-img {
+	width: 40px;
+	height: 40px;
+}
+
+.applicant-container {
+	padding: 4px;
+}
+.applicant-container:hover{
+	background-color: #8080801f;
+}
+
+.application-status {
+	text-align: center;
+	border-radius: 5px;
+	background-color: bisque;
+	display: inline-table;
+	padding: 5px;
+}

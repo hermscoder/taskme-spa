@@ -7,6 +7,8 @@ import { TaskSomeoneDetailsDTO } from '../_models/TaskSomeoneDetailsDTO';
 import { TaskApplicationDetailsDTO } from '../_models/TaskApplicationDetailsDTO';
 import { UserDTO } from '../_models/UserDTO';
 import { MessageDTO } from '../_models/MessageDTO';
+import { MsgAndNewApplicationStatus } from '../_models/MsgAndNewApplicationStatus';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +19,9 @@ export class TaskApplicationService {
 
   constructor(private http: HttpClient) { }
 
-  listCurrentUserApplications(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
+  listCurrentUserApplications(pageable: Pageable): Observable<TaskApplicationDetailsDTO[]> {
     console.log(this.baseUrl + '/taskapplication/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
-    return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/taskapplication/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
+    return this.http.get<TaskApplicationDetailsDTO[]>(this.baseUrl + '/taskapplication/?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
   listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
@@ -31,5 +33,35 @@ export class TaskApplicationService {
     var message = new MessageDTO();
     message.content = messageTxt;
     return this.http.post(this.baseUrl + '/taskapplication/sendApplyingMsg/' + taskSomeoneId, message);
+  }
+
+  cancelTaskApplication(taskApplicationDTO:TaskApplicationDetailsDTO): Observable<TaskApplicationDetailsDTO> {
+    console.log(this.baseUrl + '/taskapplication/cancel');
+    return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/cancel', taskApplicationDTO);
+  }
+
+  changeTaskApplicationStatus(messageTxt:string, newStatus: string, taskApplicationId:number): Observable<TaskApplicationDetailsDTO> {
+    var message = new MessageDTO();
+    message.content = messageTxt;
+    console.log(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant');
+    return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant', new MsgAndNewApplicationStatus(message, newStatus, taskApplicationId));
+  }
+
+  getClassFromStatus(status: string){
+    if(status == 'PENDING') {
+      return 'bg-light';
+    }
+    if(status == 'ACCEPTED') {
+      return 'text-white bg-primary';
+    }
+    if(status == 'DECLINED') {
+      return 'bg-secondary';
+    }
+    if(status == 'CANCELLED_BY_APPLICANT') {
+      return 'text-white bg-danger';
+    }
+    if(status == 'TASK_CLOSED') {
+      return 'text-white bg-dark';
+    }
   }
 }

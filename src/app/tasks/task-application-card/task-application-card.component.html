@@ -1,0 +1,28 @@
+<div class="card {{applicationClass}} mb-3" style="max-width: 18rem;">
+	<div class="card-header">
+		<h5 >{{taskApplication.taskSomeone.title}}</h5>
+		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Created by: {{taskApplication.taskSomeone.user.givenName}}</p>
+	</div>
+	<div class="card-body">
+		<h6 class="card-title">{{taskApplication.status.replaceAll('_', ' ')}}</h6>
+		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Applied {{taskApplication.createdOn | timeAgo}}</p>
+	</div>
+	<div class="card-footer {{applicationClass}}">
+		<div class="col-sm-6">
+			<button *ngIf="isCancellable(taskApplication.status)" 
+					type="button" 
+					class="btn btn-danger" 
+					(click)="cancelTaskApplication()">
+				Cancel Application
+			</button>
+		</div>
+		<div class="col-sm-6">
+			<a href="#" 
+				class="btn btn-primary" 
+				[routerLink]="['/messages/', taskApplication.taskSomeone.user.givenName]" 
+				routerLinkActive="router-link-active" >
+		      Messages
+		    </a>
+		</div>
+	</div>
+</div>

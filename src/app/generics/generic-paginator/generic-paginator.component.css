@@ -20,3 +20,36 @@
   width: 100%;
   margin-bottom: 20px;
 }
+
+.collapsible::after{
+  content: " More filters";
+}
+
+.collapsible {
+  color: #0079a194;
+  cursor: pointer;
+  padding: 6px 8px 6px 8px;
+  border: none;
+  text-align: right;
+  outline: none;
+  /*font-size: 15px;*/
+}
+
+.active::after {
+  content: " Less filters";
+}
+.active {
+  color: #0079a1;
+  background-color: #f1f1f1;
+}
+
+.collapsible:hover {
+  color: #0079a1;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}

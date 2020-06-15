@@ -63,43 +63,35 @@
 
     </div>
     <div *ngIf="!taskSomeone.ownTask" class="col-sm-2">
-      Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
-      <br/>
-      <button type="button" class="btn btn-primary" (click)="open(sendMessageModal, 'sendMessageModal')" >
-        <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
-      </button>
+      <div *ngIf="taskSomeone.alreadyApplied" class="small text-muted">
+        You already applied to this task! At any moment you will receive a feedback from the task creator.
+        <br/>
+        Check 
+        <a href="#" [routerLink]="['/taskApplications']" routerLinkActive="router-link-active" >
+          Your Applications 
+        </a> 
+        to see your applications details.
+      </div>
+      <div *ngIf="!taskSomeone.alreadyApplied">
+        Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
+        <br/>
+        <button type="button" class="btn btn-primary" (click)="open(sendMessageModal, 'sendMessageModal')" >
+          <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
+        </button>
+      </div>
     </div>
     <div *ngIf="taskSomeone.ownTask" class="col-sm-2">
-      <button type="button" class="btn btn-light" (click)="open(editTaskModal, 'editTaskModal')" >
-        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit task information
-      </button>
-      <ng-template id="editTaskModal" #editTaskModal let-modal>
-          <app-edit-task [task]="taskSomeone" 
-                          (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" 
-                          (cancelChanges)="modal.dismiss();">
-          </app-edit-task>
-      </ng-template>
+      <a  class="btn btn-light " href="#" [routerLink]="['/createdTasks', taskSomeone.title]" routerLinkActive="router-link-active" > 
+        <i class="fa fa-pencil mr-2" aria-hidden="true"></i> Manage Task 
+      </a>
     </div>
   </div>
 </div>
 
 <ng-template id="sendMessageModal" #sendMessageModal let-modal>
-  <div class="text-left mt-2 container mb-2">
-      Message to {{taskSomeone.user.givenName}}:
-      <br />
-      <textarea id="msgText" class="w-100 msgTextArea" #msgText>Hello {{taskSomeone.user.givenName}}! I saw that you created the task "{{taskSomeone.title}}" and I am interested in doing it.
-      </textarea>
-      <div class="text-right mt-2">
-        <button type="button" 
-          class="btn btn-ligth mr-2" 
-          (click)="modal.dismiss()">
-            Cancel
-        </button>
-        <button type="submit" 
-          class="btn btn-primary"  
-          (click)="sendInterestedMessage(modal, msgText.value)">
-            Save
-        </button>
-      </div>
-  </div>
+  <app-send-message [defaultMsg]="'Hello ' + taskSomeone.user.givenName + '! I saw that you created the task ' + taskSomeone.title + ' and I am interested in doing it.'" 
+                    [messageTo]="taskSomeone.user.givenName" 
+                    (onSend)="sendInterestedMessage($event, modal);" 
+                    (onCancel)="modal.dismiss()">
+  </app-send-message>
 </ng-template>

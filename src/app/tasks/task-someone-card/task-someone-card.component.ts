@@ -18,12 +18,15 @@ export class TaskSomeoneCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  open(content) {
-    this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: false});
+  open(content, modalName) {
+    if(modalName == 'editTaskModal'){
+      this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: false});
+    } else if(modalName == 'taskApplicationsModal'){
+      this.modalService.open(content, {windowClass: 'taskApplicationsModal', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
+    }
   }
 
   onTaskUpdatedSuccessfully(res: any) {
     this.taskUpdated.emit(res);
   }
-
 }

@@ -54,3 +54,9 @@
 .msg-other-user {
   margin-left: 35px;
 }
+
+.selected-conversation {
+  background-color: #8dc2d5;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}

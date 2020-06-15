@@ -1,4 +1,4 @@
-<div *ngIf="listConversationMode" class="w100 last-message-div">
+<div *ngIf="listConversationMode" class="w100 last-message-div {{ selected ? 'selected-conversation' : '' }}">
   <div class="h100 pr-0 ml-1">
     <img src="{{getContact().profilePhoto.url}}" class="message-sender-img"/>
   </div>

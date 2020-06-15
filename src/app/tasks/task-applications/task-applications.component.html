@@ -1,5 +1,11 @@
-<span *ngFor="let task of taskApplications">
-	<p>
-	  {{task.title}}
-	</p>
-</span>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-6">
+      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo" [initValueSearchTerm]="initValueSearchTerm" [filterFields]="filters">
+        <p *ngFor="let application of taskApplications">
+          <app-task-application-card [taskApplication]="application" [applicationClass]="getClassFromStatus(application.status)" ></app-task-application-card>
+        </p>
+      </app-generic-paginator>
+    </div>
+  </div>
+</div>

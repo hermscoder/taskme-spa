@@ -29,6 +29,7 @@ import { TaskSomeoneDetailComponent } from './tasks/task-someone-detail/task-som
 import { MediaGalleryComponent } from './media/media-gallery/media-gallery.component';
 import { environment } from '../environments/environment';
 import { TaskSomeoneDetailResolver } from './_resolvers/task-someone-detail.resolver';
+import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { PhotoEditorComponent } from './user/photo-editor/photo-editor.component';
 import { UserService } from './_services/user.service';
@@ -45,7 +46,10 @@ import { ConversationService } from './_services/conversation.service';
 import { MessageService } from './_services/message.service';
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
-
+import { TaskApplicationCardComponent } from './tasks/task-application-card/task-application-card.component';
+import { FilterParticipantPipe } from './_pipes/pipes';
+import { TaskApplicantsListComponent } from './tasks/task-applicants-list/task-applicants-list.component';
+import { SendMessageComponent } from './generics/send-message/send-message.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -64,6 +68,7 @@ export function tokenGetter() {
       TaskSomeoneCardComponent,
       TaskSomeoneDetailComponent,
       TimeAgoPipe,
+      FilterParticipantPipe,
       MediaGalleryComponent,
       UserEditComponent,
       PhotoEditorComponent,
@@ -73,7 +78,10 @@ export function tokenGetter() {
       GenericPaginatorComponent,
       MessageListItemComponent,
       MessagesContainerComponent,
-      TaskApplicationsComponent
+      TaskApplicationsComponent,
+      TaskApplicationCardComponent,
+      TaskApplicantsListComponent,
+      SendMessageComponent
    ],
    imports: [
       BrowserModule,
@@ -105,6 +113,7 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AuthGuard,
       TaskSomeoneDetailResolver,
+      CreatedTasksResolver,
       TaskApplicationsResolver,
       UserEditResolver,
       MessagesResolver,
@@ -112,6 +121,9 @@ export function tokenGetter() {
    ],
    bootstrap: [
       AppComponent
+   ],
+   entryComponents: [
+      SendMessageComponent
    ]
 })
 export class AppModule { }

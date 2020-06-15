@@ -15,6 +15,8 @@ export class MessageListItemComponent implements OnInit {
   @Input() userMap: Map<number, UserDTO>;
   @Input() currentUser: User;
   @Input() lastMessageFromSameUser = false;
+  @Input() selected = false;
+
   constructor() { }
 
   sender: UserDTO;

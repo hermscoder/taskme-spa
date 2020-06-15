@@ -4,6 +4,7 @@ import { GPaginator } from 'src/app/_interfaces/GPaginator';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Pageable } from 'src/app/_models/Pageable';
 import { PaginationInfo } from 'src/app/_models/PaginationInfo';
+import { FilterField } from 'src/app/_models/FilterField';
 
 
 @Component({
@@ -15,14 +16,21 @@ export class GenericPaginatorComponent implements OnInit {
   pageable: Pageable;
   @Input() paginationInfo: PaginationInfo;
   @Output() loadContent = new EventEmitter<any>();
-
+  @Input() initValueSearchTerm: string;
+  @Input() filterFields: FilterField[] = [];
   constructor() { }
 
   ngOnInit() {
     this.pageable = new Pageable();
+    this.pageable.searchTerm = this.initValueSearchTerm;
   }
 
   filterData() {
+    this.filterFields.forEach(filter => {
+      if(filter.choosen != null){
+        this.pageable.adicionalFilters.set(filter.key, filter.choosen);
+      }
+    })
     this.loadContent.emit(this.pageable);
   }
   nextPage() {
@@ -58,5 +66,16 @@ export class GenericPaginatorComponent implements OnInit {
     }
     this.pageable.page = this.paginationInfo.totalPages - 1;
     this.loadContent.emit(this.pageable);
+  }
+
+  collapseOrNot(event, collapsibleContent){
+    var element = event.target;
+
+    element.classList.toggle("active");
+    if (collapsibleContent.style.display === "block") {
+      collapsibleContent.style.display = "none";
+    } else {
+      collapsibleContent.style.display = "block";
+    }
   }
 }

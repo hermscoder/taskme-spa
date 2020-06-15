@@ -1,5 +1,6 @@
 import { UserDTO } from './UserDTO';
 import { Media } from './Media';
+import { TaskApplicationForListDTO } from './TaskApplicationForListDTO';
 
 export interface TaskSomeoneDetailsDTO {
   id: number;
@@ -10,4 +11,6 @@ export interface TaskSomeoneDetailsDTO {
   mediaList?: Media[];
   createdOn: Date;
   ownTask: boolean;
+  taskApplicants: TaskApplicationForListDTO[];
+  alreadyApplied: boolean;
 }

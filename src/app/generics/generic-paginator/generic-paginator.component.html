@@ -2,8 +2,39 @@
   <div class="form-group">
     <label>Search for Title</label>
     <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
-    <button type="submit" class="btn btn-success mt-2" >Filter</button>
+    <div>
+      <button type="submit" class="btn btn-success mt-2" >Filter</button>  
+      <button type="button" class="btn collapsible mt-2 ml-1" *ngIf="filterFields.length > 0" (click)="collapseOrNot($event, collapsibleContent)">
+        <i class="fa fa-filter" aria-hidden="true"></i>
+
+      </button>
+    </div>
+    <div id="collapsibleContent" class="content" #collapsibleContent>
+      <div *ngFor="let field of filterFields">
+        <div *ngIf="field.type == 'input'">
+            <label for="input{{ field.key }}Label">{{field.label}}</label>
+            <input id="input{{ field.key }}" type="text" class="form-control" required name="{{ field.key }}" [(ngModel)]="field.choosen" >
+        </div>
+        <div *ngIf="field.type == 'rad'">
+            <label for="rad{{ field.key }}Label">{{field.label}}</label>
+            <div *ngFor="let option of field.options">
+              <input type="radio" [(ngModel)]="field.choosen" [name]="option.name" [value]="option.value">
+              <span class="small">
+                {{ option.label }}
+              </span>
+            </div>
+        </div>
+        <div *ngIf="field.type == 'chk'">
+            <input id="chk{{ field.key }}" type="checkbox" [(ngModel)]="field.choosen">
+            <span class="small">
+              {{field.label}}
+            </span>
+        </div>
+      </div>
+    </div>
   </div>
+    
+
 </form>
 
 <ng-content></ng-content>

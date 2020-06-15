@@ -1,0 +1,20 @@
+<div class="text-left mt-2 container mb-2">
+	<div class="modal-body">
+	  Message to {{messageTo}}:
+	  <br />
+	  <textarea id="msgText" class="w-100 msgTextArea" #msgText>{{defaultMsg}}
+	  </textarea>
+	  <div class="text-right mt-2">
+	    <button type="button" 
+	      class="btn btn-ligth mr-2" 
+	      (click)="onCancelEvent()">
+	        Cancel
+	    </button>
+	    <button type="submit" 
+	      class="btn btn-primary"  
+	      (click)="onClickSendEvent(msgText.value)">
+	        Save
+	    </button>
+	  </div>
+	</div>
+</div>

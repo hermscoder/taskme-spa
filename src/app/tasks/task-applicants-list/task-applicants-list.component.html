@@ -1,0 +1,37 @@
+<div class="" id="taskApplications">
+  <div class="row ">
+      <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+            	        <div>
+				          <button type="button" class="close mr-2" aria-label="Close" (click)="modal.dismiss()">
+				            <span aria-hidden="true">&times;</span>
+				          </button>
+				        </div>
+                <h2 class="text-left text-primary">Task Applications</h2>
+            </div>
+            <div class="card-body mb-10" >
+              <div *ngFor="let applicant of taskSomeone.taskApplicants" class="col-sm-12 d-inline-flex mb-2 applicant-container">
+              		<div class="col-sm-7">
+              			<img src="{{applicant.user.profilePhoto.url}}" alt="" class="applicant-img">
+              			{{applicant.user.givenName + ' ' + applicant.user.familyName }}
+									</div>
+									<div class="col-sm-5" style="margin-top: 2px;" *ngIf="applicant.taskApplicationStatus == 'PENDING'">
+										<button type="button" class="btn btn-danger mr-3" (click)="openUpdateStatusMsgModal(applicant, 'D')" >
+		                	Decline
+		                </button>
+		              	<button type="button" class="btn btn-success" (click)="openUpdateStatusMsgModal(applicant, 'A')">
+		                	Accept
+		                </button>
+									</div>
+									<div class="col-sm-5 mt-1 " *ngIf="applicant.taskApplicationStatus != 'PENDING'">
+										<h6 class="application-status {{getClassFromStatus(applicant.taskApplicationStatus)}}">
+											{{ applicant.taskApplicationStatus.replaceAll('_', ' ') }}
+										</h6>
+									</div>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>

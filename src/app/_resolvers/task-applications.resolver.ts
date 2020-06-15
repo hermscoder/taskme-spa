@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TaskSomeone } from '../_models/TaskSomeone';
+import { TaskApplicationDetailsDTO } from '../_models/TaskApplicationDetailsDTO';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { TaskApplicationService } from '../_services/task-application.service';
 import { AlertifyService } from '../_services/alertify.service';
@@ -9,16 +10,17 @@ import { Pageable } from '../_models/Pageable';
 
 @Injectable()
 
-export class TaskApplicationsResolver implements Resolve<TaskSomeone> {
+export class TaskApplicationsResolver implements Resolve<TaskApplicationDetailsDTO[]> {
   constructor(private taskApplicationService: TaskApplicationService,
     private router: Router, private alertify: AlertifyService) {}
 
-    resolve(route: ActivatedRouteSnapshot): Observable<TaskSomeone> {
+    resolve(route: ActivatedRouteSnapshot): Observable<TaskApplicationDetailsDTO[]> {
+      var thisRoute = route;
       // catch any errors, if we have problems, we redirect and print a message for the user
       return this.taskApplicationService.listCurrentUserApplications(new Pageable()).pipe(
         catchError(error => {
+          console.log(thisRoute);
           this.alertify.error('Problem retrieving data');
-          this.router.navigate(['taskApplications']);
           return of(null);
         })
       );
