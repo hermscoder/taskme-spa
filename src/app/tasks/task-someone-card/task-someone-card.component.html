@@ -22,7 +22,7 @@
         <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit information
       </button>
       <button *ngIf="editMode" type="button" class="btn btn-light ml-3" (click)="open(taskApplicationsModal, 'taskApplicationsModal')" >
-        <i class="fa fa-users mr-2" aria-hidden="true"></i>Check applicants
+        <i class="fa fa-users mr-2" aria-hidden="true"></i>Check applicants ({{taskSomeone.taskApplicants.length}})
       </button>
 
       <ng-template #editTaskModal let-modal>

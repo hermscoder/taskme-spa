@@ -20,10 +20,12 @@
                     <textarea [ngClass]="{'is-invalid':editTaskForm.get('description').errors
                                       && editTaskForm.get('description').touched}"
                               class="form-control"
+                              maxlength="1000"
                               formControlName="description" rows="3" placeholder="What is the task about?"></textarea>
+                              <label class="small text-muted">{{editTaskForm.value.description.length}}/1000</label>
                     <div class="invalid-feedback"
                               *ngIf="editTaskForm.get('description').errors
-                                    && editTaskForm.get('description').touched">Description must be from 1 to 300 characters long!</div>
+                                    && editTaskForm.get('description').touched">Description must be from 1 to 1000 characters long!</div>
                 </div>
                 <div class="form-group">
                   <label for="inputLocationLabel">Address</label>

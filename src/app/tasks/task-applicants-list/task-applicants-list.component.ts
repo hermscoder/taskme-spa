@@ -22,15 +22,19 @@ export class TaskApplicantsListComponent implements OnInit {
   }
 
   openUpdateStatusMsgModal(applicant, newStatus){
+    this.openModal(applicant, newStatus, this.taskSomeone);
+  }
+
+  openModal(applicant, newStatus, taskSomeone){
     // const modalRef = this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
     const modalRef = this.modalService.open(SendMessageComponent);
-    modalRef.componentInstance.messageTo = this.taskSomeone.user.givenName;
+    modalRef.componentInstance.messageTo = applicant.user.givenName;
     modalRef.componentInstance.msgStateType = newStatus;
     modalRef.componentInstance.relatedId = applicant.taskApplicationId;
     if(newStatus == 'A'){
-      modalRef.componentInstance.defaultMsg = "Hey " + applicant.user.givenName + ", I choose you to do the task '" + this.taskSomeone.title + "'!";
+      modalRef.componentInstance.defaultMsg = "Hey " + applicant.user.givenName + ", I choose you to do the task '" + taskSomeone.title + "'!";
     } else if (newStatus == 'D') {
-      modalRef.componentInstance.defaultMsg = "Hello " + applicant.user.givenName + ", I am sorry to say this, but another person got approved to do the task '" + this.taskSomeone.title + "'. But let's keep in touch, ok? See ya!";
+      modalRef.componentInstance.defaultMsg = "Hello " + applicant.user.givenName + ", I am sorry to say this, but another person got approved to do the task '" + taskSomeone.title + "'. But let's keep in touch, ok? See ya!";
     }
 
     modalRef.result.then((result) => {

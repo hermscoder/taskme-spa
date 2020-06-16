@@ -22,7 +22,7 @@ export class TaskSomeoneCardComponent implements OnInit {
     if(modalName == 'editTaskModal'){
       this.modalService.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: false});
     } else if(modalName == 'taskApplicationsModal'){
-      this.modalService.open(content, {windowClass: 'taskApplicationsModal', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
+      this.modalService.open(content, {size: 'lg', windowClass: 'taskApplicationsModal', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
     }
   }
 

@@ -42,7 +42,7 @@ export class EditTaskComponent implements OnInit {
     this.editTaskForm = this.fb.group({
       id: [''],
       title: ['', Validators.required],
-      description: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(300)]],
+      description: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1000)]],
       location: ['', Validators.required],
       user: [''],
       createdOn: ['']

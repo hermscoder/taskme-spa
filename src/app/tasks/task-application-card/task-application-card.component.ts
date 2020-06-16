@@ -21,18 +21,23 @@ export class TaskApplicationCardComponent implements OnInit {
 	}
 
 	cancelTaskApplication(){
-		this.taskApplicationService.cancelTaskApplication(this.taskApplication).subscribe((result: TaskApplicationDetailsDTO) => {
-	      this.taskApplication = result;
-	    }, error => {
-	      this.alertify.error(error.message);
-	    });
+		var that = this;
+		this.alertify.confirmation('Confirmation', 'After cancelling your application <b>you can not apply to the same task again</b>. Do you confirm the cancellation?', () => {
+			that.taskApplicationService.cancelTaskApplication(this.taskApplication).subscribe((result: TaskApplicationDetailsDTO) => {
+		      that.taskApplication = result;
+		      that.applicationClass = this.taskApplicationService.getClassFromStatus(that.taskApplication.status);
+		    }, error => {
+		      that.alertify.error(error.message);
+		    });
+		});
+		
 	}
 
 	getCardClass(status){
 		return this.taskApplicationService.getClassFromStatus(status);
 	}
 	getColorClass(status){
-		if(['ACCEPTED', 'DECLINED', 'CANCELLED_BY_APPLICANT', 'TASK_CLOSED'].indexOf(status) > -1) {
+		if(['ACCEPTED', 'CANCELLED_BY_APPLICANT', 'TASK_CLOSED'].indexOf(status) > -1) {
 			return 'light-';
 		} else{
 			return '';

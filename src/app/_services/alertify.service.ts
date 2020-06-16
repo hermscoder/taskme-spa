@@ -6,15 +6,44 @@ declare let alertify: any;
 })
 export class AlertifyService {
 
-  constructor() { }
+  constructor() {
+    //define a new dialog
+    alertify.dialog('confirmation',function factory(){
+      return{
+        main:function(header, message, okCallback){
+          this.header = header;
+          this.message = message;
+          this.okCallback = okCallback;
+        },
+        setup:function(){
+            return { 
+              buttons:[{text: "Cancel", key:27, className: 'btn btn-default'},
+                        {text: "Confirm", key:13, className: 'btn btn-primary'}
+              ],
+              focus: { 
+                element:1 
+              },
+              options: {
+                maximizable: false
+              }
 
-  // just declaring wrappers that will be available when making use of this service on a component
-  confirm(message: string, okCallback: () => any) {
-    alertify.confirm(message, function(e) {
-      if (e) {
-        okCallback();
-      } else {}
-    });
+            };
+        },
+        prepare:function(){
+          this.setHeader(this.header);
+          this.setContent(this.message);
+        },
+        callback:function(closeEvent){
+            if(closeEvent.index == 1){
+              this.okCallback();
+            } else {
+            }
+         }
+    }});
+  }
+
+  confirmation(title: string, message: string, okCallback: () => any){
+    alertify.confirmation(title, message, okCallback,);
   }
 
   success(message: string) {
