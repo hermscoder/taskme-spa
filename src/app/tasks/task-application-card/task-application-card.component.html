@@ -4,7 +4,7 @@
 		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Created by: {{taskApplication.taskSomeone.user.givenName}}</p>
 	</div>
 	<div class="card-body">
-		<h6 class="card-title">{{taskApplication.status.replaceAll('_', ' ')}}</h6>
+		<h6 class="card-title">{{taskApplication.status.split('_').join(' ')}}</h6>
 		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Applied {{taskApplication.createdOn | timeAgo}}</p>
 	</div>
 	<div class="card-footer {{applicationClass}}">

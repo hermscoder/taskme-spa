@@ -29,7 +29,7 @@
         <app-edit-task [task]="taskSomeone" (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" (cancelChanges)="modal.dismiss();"></app-edit-task>
       </ng-template>
       <ng-template #taskApplicationsModal let-modal>
-        <app-task-applicants-list [taskSomeone]="taskSomeone" ></app-task-applicants-list>
+        <app-task-applicants-list [taskSomeone]="taskSomeone" (onCloseModal)="modal.dismiss();"></app-task-applicants-list>
       </ng-template>
     </div>
   </div>

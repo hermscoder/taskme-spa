@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import { TaskSomeoneDetailsDTO } from '../../_models/TaskSomeoneDetailsDTO';
 import { TaskApplicationDetailsDTO } from '../../_models/TaskApplicationDetailsDTO';
 import { AlertifyService } from '../../_services/alertify.service';
@@ -14,6 +14,7 @@ import { SendMessageComponent } from '../../generics/send-message/send-message.c
 export class TaskApplicantsListComponent implements OnInit {
 
 	@Input() taskSomeone: TaskSomeoneDetailsDTO;
+  @Output() onCloseModal = new EventEmitter();
 
   constructor(private alertify: AlertifyService, private modalService: NgbModal, private taskApplicationService: TaskApplicationService) { }
 
@@ -59,5 +60,9 @@ export class TaskApplicantsListComponent implements OnInit {
 
   getClassFromStatus(status: string): string {
   	return this.taskApplicationService.getClassFromStatus(status);
+  }
+
+  closeModal(){
+    this.onCloseModal.emit();
   }
 }

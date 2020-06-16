@@ -16,11 +16,10 @@ import { ChatService } from 'src/app/_services/chat.service';
 })
 export class MessagesComponent implements OnInit {
 
-  @ViewChild('inputMsg') input: ElementRef;
-
   conversations: ConversationDTO[] = [];
   selectedConversation: ConversationDTO;
   user: User;
+  inputContactsFilter: string;
 
   constructor(private route: ActivatedRoute, private renderer: Renderer2, private conversationService: ConversationService, private chatService: ChatService) { }
 

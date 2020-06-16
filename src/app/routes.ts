@@ -38,6 +38,7 @@ export const appRoutes: Routes = [
       { path: 'createdTasks/:title', component: CreatedTasksComponent, resolve: {taskSomeoneList: CreatedTasksResolver} },
       { path: 'createdTasks', component: CreatedTasksComponent },
       { path: 'taskMe', component: TaskMeComponent },
+      { path: 'taskApplications/:taskTitle', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'taskApplications', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'messages/:participantName', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'messages', component: MessagesComponent, resolve: {user: MessagesResolver} },

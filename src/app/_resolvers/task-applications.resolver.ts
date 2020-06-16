@@ -16,8 +16,10 @@ export class TaskApplicationsResolver implements Resolve<TaskApplicationDetailsD
 
     resolve(route: ActivatedRouteSnapshot): Observable<TaskApplicationDetailsDTO[]> {
       var thisRoute = route;
+      var pageable = new Pageable();
+      pageable.searchTerm = route.params['taskTitle'];
       // catch any errors, if we have problems, we redirect and print a message for the user
-      return this.taskApplicationService.listCurrentUserApplications(new Pageable()).pipe(
+      return this.taskApplicationService.listCurrentUserApplications(pageable).pipe(
         catchError(error => {
           console.log(thisRoute);
           this.alertify.error('Problem retrieving data');

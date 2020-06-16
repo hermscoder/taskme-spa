@@ -6,8 +6,8 @@
         </button>
       </button>
         <h4>Messages</h4>
-        <input  [(ngModel)]="inputContantsFilter" type="text" class="col-sm-12 mb-2" placeholder="Search for messages"/>
-        <span *ngFor="let conversation of conversations | filterParticipant : inputContantsFilter"  >
+        <input  [(ngModel)]="inputContactsFilter" type="text" class="col-sm-12 mb-2" placeholder="Search for messages"/>
+        <span *ngFor="let conversation of conversations | filterParticipant : inputContactsFilter"  >
           <app-message-list-item [message]="getLastMessage(conversation)"
                                   [userMap]="conversation.userMap"
                                   [currentUser]="user"

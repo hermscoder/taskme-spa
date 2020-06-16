@@ -21,13 +21,20 @@ export class TaskApplicationsComponent implements OnInit {
   taskApplications: TaskApplicationDetailsDTO[] = [];
   paginationInfo: PaginationInfo;
   filters: FilterField[] = [];
+  initValueSearchTerm: string;
 
   ngOnInit() {
     var that = this;
   	this.route.data.subscribe(data => {
       if(data['taskApplications'] != null){
       	that.taskApplications = data['taskApplications'].content;
-        this.paginationInfo = new PaginationInfo(data['taskApplications']);
+        that.paginationInfo = new PaginationInfo(data['taskApplications']);
+
+        that.route.params.subscribe(value => {
+          if(value.taskTitle != null){
+            that.initValueSearchTerm = value.taskTitle;
+          }
+        });
     	}
     });
     this.initializeFilterFields();
