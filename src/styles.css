@@ -125,3 +125,8 @@ font-family: FontAwesome;
 font-size: 2rem;
 background-color: #fff;
 }
+
+.applicant-img {
+  width: 40px;
+  height: 40px;
+}

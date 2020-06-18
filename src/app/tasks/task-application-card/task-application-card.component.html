@@ -1,13 +1,17 @@
 <div class="card {{applicationClass}} mb-3" style="max-width: 18rem;">
-	<div class="card-header">
-		<h5 >{{taskApplication.taskSomeone.title}}</h5>
-		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Created by: {{taskApplication.taskSomeone.user.givenName}}</p>
+	<div class="card-header application-card-header">
+		<h5 class="text-truncate"  data-toggle="tooltip" title="{{taskApplication.taskSomeone.title}}">
+			{{taskApplication.taskSomeone.title}}
+		</h5>
+		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">
+			Created by: {{taskApplication.taskSomeone.user.givenName}}
+		</p>
 	</div>
-	<div class="card-body">
+	<div class="card-body application-card-body">
 		<h6 class="card-title">{{taskApplication.status.split('_').join(' ')}}</h6>
 		<p class="card-text small {{getColorClass(taskApplication.status)}}text-muted ">Applied {{taskApplication.createdOn | timeAgo}}</p>
 	</div>
-	<div class="card-footer {{applicationClass}}">
+	<div class="card-footer {{applicationClass}} application-card-footer">
 		<div class="col-sm-6">
 			<button *ngIf="isCancellable(taskApplication.status)" 
 					type="button" 

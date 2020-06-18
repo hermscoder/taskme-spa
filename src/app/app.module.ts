@@ -19,7 +19,6 @@ import { AlertifyService } from './_services/alertify.service';
 import { ChatService } from './_services/chat.service';
 import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component';
 import { TaskSomeoneComponent } from './task-someone/task-someone.component';
-import { TaskMeComponent } from './task-me/task-me.component';
 import { MessagesComponent } from './messages/page/messages.component';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
@@ -47,9 +46,11 @@ import { MessageService } from './_services/message.service';
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
 import { TaskApplicationCardComponent } from './tasks/task-application-card/task-application-card.component';
-import { FilterParticipantPipe } from './_pipes/pipes';
+import { FilterParticipantPipe, FilterUsersPipe } from './_pipes/pipes';
 import { TaskApplicantsListComponent } from './tasks/task-applicants-list/task-applicants-list.component';
 import { SendMessageComponent } from './generics/send-message/send-message.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -63,12 +64,12 @@ export function tokenGetter() {
       RegisterComponent,
       ListTasksComponent,
       TaskSomeoneComponent,
-      TaskMeComponent,
       MessagesComponent,
       TaskSomeoneCardComponent,
       TaskSomeoneDetailComponent,
       TimeAgoPipe,
       FilterParticipantPipe,
+      FilterUsersPipe,
       MediaGalleryComponent,
       UserEditComponent,
       PhotoEditorComponent,
@@ -81,7 +82,9 @@ export function tokenGetter() {
       TaskApplicationsComponent,
       TaskApplicationCardComponent,
       TaskApplicantsListComponent,
-      SendMessageComponent
+      SendMessageComponent,
+      UserProfileComponent,
+      MainPageComponent
    ],
    imports: [
       BrowserModule,

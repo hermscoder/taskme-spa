@@ -26,11 +26,13 @@ export class GenericPaginatorComponent implements OnInit {
   }
 
   filterData() {
+    this.pageable.adicionalFilters = new Map();
+    var that = this;
     this.filterFields.forEach(filter => {
       if(filter.choosen != null){
-        this.pageable.adicionalFilters.set(filter.key, filter.choosen);
+        that.pageable.adicionalFilters.set(filter.key, filter.choosen);
       }
-    })
+    });
     this.loadContent.emit(this.pageable);
   }
   nextPage() {
@@ -77,5 +79,15 @@ export class GenericPaginatorComponent implements OnInit {
     } else {
       collapsibleContent.style.display = "block";
     }
+  }
+
+  clearFilters(){
+    this.pageable.searchTerm = '';
+
+    this.filterFields.forEach(filter => {
+      if(filter.choosen != null){
+        filter.choosen = null;
+      }
+    });
   }
 }

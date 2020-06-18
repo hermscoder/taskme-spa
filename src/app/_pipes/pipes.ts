@@ -11,3 +11,18 @@ export class FilterParticipantPipe implements PipeTransform {
             : items;
     }
 }
+
+@Pipe({
+    name: 'filterUsers',
+    pure: false
+})
+export class FilterUsersPipe implements PipeTransform {
+    transform(applicationsArray: any[], term): any {
+        return term 
+        	? applicationsArray.filter((application) => {
+        		return (application.user.givenName + ' ' + application.user.familyName).toUpperCase().indexOf(term.toUpperCase()) > -1
+        	})
+            : applicationsArray;
+    }
+}
+

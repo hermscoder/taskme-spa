@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { TaskSomeone } from '../_models/TaskSomeone';
 import { TaskSomeoneDetailsDTO } from '../_models/TaskSomeoneDetailsDTO';
+import { TaskSomeoneForListDTO } from '../_models/TaskSomeoneForListDTO';
 import { UserDTO } from '../_models/UserDTO';
 import { Media } from '../_models/Media';
 import { GPaginator } from '../_interfaces/GPaginator';
@@ -45,5 +46,9 @@ export class TaskSomeoneService implements GPaginator {
 
   removeMediaFromTaskSomeone(mediaIdList: Array<number>, tasksomeoneId: any) {
     return this.http.delete(this.baseUrl + '/tasksomeone/' + tasksomeoneId + '/removeMedias/' + mediaIdList.join(','));
+  }
+
+  findPreviousTasksFromUser(userId:number): Observable<TaskSomeoneForListDTO[]> {
+    return this.http.get<TaskSomeoneForListDTO[]>(this.baseUrl + '/tasksomeone/previousTasks/' + userId);
   }
 }

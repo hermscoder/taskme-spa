@@ -9,8 +9,6 @@ import { TaskSomeoneComponent } from './task-someone/task-someone.component';
 
 import { CreatedTasksComponent } from './tasks/created-tasks/created-tasks.component';
 
-import { TaskMeComponent } from './task-me/task-me.component';
-
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
 import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
@@ -20,6 +18,8 @@ import { MessagesResolver } from './_resolvers/messages.resolver';
 
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
+
+import { MainPageComponent } from './main-page/main-page.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
@@ -32,12 +32,12 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      { path: 'mainPage', component: MainPageComponent },
       { path: 'findTasks', component: ListTasksComponent },
       { path: 'taskDetails/:id', component: TaskSomeoneDetailComponent, resolve: {taskSomeone: TaskSomeoneDetailResolver} },
       { path: 'taskSomeone', component: TaskSomeoneComponent },
       { path: 'createdTasks/:title', component: CreatedTasksComponent, resolve: {taskSomeoneList: CreatedTasksResolver} },
       { path: 'createdTasks', component: CreatedTasksComponent },
-      { path: 'taskMe', component: TaskMeComponent },
       { path: 'taskApplications/:taskTitle', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'taskApplications', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'messages/:participantName', component: MessagesComponent, resolve: {user: MessagesResolver} },

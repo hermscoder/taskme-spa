@@ -4,9 +4,15 @@
     <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
     <div>
       <button type="submit" class="btn btn-success mt-2" >Filter</button>  
-      <button type="button" class="btn collapsible mt-2 ml-1" *ngIf="filterFields.length > 0" (click)="collapseOrNot($event, collapsibleContent)">
+      <button *ngIf="filterFields.length > 0" 
+              (click)="collapseOrNot($event, collapsibleContent)" 
+              type="button" class="btn btn-link collapsible mt-2 ml-1">
         <i class="fa fa-filter" aria-hidden="true"></i>
-
+      </button>
+      <button *ngIf="filterFields.length > 0" 
+              (click)="clearFilters()" 
+              type="button" class="btn btn-link mt-2 ml-1 pull-right small text-muted">
+        <i class="fa fa-times" aria-hidden="true"></i> Clear Filters
       </button>
     </div>
     <div id="collapsibleContent" class="content" #collapsibleContent>

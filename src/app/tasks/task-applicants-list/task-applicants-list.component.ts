@@ -1,8 +1,11 @@
 import { Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import { TaskSomeoneDetailsDTO } from '../../_models/TaskSomeoneDetailsDTO';
+import { TaskSomeoneForListDTO } from '../../_models/TaskSomeoneForListDTO';
 import { TaskApplicationDetailsDTO } from '../../_models/TaskApplicationDetailsDTO';
+import { UserDTO } from '../../_models/UserDTO';
 import { AlertifyService } from '../../_services/alertify.service';
 import { TaskApplicationService } from '../../_services/task-application.service';
+import { TaskSomeoneService } from '../../_services/task-someone.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SendMessageComponent } from '../../generics/send-message/send-message.component';
 
@@ -15,8 +18,10 @@ export class TaskApplicantsListComponent implements OnInit {
 
 	@Input() taskSomeone: TaskSomeoneDetailsDTO;
   @Output() onCloseModal = new EventEmitter();
-
-  constructor(private alertify: AlertifyService, private modalService: NgbModal, private taskApplicationService: TaskApplicationService) { }
+  selectedApplicant: any;
+  inputUserFilter:string;
+  
+  constructor(private alertify: AlertifyService, private modalService: NgbModal, private taskApplicationService: TaskApplicationService, private taskSomeoneService: TaskSomeoneService) { }
 
   ngOnInit() {
   }
@@ -26,7 +31,6 @@ export class TaskApplicantsListComponent implements OnInit {
   }
 
   openModal(applicant, newStatus, taskSomeone){
-    // const modalRef = this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
     const modalRef = this.modalService.open(SendMessageComponent);
     modalRef.componentInstance.messageTo = applicant.user.givenName;
     modalRef.componentInstance.msgStateType = newStatus;
@@ -68,5 +72,16 @@ export class TaskApplicantsListComponent implements OnInit {
 
   closeModal(){
     this.onCloseModal.emit();
+  }
+
+  changeSelectedApplicant(user){
+    this.selectedApplicant = user;
+    if(this.selectedApplicant.previousTasks == null){
+      var that = this;
+      this.taskSomeoneService.findPreviousTasksFromUser(user.id).subscribe((result) => {
+        this.selectedApplicant.previousTasks = result;
+      });
+    }
+
   }
 }

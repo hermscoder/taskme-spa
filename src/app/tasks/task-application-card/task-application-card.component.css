@@ -13,3 +13,15 @@
 .bg-danger {
 	background-color: #b57878 !important
 }
+
+.application-card-header{
+	height: 85px;
+}
+
+.application-card-body{
+	height: 100px;
+}
+
+.application-card-footer{
+	height: 80px;
+}

@@ -1,13 +1,9 @@
-.applicant-img {
-	width: 40px;
-	height: 40px;
-}
-
 .applicant-container {
 	padding: 4px;
 }
 .applicant-container:hover{
 	background-color: #8080801f;
+
 }
 
 .application-status {
@@ -16,4 +12,24 @@
 	background-color: bisque;
 	display: inline-table;
 	padding: 5px;
+}
+
+.selected-applicant{
+	background-color: #8080801f;
+}
+
+.applicants-rows {
+	overflow-y: auto;
+	max-height: 250px;
+}
+
+.applicant-thumb {
+	display: inline;
+}
+
+.applicant-thumb:hover{
+	cursor: pointer;
+	padding-left: 1px;
+	padding-bottom: 1px;
+	opacity: 0.8;
 }

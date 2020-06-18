@@ -4,9 +4,11 @@
       <app-generic-paginator (loadContent)="listWithPagination($event)" 
       							[paginationInfo]="paginationInfo" 
       							[initValueSearchTerm]="initValueSearchTerm" [filterFields]="filters">
-        <p *ngFor="let application of taskApplications">
-          <app-task-application-card [taskApplication]="application" [applicationClass]="getClassFromStatus(application.status)" ></app-task-application-card>
-        </p>
+        <div class="d-inline-flex flex-wrap ml-5">
+          <div *ngFor="let application of taskApplications" class="col-sm-6">
+            <app-task-application-card [taskApplication]="application" [applicationClass]="getClassFromStatus(application.status)" ></app-task-application-card>
+          </div>
+        </div>
       </app-generic-paginator>
     </div>
   </div>

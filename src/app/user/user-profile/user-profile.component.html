@@ -1,0 +1,55 @@
+
+
+
+
+<div class="col-sm-12">
+  <div class="tab-panel">
+    <tabset class="task-someone-tabset" >
+			<tab>
+				<ng-template tabHeading>
+					<img src="{{user.profilePhoto.url}}" alt="'Profile image of {{user.givenName}}" width="21px" height="21px">
+		     {{user.givenName + ' ' + user.familyName }}
+				</ng-template>
+				<div class="card">
+					<div class="card-body">
+            <h4>Personal Data</h4>
+            <hr class="h-ruler details">
+            <p class="card-text">
+              Age: {{user.birthDate | timeAgo | slice:0:2}}
+              <br/>
+              Contact: {{user.contact}}
+              <br/>
+            </p>
+          </div>
+        </div>
+			</tab>
+      <tab heading="Experiences">
+        <div class="card">
+          <div class="card-body">
+            <h4>Experiences</h4>
+            <hr class="h-ruler location">
+            <p class="card-text">{{user.experience}}</p>
+          </div>
+        </div>
+      </tab>
+      <tab heading="Previous tasks">
+        <div class="card">
+          <div class="card-body">
+          	<h4>Previous tasks</h4>
+            <hr class="h-ruler medias">
+            <p *ngFor="let task of user?.previousTasks">
+            	{{task.title}}
+            	<a target="_blank" *ngIf="!editMode" href="#" 
+		            	class="btn btn-link" 
+		            	[routerLink]="['/taskDetails/',task.id]" 
+		            	routerLinkActive="router-link-active" >
+					      See More
+					    </a>
+            </p>
+          </div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+
+</div>

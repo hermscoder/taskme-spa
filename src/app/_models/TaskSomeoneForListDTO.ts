@@ -1,7 +1,7 @@
 import { UserDTO } from './UserDTO';
 import { Media } from './Media';
 
-export interface TaskSomeone {
+export interface TaskSomeoneForListDTO {
   id: number;
   user: UserDTO;
   title: string;
