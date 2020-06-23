@@ -4,7 +4,7 @@
       <app-generic-paginator (loadContent)="listWithPagination($event)" 
       							[paginationInfo]="paginationInfo" 
       							[initValueSearchTerm]="initValueSearchTerm" [filterFields]="filters">
-        <div class="d-inline-flex flex-wrap ml-5">
+        <div class="d-inline-flex flex-wrap ml-5 col-sm-12">
           <div *ngFor="let application of taskApplications" class="col-sm-6">
             <app-task-application-card [taskApplication]="application" [applicationClass]="getClassFromStatus(application.status)" ></app-task-application-card>
           </div>
