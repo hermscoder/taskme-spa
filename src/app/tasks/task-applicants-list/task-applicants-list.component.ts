@@ -59,7 +59,16 @@ export class TaskApplicantsListComponent implements OnInit {
             applicant.taskApplicationStatus = data.status;
           }
         });
-    });
+    }, error => {
+        var errorMsg;
+        if(error.subErrors != null){
+          errorMsg = error.subErrors[0].message;
+        } else {
+          errorMsg = error.message
+        }
+        this.alertify.error(errorMsg);
+      }
+    );
   }
 
   open(content, modalName) {

@@ -2,8 +2,8 @@
   border: 1px solid #e4e4e4;
 }
 .messages-container {
-  min-height: 320px;
-  max-height: 320px;
+  min-height: 400px;
+  max-height: 400px;
   overflow-y: scroll;
 }
 

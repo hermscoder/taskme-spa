@@ -1,7 +1,7 @@
 <div class="conversation-container ml-1">
   <b class="ml-2 mt-2">{{getContact().givenName}}</b>
   <hr class="mt-1"/>
-  <div class="messages-container">
+  <div class="messages-container" #messagesContainer>
     <span *ngFor="let message of conversation?.messagesList">
       <app-message-list-item [message]="message" 
                               [userMap]="conversation.userMap"
@@ -13,7 +13,7 @@
   <div class="footer-content d-inline-flex">
     <section></section>
     <!-- <textarea id="inputMsg" class="message-input" #inputMsg (input)="onInput($event)"></textarea> -->
-    <textarea id="inputMsg" class="message-input" #inputMsg (input)="onInput($event)" rows="1"></textarea>
+    <textarea id="inputMsg" class="message-input" #inputMsg (input)="onInput($event)" rows="1" (keypress)="checkSendOrReturn($event)"></textarea>
     <button type="button" class="btn btn-outline-primary send-btn" (click)="sendMessage(inputMsg)">
       <i class="fa fa-send"></i>
     </button>
