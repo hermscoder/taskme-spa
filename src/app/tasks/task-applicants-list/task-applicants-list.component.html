@@ -17,7 +17,7 @@
             	<div *ngIf="taskSomeone.taskApplicants.length == 0 ">
             		<h4>There are no applicants to this task yet</h4>
             	</div>
-              <div *ngFor="let applicant of taskSomeone.taskApplicants | filterUsers: inputUserFilter" 
+              <div *ngFor="let applicant of taskSomeone.taskApplicants | filterUsers: inputUserFilter: !isOpenForApplications(taskSomeone)" 
                     class="col-sm-12 d-inline-flex mb-2 applicant-container 
                     {{selectedApplicant?.id == applicant.user.id ?  'selected-applicant' : ''}}">
 

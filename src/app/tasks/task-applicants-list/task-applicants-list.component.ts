@@ -16,7 +16,8 @@ import { SendMessageComponent } from '../../generics/send-message/send-message.c
 })
 export class TaskApplicantsListComponent implements OnInit {
 
-	@Input() taskSomeone: TaskSomeoneDetailsDTO;
+	@Input() taskSomeone: TaskSomeoneDetailsDTO;7
+  @Input() showOnlyApprovedApplicants: boolean;
   @Output() onCloseModal = new EventEmitter<any>();
   selectedApplicant: any;
   inputUserFilter:string;

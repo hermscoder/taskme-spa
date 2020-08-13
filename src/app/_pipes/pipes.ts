@@ -17,12 +17,15 @@ export class FilterParticipantPipe implements PipeTransform {
     pure: false
 })
 export class FilterUsersPipe implements PipeTransform {
-    transform(applicationsArray: any[], term): any {
+    transform(applicationsArray: any[], term:string ,showOnlyApprovedApplicants: boolean = false): any {
         return term 
-        	? applicationsArray.filter((application) => {
-        		return (application.user.givenName + ' ' + application.user.familyName).toUpperCase().indexOf(term.toUpperCase()) > -1
-        	})
-            : applicationsArray;
+            ? applicationsArray.filter((application) => {
+                return (application.user.givenName + ' ' + application.user.familyName).toUpperCase().indexOf(term.toUpperCase()) > -1 && 
+                                                          ((showOnlyApprovedApplicants && application.taskApplicationStatus == 'ACCEPTED') || (!showOnlyApprovedApplicants))
+            })
+            : applicationsArray.filter((application) => {
+                return (showOnlyApprovedApplicants && application.taskApplicationStatus == 'ACCEPTED') || (!showOnlyApprovedApplicants)
+            });
     }
 }
 
