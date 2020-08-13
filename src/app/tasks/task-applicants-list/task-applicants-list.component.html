@@ -27,7 +27,7 @@
                 			{{applicant.user.givenName + ' ' + applicant.user.familyName }}
                     </div>
 									</div>
-									<div *ngIf="applicant.taskApplicationStatus == 'PENDING'" class="col-sm-4" style="margin-top: 2px;">
+									<div *ngIf="applicant.taskApplicationStatus == 'PENDING' && isOpenForApplications(taskSomeone)" class="col-sm-4" style="margin-top: 2px;">
 										<button type="button" class="btn btn-danger offset-1" (click)="openUpdateStatusMsgModal(applicant, 'D')" >
 		                	Decline
 		                </button>
@@ -47,10 +47,16 @@
               <app-user-profile [user]="selectedApplicant">
               </app-user-profile>
             </div>
-            <div class="card-footer mb-10" >
+            <div class="card-footer" >
+              <button *ngIf="taskSomeone.participants.length == 0" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="terminateApplications()" >
+                    Terminate Applications
+              </button>
+              <button *ngIf="taskSomeone.participants.length > 0" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="openApplications()" >
+                    Open Applications
+              </button>
               <button type="button" class="btn btn-light mr-3 pull-right" (click)="closeModal()" >
                     Close
-                </button>
+              </button>
             </div>
           </div>
       </div>

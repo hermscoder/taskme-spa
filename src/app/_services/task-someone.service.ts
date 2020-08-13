@@ -51,4 +51,12 @@ export class TaskSomeoneService implements GPaginator {
   findPreviousTasksFromUser(userId:number): Observable<TaskSomeoneForListDTO[]> {
     return this.http.get<TaskSomeoneForListDTO[]>(this.baseUrl + '/tasksomeone/previousTasks/' + userId);
   }
+
+  terminateApplications(model: any){
+    return this.http.post(this.baseUrl + '/tasksomeone/terminateApplications', model);
+  }
+
+  openApplications(model: any){
+    return this.http.post(this.baseUrl + '/tasksomeone/openApplications', model);
+  }
 }

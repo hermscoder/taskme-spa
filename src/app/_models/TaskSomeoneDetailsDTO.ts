@@ -13,4 +13,5 @@ export interface TaskSomeoneDetailsDTO {
   ownTask: boolean;
   taskApplicants: TaskApplicationForListDTO[];
   alreadyApplied: boolean;
+  participants: UserDTO[];
 }

@@ -29,4 +29,14 @@ export class TaskSomeoneCardComponent implements OnInit {
   onTaskUpdatedSuccessfully(res: any) {
     this.taskUpdated.emit(res);
   }
+
+  updateTaskSomeone(taskSomeoneUpdated: any){
+    if(taskSomeoneUpdated != null){
+      this.taskSomeone = taskSomeoneUpdated;
+    }
+  }
+
+  isOpenForApplications(taskSomeone: any): boolean {
+    return taskSomeone.participants.length == 0;
+  }
 }
