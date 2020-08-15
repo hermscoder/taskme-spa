@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-6">
+      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo" [initValueSearchTerm]="initValueSearchTerm">
+        <span *ngFor="let task of currentTasks">
+        	<div class="row inline-task {{getRiskClass(task)}} d-flex align-items-center">
+        		<div class="col-lg-7 text-truncate">
+        			{{task.title}}
+        		</div>
+        		<div class="col-lg-3 small text-muted text-truncate">
+        			Created {{task?.createdOn | timeAgo}} by: 
+        			<br>
+        			{{task.user.givenName}} {{task.user.familyName}}
+        		</div>
+        		<div class="col-lg-1 small text-muted">
+        			Risk:
+        		</div>
+        	</div>
+        </span>
+      </app-generic-paginator>
+    </div>
+  </div>
+</div>

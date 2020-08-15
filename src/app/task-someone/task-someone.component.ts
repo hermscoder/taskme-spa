@@ -32,7 +32,8 @@ export class TaskSomeoneComponent implements OnInit {
     this.taskSomeoneForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      location: ['', Validators.required]
+      location: ['', Validators.required],
+      dueDate: ['']
     });
   }
 

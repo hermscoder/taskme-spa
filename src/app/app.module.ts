@@ -45,12 +45,14 @@ import { ConversationService } from './_services/conversation.service';
 import { MessageService } from './_services/message.service';
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
+import { CurrentTasksResolver } from './_resolvers/current-tasks.resolver';
 import { TaskApplicationCardComponent } from './tasks/task-application-card/task-application-card.component';
 import { FilterParticipantPipe, FilterUsersPipe } from './_pipes/pipes';
 import { TaskApplicantsListComponent } from './tasks/task-applicants-list/task-applicants-list.component';
 import { SendMessageComponent } from './generics/send-message/send-message.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { CurrentTasksComponent } from './tasks/current-tasks/current-tasks.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -84,7 +86,8 @@ export function tokenGetter() {
       TaskApplicantsListComponent,
       SendMessageComponent,
       UserProfileComponent,
-      MainPageComponent
+      MainPageComponent,
+      CurrentTasksComponent
    ],
    imports: [
       BrowserModule,
@@ -118,6 +121,7 @@ export function tokenGetter() {
       TaskSomeoneDetailResolver,
       CreatedTasksResolver,
       TaskApplicationsResolver,
+      CurrentTasksResolver,
       UserEditResolver,
       MessagesResolver,
       PreventUnsavedChanges

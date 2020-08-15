@@ -27,7 +27,7 @@ export class TaskSomeoneService implements GPaginator {
     return this.http.get<TaskSomeone[]>(this.baseUrl + '/listtasks');
   }
 
-  listCurrentUserTasks(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
+  listCurrentUserCreatedTasks(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
     console.log(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
     return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
@@ -58,5 +58,9 @@ export class TaskSomeoneService implements GPaginator {
 
   openApplications(model: any){
     return this.http.post(this.baseUrl + '/tasksomeone/openApplications', model);
+  }
+
+  listCurrentUserTasks(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
+    return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/currentTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 }

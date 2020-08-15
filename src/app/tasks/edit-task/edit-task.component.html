@@ -7,14 +7,24 @@
             </div>
             <div class="card-body mb-10" >
               <form [formGroup]=editTaskForm (ngSubmit)="onSaveChanges()">
-                <div class="form-group">
-                  <label for="inputTitleLabel">Title</label>
-                  <input type="text"
-                          [ngClass]="{'is-invalid':editTaskForm.get('title').errors
-                                      && editTaskForm.get('title').touched}"
-                          class="form-control"
-                          formControlName="title" placeholder="Give it a flashy title!">
+                <div class="row">
+                  <div class="form-group col-sm-9">
+                    <label for="inputTitleLabel">Title</label>
+                    <input type="text"
+                            [ngClass]="{'is-invalid':editTaskForm.get('title').errors
+                                        && editTaskForm.get('title').touched}"
+                            class="form-control"
+                            formControlName="title" placeholder="Give it a flashy title!">
+                  </div>
+                  <div class="form-group col-sm-3">
+                      <label for="inputDueDateLabel">Due date</label>
+                      <input id="inputDueDate" type="text"
+                              class="form-control"name="dueDate"
+                              bsDatepicker [bsConfig]="bsConfig"
+                              formControlName="dueDate" placeholder="01/12/2020">
+                  </div>
                 </div>
+                
                 <div class="form-group">
                     <label for="inputFirstNameLabel">Description</label>
                     <textarea [ngClass]="{'is-invalid':editTaskForm.get('description').errors

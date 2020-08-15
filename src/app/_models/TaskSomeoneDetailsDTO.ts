@@ -6,6 +6,7 @@ export interface TaskSomeoneDetailsDTO {
   id: number;
   user: UserDTO;
   title: string;
+  dueDate: Date;
   description: string;
   location: string;
   mediaList?: Media[];

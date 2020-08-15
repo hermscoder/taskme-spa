@@ -20,12 +20,10 @@ export class TaskApplicationService {
   constructor(private http: HttpClient) { }
 
   listCurrentUserApplications(pageable: Pageable): Observable<TaskApplicationDetailsDTO[]> {
-    console.log(this.baseUrl + '/taskapplication/applications?' + (pageable ? pageable.buildRequestParamString() : ''));
     return this.http.get<TaskApplicationDetailsDTO[]>(this.baseUrl + '/taskapplication/?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
   listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
-    console.log(this.baseUrl + '/taskapplication/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
     return this.http.get<UserDTO[]>(this.baseUrl + '/taskapplication/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
   }
 
@@ -36,14 +34,12 @@ export class TaskApplicationService {
   }
 
   cancelTaskApplication(taskApplicationDTO:TaskApplicationDetailsDTO): Observable<TaskApplicationDetailsDTO> {
-    console.log(this.baseUrl + '/taskapplication/cancel');
     return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/cancel', taskApplicationDTO);
   }
 
   changeTaskApplicationStatus(messageTxt:string, newStatus: string, taskApplicationId:number): Observable<TaskApplicationDetailsDTO> {
     var message = new MessageDTO();
     message.content = messageTxt;
-    console.log(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant');
     return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant', new MsgAndNewApplicationStatus(message, newStatus, taskApplicationId));
   }
 

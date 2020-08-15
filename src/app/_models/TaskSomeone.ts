@@ -9,4 +9,5 @@ export interface TaskSomeone {
   location: string;
   mediaList?: Media[];
   createdOn: Date;
+  dueDate: Date;
 }

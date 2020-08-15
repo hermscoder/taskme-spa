@@ -34,7 +34,7 @@ export class CreatedTasksComponent implements OnInit {
   }
 
   listWithPagination(pageable: Pageable) {
-    this.taskSomeoneService.listCurrentUserTasks(pageable).subscribe((page: any[]) => {
+    this.taskSomeoneService.listCurrentUserCreatedTasks(pageable).subscribe((page: any[]) => {
       this.tasks = page['content'];
       this.paginationInfo = new PaginationInfo(page);
     }, error => {

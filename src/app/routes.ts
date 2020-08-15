@@ -8,10 +8,13 @@ import { TaskSomeoneDetailResolver } from './_resolvers/task-someone-detail.reso
 import { TaskSomeoneComponent } from './task-someone/task-someone.component';
 
 import { CreatedTasksComponent } from './tasks/created-tasks/created-tasks.component';
+import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
 
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
-import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
+
+import { CurrentTasksComponent } from './tasks/current-tasks/current-tasks.component';
+import { CurrentTasksResolver } from './_resolvers/current-tasks.resolver';
 
 import { MessagesComponent } from './messages/page/messages.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
@@ -40,6 +43,7 @@ export const appRoutes: Routes = [
       { path: 'createdTasks', component: CreatedTasksComponent },
       { path: 'taskApplications/:taskTitle', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'taskApplications', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
+      { path: 'currentTasks', component: CurrentTasksComponent, resolve: {currentTasksList: CurrentTasksResolver} },
       { path: 'messages/:participantName', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'messages', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'user/edit', component: UserEditComponent, resolve: {user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]},

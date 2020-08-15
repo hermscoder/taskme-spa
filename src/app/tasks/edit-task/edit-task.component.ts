@@ -6,6 +6,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { TaskSomeoneService } from 'src/app/_services/task-someone.service';
 import { Media } from 'src/app/_models/Media';
 import { MediaUploadComponent } from 'src/app/media/media-upload/media-upload.component';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-edit-task',
@@ -28,10 +29,15 @@ export class EditTaskComponent implements OnInit {
   toBeDeletedMediaIds: Array<number>;
   uploaderUrl: string;
   waitForMediaUpload: boolean;
+  bsConfig:  Partial<BsDatepickerConfig>;
 
   constructor(private alertify: AlertifyService, private fb: FormBuilder, private taskSomeoneServive: TaskSomeoneService) { }
 
   ngOnInit() {
+     this.bsConfig = {
+      containerClass: 'theme-blue',
+      dateInputFormat: 'DD/MM/YYYY'
+    };
     this.createEditTaskForm();
     this.attachments = this.task.mediaList.slice();
     this.toBeDeletedMediaIds = Array<number>();
@@ -45,8 +51,10 @@ export class EditTaskComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(1000)]],
       location: ['', Validators.required],
       user: [''],
-      createdOn: ['']
+      createdOn: [''],
+      dueDate: ['']
     });
+    this.task.dueDate = new Date(this.task.dueDate);
     // placing the value on the form
     this.editTaskForm.patchValue(this.task);
 
