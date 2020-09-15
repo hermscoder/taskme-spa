@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-8 col-md-6 col-sm-6">
-      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo" [initValueSearchTerm]="initValueSearchTerm">
+      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
         <span *ngFor="let task of currentTasks">
         	<div class="row inline-task {{getRiskClass(task)}} d-flex align-items-center">
         		<div class="col-lg-7 text-truncate">
