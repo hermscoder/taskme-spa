@@ -9,6 +9,7 @@ import {TaskState} from '../../_models/TaskState';
     styleUrls: ['./task-someone-card.component.css']
 })
 export class TaskSomeoneCardComponent implements OnInit {
+
     @Input() taskSomeone: TaskSomeone;
     @Input() editMode: boolean;
 
@@ -45,6 +46,7 @@ export class TaskSomeoneCardComponent implements OnInit {
     }
 
     isOpenForApplications(taskSomeone: any): boolean {
-        return taskSomeone.state === TaskState.APPLICATIONS_OPEN.value();
+        console.log(taskSomeone.state === TaskState.APPLICATIONS_OPEN);
+        return taskSomeone.state === TaskState.APPLICATIONS_OPEN;
     }
 }
