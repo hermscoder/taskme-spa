@@ -10,4 +10,5 @@ export interface TaskSomeoneForListDTO {
   mediaList?: Media[];
   createdOn: Date;
   dueDate: Date;
+  state: string;
 }

@@ -1,5 +1,6 @@
 import { UserDTO } from './UserDTO';
 import { Media } from './Media';
+import {TaskState} from './TaskState';
 
 export interface TaskSomeone {
   id: number;
@@ -10,4 +11,5 @@ export interface TaskSomeone {
   mediaList?: Media[];
   createdOn: Date;
   dueDate: Date;
+  state: string;
 }
