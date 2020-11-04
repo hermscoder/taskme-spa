@@ -2,6 +2,9 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {TaskSomeone} from '../../_models/TaskSomeone';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TaskState} from '../../_models/TaskState';
+import {TaskSomeoneDetailsDTO} from '../../_models/TaskSomeoneDetailsDTO';
+import {TaskApplicationService} from '../../_services/task-application.service';
+import {TaskSomeoneService} from '../../_services/task-someone.service';
 
 @Component({
     selector: 'app-task-someone-card',
@@ -15,7 +18,7 @@ export class TaskSomeoneCardComponent implements OnInit {
 
     @Output() taskUpdated = new EventEmitter<any>();
 
-    constructor(private modalService: NgbModal) {
+    constructor(private modalService: NgbModal, private taskSomeoneService: TaskSomeoneService) {
     }
 
     ngOnInit() {
@@ -46,7 +49,10 @@ export class TaskSomeoneCardComponent implements OnInit {
     }
 
     isOpenForApplications(taskSomeone: any): boolean {
-        console.log(taskSomeone.state === TaskState.APPLICATIONS_OPEN);
-        return taskSomeone.state === TaskState.APPLICATIONS_OPEN;
+        return this.taskSomeoneService.isOpenForApplications(taskSomeone);
+    }
+
+    isClosedForApplications(taskSomeone: TaskSomeoneDetailsDTO) {
+        return this.taskSomeoneService.isClosedForApplications(taskSomeone);
     }
 }

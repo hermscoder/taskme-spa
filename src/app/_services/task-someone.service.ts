@@ -9,6 +9,7 @@ import {UserDTO} from '../_models/UserDTO';
 import {Media} from '../_models/Media';
 import {GPaginator} from '../_interfaces/GPaginator';
 import {Pageable} from '../_models/Pageable';
+import {TaskState} from '../_models/TaskState';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +32,7 @@ export class TaskSomeoneService implements GPaginator {
     listCurrentUserCreatedTasks(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
         console.log(this.baseUrl + '/tasksomeone/createdTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
         return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/createdTasks?'
-                                                                                + (pageable ? pageable.buildRequestParamString() : ''));
+            + (pageable ? pageable.buildRequestParamString() : ''));
     }
 
     getTask(id): Observable<TaskSomeoneDetailsDTO> {
@@ -65,4 +66,13 @@ export class TaskSomeoneService implements GPaginator {
     listCurrentUserTasks(pageable: Pageable): Observable<TaskSomeoneDetailsDTO[]> {
         return this.http.get<TaskSomeoneDetailsDTO[]>(this.baseUrl + '/tasksomeone/currentTasks?' + (pageable ? pageable.buildRequestParamString() : ''));
     }
+
+    isOpenForApplications(taskSomeone: any): boolean {
+        return taskSomeone.state === TaskState.APPLICATIONS_OPEN;
+    }
+
+    isClosedForApplications(taskSomeone: any) {
+        return taskSomeone.state === TaskState.APPLICATIONS_CLOSED;
+    }
+
 }

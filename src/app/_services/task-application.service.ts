@@ -1,63 +1,64 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { Pageable } from '../_models/Pageable';
-import { TaskSomeoneDetailsDTO } from '../_models/TaskSomeoneDetailsDTO';
-import { TaskApplicationDetailsDTO } from '../_models/TaskApplicationDetailsDTO';
-import { UserDTO } from '../_models/UserDTO';
-import { MessageDTO } from '../_models/MessageDTO';
-import { MsgAndNewApplicationStatus } from '../_models/MsgAndNewApplicationStatus';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
+import {Pageable} from '../_models/Pageable';
+import {TaskSomeoneDetailsDTO} from '../_models/TaskSomeoneDetailsDTO';
+import {TaskApplicationDetailsDTO} from '../_models/TaskApplicationDetailsDTO';
+import {UserDTO} from '../_models/UserDTO';
+import {MessageDTO} from '../_models/MessageDTO';
+import {MsgAndNewApplicationStatus} from '../_models/MsgAndNewApplicationStatus';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TaskApplicationService {
 
-  baseUrl = environment.apiUrl + 'logged';
+    baseUrl = environment.apiUrl + 'logged';
 
-  constructor(private http: HttpClient) { }
-
-  listCurrentUserApplications(pageable: Pageable): Observable<TaskApplicationDetailsDTO[]> {
-    return this.http.get<TaskApplicationDetailsDTO[]>(this.baseUrl + '/taskapplication/?' + (pageable ? pageable.buildRequestParamString() : ''));
-  }
-
-  listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(this.baseUrl + '/taskapplication/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
-  }
-
-  sendApplyMessageToTaskOwner(messageTxt, taskSomeoneId){
-    var message = new MessageDTO();
-    message.content = messageTxt;
-    return this.http.post(this.baseUrl + '/taskapplication/sendApplyingMsg/' + taskSomeoneId, message);
-  }
-
-  cancelTaskApplication(taskApplicationDTO:TaskApplicationDetailsDTO): Observable<TaskApplicationDetailsDTO> {
-    return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/cancel', taskApplicationDTO);
-  }
-
-  changeTaskApplicationStatus(messageTxt:string, newStatus: string, taskApplicationId:number): Observable<TaskApplicationDetailsDTO> {
-    var message = new MessageDTO();
-    message.content = messageTxt;
-    return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant', new MsgAndNewApplicationStatus(message, newStatus, taskApplicationId));
-  }
-
-  getClassFromStatus(status: string){
-    if(status == 'PENDING') {
-      return 'bg-light';
+    constructor(private http: HttpClient) {
     }
-    if(status == 'ACCEPTED') {
-      return 'text-white bg-primary';
+
+    listCurrentUserApplications(pageable: Pageable): Observable<TaskApplicationDetailsDTO[]> {
+        return this.http.get<TaskApplicationDetailsDTO[]>(this.baseUrl + '/taskapplication/?' + (pageable ? pageable.buildRequestParamString() : ''));
     }
-    if(status == 'DECLINED') {
-      return 'bg-secondary';
+
+    listTaskApplicants(pageable: Pageable, taskSomeoneId: number): Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>(this.baseUrl + '/taskapplication/' + taskSomeoneId + '/applicants?' + (pageable ? pageable.buildRequestParamString() : ''));
     }
-    if(status == 'CANCELLED_BY_APPLICANT') {
-      return 'text-white bg-danger';
+
+    sendApplyMessageToTaskOwner(messageTxt, taskSomeoneId) {
+        var message = new MessageDTO();
+        message.content = messageTxt;
+        return this.http.post(this.baseUrl + '/taskapplication/sendApplyingMsg/' + taskSomeoneId, message);
     }
-    if(status == 'TASK_CLOSED') {
-      return 'text-white bg-dark';
+
+    cancelTaskApplication(taskApplicationDTO: TaskApplicationDetailsDTO): Observable<TaskApplicationDetailsDTO> {
+        return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/cancel', taskApplicationDTO);
     }
-  }
+
+    changeTaskApplicationStatus(messageTxt: string, newStatus: string, taskApplicationId: number): Observable<TaskApplicationDetailsDTO> {
+        var message = new MessageDTO();
+        message.content = messageTxt;
+        return this.http.post<TaskApplicationDetailsDTO>(this.baseUrl + '/taskapplication/changeStatusAndSendMsgToApplicant', new MsgAndNewApplicationStatus(message, newStatus, taskApplicationId));
+    }
+
+    getClassFromStatus(status: string) {
+        if (status == 'PENDING') {
+            return 'bg-light';
+        }
+        if (status == 'ACCEPTED') {
+            return 'text-white bg-primary';
+        }
+        if (status == 'DECLINED') {
+            return 'bg-secondary';
+        }
+        if (status == 'CANCELLED_BY_APPLICANT') {
+            return 'text-white bg-danger';
+        }
+        if (status == 'TASK_CLOSED') {
+            return 'text-white bg-dark';
+        }
+    }
 }
