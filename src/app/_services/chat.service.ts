@@ -22,7 +22,7 @@ export class ChatService {
 
     this.stompClient.connect({}, function() {
       callback();
-    }, this.alertify.error('Unable to connect to the chat'));
+    });
   }
 
   subscribeToConversation(conversationId, callback){

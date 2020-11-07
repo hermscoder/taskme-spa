@@ -2,63 +2,69 @@
   <div class="row ">
       <div class="col-sm-12">
           <div class="card">
-            <div class="card-header">
-            	  <div>
-				          <button type="button" class="close mr-2" aria-label="Close" (click)="closeModal()">
-				            <span aria-hidden="true">&times;</span>
-				          </button>
-				        </div>
-                <h2 *ngIf="isOpenForApplications(taskSomeone)" class="text-left text-primary">Task Applicants</h2>
-                <h2 *ngIf="isClosedForApplications(taskSomeone)" class="text-left text-primary">Task Participants</h2>
-            </div>
-            <div class="container mt-1">
-              <input  [(ngModel)]="inputUserFilter" type="text" class="col-sm-12 mb-2" [placeholder]="'Search for ' + (isOpenForApplications(taskSomeone) ? 'applicants' : 'participants')"/>
-            </div>
-            <div class="card-body applicants-rows">
-            	<div *ngIf="taskSomeone.taskApplicants.length == 0 ">
-            		<h4>There are no applicants to this task yet</h4>
-            	</div>
-              <div *ngFor="let applicant of taskSomeone.taskApplicants | filterUsers: inputUserFilter: !isOpenForApplications(taskSomeone)"
-                    class="col-sm-12 d-inline-flex mb-2 applicant-container
-                    {{selectedApplicant?.id == applicant.user.id ?  'selected-applicant' : ''}}">
-
-              		<div class="col-sm-8">
-                    <div class="applicant-thumb" (click)="changeSelectedApplicant(applicant.user)">
-                			<img src="{{applicant.user.profilePhoto.url}}" alt="" class="applicant-img" >
-                			{{applicant.user.givenName + ' ' + applicant.user.familyName }}
-                    </div>
-									</div>
-									<div *ngIf="applicant.taskApplicationStatus == 'PENDING' && isOpenForApplications(taskSomeone)" class="col-sm-4" style="margin-top: 2px;">
-										<button type="button" class="btn btn-danger offset-1" (click)="openUpdateStatusMsgModal(applicant, 'D')" >
-		                	Decline
-		                </button>
-		              	<button type="button" class="btn btn-success offset-2" (click)="openUpdateStatusMsgModal(applicant, 'A')">
-		                	Accept
-		                </button>
-									</div>
-									<div *ngIf="applicant.taskApplicationStatus != 'PENDING'"  class="col-sm-4 mt-1 "  style="display: grid;">
-										<h6 class="application-status {{getClassFromStatus(applicant.taskApplicationStatus)}}">
-											{{ applicant.taskApplicationStatus.split('_').join(' ') }}
-										</h6>
-									</div>
+              <div class="card-header">
+                  <div>
+                          <button type="button" class="close mr-2" aria-label="Close" (click)="closeModal()">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                  </div>
+                  <h2 *ngIf="isOpenForApplications(taskSomeone)" class="text-left text-primary">Task Applicants</h2>
+                  <h2 *ngIf="isClosedForApplications(taskSomeone)" class="text-left text-primary">Task Participants</h2>
               </div>
-            </div>
-            <div *ngIf="selectedApplicant != null">
-              <hr class="mb-1"/>
-              <app-user-profile [user]="selectedApplicant">
-              </app-user-profile>
-            </div>
-            <div class="card-footer" >
-              <button *ngIf="isOpenForApplications(taskSomeone)" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="terminateApplications()" >
-                    Terminate Applications
-              </button>
-              <button *ngIf="isClosedForApplications(taskSomeone)" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="openApplications()" >
-                    Open Applications
-              </button>
-              <button type="button" class="btn btn-light mr-3 pull-right" (click)="closeModal()" >
-                    Close
-              </button>
-            </div>
+              <div class="container mt-1">
+                  <input  [(ngModel)]="inputUserFilter" type="text" class="col-sm-12 mb-2" [placeholder]="'Search for ' + (isOpenForApplications(taskSomeone) ? 'applicants' : 'participants')"/>
+              </div>
+              <div class="card-body applicants-rows">
+                  <div *ngIf="taskSomeone.taskApplicants.length == 0 ">
+                        <h4>There are no applicants to this task yet</h4>
+                  </div>
+                  <div *ngFor="let applicant of taskSomeone.taskApplicants | filterUsers: inputUserFilter: !isOpenForApplications(taskSomeone)"
+                        class="col-sm-12 d-inline-flex mb-2 applicant-container
+                        {{selectedApplicant?.id == applicant.user.id ?  'selected-applicant' : ''}}">
+
+                      <div [class]="isClosedForApplications(taskSomeone) ? 'col-sm-6' : 'col-sm-8'">
+                          <div class="applicant-thumb" (click)="changeSelectedApplicant(applicant.user)">
+                                    <img src="{{applicant.user.profilePhoto.url}}" alt="" class="applicant-img" >
+                                    {{applicant.user.givenName + ' ' + applicant.user.familyName }}
+                          </div>
+                      </div>
+                      <div *ngIf="applicant.taskApplicationStatus == 'PENDING' && isOpenForApplications(taskSomeone)" class="col-sm-4" style="margin-top: 2px;">
+                          <button type="button" class="btn btn-danger offset-1" (click)="openUpdateStatusMsgModal(applicant, 'D')" >
+                                Decline
+                          </button>
+                          <button type="button" class="btn btn-success offset-2" (click)="openUpdateStatusMsgModal(applicant, 'A')">
+                                Accept
+                          </button>
+                      </div>
+                      <div *ngIf="isClosedForApplications(taskSomeone)"  class="col-sm-2 p-1 "  style="display: grid;">
+                          <a  type="button" class="btn btn-outline-primary pull-left" (click)="closeModal()" [routerLink]="['/messages/', applicant.user.givenName]">
+                              Message
+                              <i class="fa fa-comment-o fa-lg ml-1" aria-hidden="true"></i>
+                          </a>
+                      </div>
+                      <div *ngIf="applicant.taskApplicationStatus != 'PENDING'"  class="col-sm-4 mt-1 "  style="display: grid;">
+                          <h6 class="application-status {{getClassFromStatus(applicant.taskApplicationStatus)}}">
+                                {{ applicant.taskApplicationStatus.split('_').join(' ') }}
+                          </h6>
+                      </div>
+                  </div>
+              </div>
+              <div *ngIf="selectedApplicant != null">
+                  <hr class="mb-1"/>
+                  <app-user-profile [user]="selectedApplicant">
+                  </app-user-profile>
+              </div>
+              <div class="card-footer" >
+                  <button *ngIf="isOpenForApplications(taskSomeone)" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="terminateApplications()" >
+                        Terminate Applications
+                  </button>
+                  <button *ngIf="isClosedForApplications(taskSomeone)" type="button" class="btn btn-outline-dark ml-3 pull-left" (click)="openApplications()" >
+                        Open Applications
+                  </button>
+                  <button type="button" class="btn btn-light mr-3 pull-right" (click)="closeModal()" >
+                        Close
+                  </button>
+              </div>
           </div>
       </div>
   </div>

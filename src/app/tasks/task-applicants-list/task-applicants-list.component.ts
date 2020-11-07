@@ -17,7 +17,6 @@ import {SendMessageComponent} from '../../generics/send-message/send-message.com
 export class TaskApplicantsListComponent implements OnInit {
 
     @Input() taskSomeone: TaskSomeoneDetailsDTO;
-    7;
     @Input() showOnlyApprovedApplicants: boolean;
     @Output() onCloseModal = new EventEmitter<any>();
     @Output() onUpdateTaskStatus = new EventEmitter<any>();
@@ -56,7 +55,7 @@ export class TaskApplicantsListComponent implements OnInit {
     }
 
     sendAndUpdateStatusMsg(textMsg, msgStateType, taskApplicationId) {
-        var that = this;
+        const that = this;
         this.taskApplicationService.changeTaskApplicationStatus(textMsg, msgStateType, taskApplicationId).subscribe((data: TaskApplicationDetailsDTO) => {
                 that.taskSomeone.taskApplicants.forEach(applicant => {
                     if (applicant.taskApplicationId == data.id) {
@@ -64,7 +63,7 @@ export class TaskApplicantsListComponent implements OnInit {
                     }
                 });
             }, error => {
-                var errorMsg;
+                let errorMsg;
                 if (error.subErrors != null) {
                     errorMsg = error.subErrors[0].message;
                 } else {
@@ -84,12 +83,12 @@ export class TaskApplicantsListComponent implements OnInit {
     }
 
     terminateApplications() {
-        var that = this;
+        const that = this;
         if (this.taskSomeone.taskApplicants.length == 0) {
             that.alertify.error('You cant terminate applications because you have no applicants for this task');
             return;
         }
-        var approvedApplicants = this.taskSomeone.taskApplicants.filter(applicant => applicant.taskApplicationStatus == 'ACCEPTED');
+        let approvedApplicants = this.taskSomeone.taskApplicants.filter(applicant => applicant.taskApplicationStatus == 'ACCEPTED');
         if (approvedApplicants.length == 0) {
             that.alertify.error('You cant terminate applications because you have no approved applicants for this task');
             return;
@@ -104,7 +103,7 @@ export class TaskApplicantsListComponent implements OnInit {
     }
 
     openApplications() {
-        let that = this;
+        const that = this;
 
         this.alertify.confirmation('Confirmation', 'Are you sure that do you want to open the applications for this task?', () => {
             that.taskSomeoneService.openApplications(that.taskSomeone).subscribe((result) => {
@@ -122,7 +121,7 @@ export class TaskApplicantsListComponent implements OnInit {
     changeSelectedApplicant(user) {
         this.selectedApplicant = user;
         if (this.selectedApplicant.previousTasks == null) {
-            var that = this;
+            const that = this;
             this.taskSomeoneService.findPreviousTasksFromUser(user.id).subscribe((result) => {
                 this.selectedApplicant.previousTasks = result;
             });

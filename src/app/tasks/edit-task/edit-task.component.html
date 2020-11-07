@@ -1,74 +1,131 @@
 <div class="container mt-4" id="editTaskForm">
-  <div class="row ">
-      <div class="col-sm-12">
-          <div class="card">
-            <div class="card-header">
-                <h2 class="text-left text-primary">Edit Task</h2>
-            </div>
-            <div class="card-body mb-10" >
-              <form [formGroup]=editTaskForm (ngSubmit)="onSaveChanges()">
-                <div class="row">
-                  <div class="form-group col-sm-9">
-                    <label for="inputTitleLabel">Title</label>
-                    <input type="text"
-                            [ngClass]="{'is-invalid':editTaskForm.get('title').errors
-                                        && editTaskForm.get('title').touched}"
-                            class="form-control"
-                            formControlName="title" placeholder="Give it a flashy title!">
-                  </div>
-                  <div class="form-group col-sm-3">
-                      <label for="inputDueDateLabel">Due date</label>
-                      <input id="inputDueDate" type="text"
-                              class="form-control"name="dueDate"
-                              bsDatepicker [bsConfig]="bsConfig"
-                              formControlName="dueDate" placeholder="01/12/2020">
-                  </div>
+    <div class="row ">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-left text-primary">Edit Task</h2>
                 </div>
-                
-                <div class="form-group">
-                    <label for="inputFirstNameLabel">Description</label>
-                    <textarea [ngClass]="{'is-invalid':editTaskForm.get('description').errors
-                                      && editTaskForm.get('description').touched}"
-                              class="form-control"
-                              maxlength="1000"
-                              formControlName="description" rows="3" placeholder="What is the task about?"></textarea>
-                              <label class="small text-muted">{{editTaskForm.value.description.length}}/1000</label>
-                    <div class="invalid-feedback"
-                              *ngIf="editTaskForm.get('description').errors
-                                    && editTaskForm.get('description').touched">Description must be from 1 to 1000 characters long!</div>
-                </div>
-                <div class="form-group">
-                  <label for="inputLocationLabel">Address</label>
-                  <input type="text"
-                          [ngClass]="{'is-invalid':editTaskForm.get('location').errors
-                                    && editTaskForm.get('location').touched}"
-                          class="form-control"
-                          formControlName="location" placeholder="1234 Main St, Budapest, Hungary">
-                </div>
-                <br>
-                <hr>
-                <h4>Attachments</h4>
-                <ul class="list text-left">
-                  <li *ngFor="let media of attachments; let i = index" class="list-item col-md-2" >
-                    <div class="queue-element-container">
-                      <button type="button" (click)="removeMediaFromTaskMedia(media)" class="ml-1 close" >
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                      <img [src]="media.url" alt="{{'Image_' + media.id}}" class="img-thumbnail">
-                    </div>
-                  </li>
-                </ul>
-                <h5>Add attachments</h5>
                 <div class="card-body mb-10">
-                  <app-media-upload #mediaUploader [hideUploadAllBtn]="true" (uploadSuccessful)="mediaUploadedSuccessfully($event)" [url]="this.uploaderUrl" [authToken]="this.authToken"></app-media-upload>
+                    <form [formGroup]=editTaskForm (ngSubmit)="onSaveChanges()">
+                        <div class="row">
+                            <div class="form-group col-sm-9">
+                                <label for="inputTitleLabel">Title</label>
+                                <input type="text"
+                                       [ngClass]="{'is-invalid':editTaskForm.get('title').errors
+                                        && editTaskForm.get('title').touched}"
+                                       class="form-control"
+                                       formControlName="title" placeholder="Give it a flashy title!">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="stateLabel">State</label>
+                                <div class="badge badge-{{getStateClass(editTaskForm.value.state)}} col-sm-12" style="font-size: inherit;pointer-events: none">
+                                    {{getCurrentStateDescription(editTaskForm.value.state)}}
+                                </div>
+                            </div>
+
+                            <div class="{{editTaskForm.get('repeat').value ? 'col-sm-12' : 'col-sm-3'}}">
+                                <div>
+                                    <label for="checkRepeatLabel">Repeat</label>
+                                    <input id="checkRepeat" type="checkbox"
+                                           class="ml-2" name="repeat"
+                                           formControlName="repeat" placeholder="01/12/2020">
+                                </div>
+                                <div *ngIf="!editTaskForm.get('repeat').value" class="form-group text-left">
+                                    <label for="inputEndDateLabel">Due date</label>
+                                    <input id="inputEndDate" type="text"
+                                           [ngClass]="{'is-invalid': !editTaskForm.get('repeat').value
+                                              && editTaskForm.hasError('endDateMiss')}"
+                                           class="form-control" name="endDate"
+                                           bsDatepicker
+                                           formControlName="endDate" placeholder="01/12/2020">
+                                </div>
+                                <div *ngIf="editTaskForm.get('repeat').value" class="row ">
+                                    <div class="form-group col-sm-4 text-left">
+                                        <label for="inputFrequencyLabel">Frequency</label>
+                                        <select [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
+                                              && editTaskForm.hasError('frequencyMiss')}"
+                                                class="form-control" id="inputGroupSelect01"
+                                                formControlName="frequency" >
+                                            <option *ngFor="let option of frequencyOptions" value="{{option.value}}"
+                                                    [selected]="option.value == editTaskForm.value.frequency">
+                                                {{option.label}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4 text-left">
+                                        <label for="inputStartDateLabel">Start date</label>
+                                        <input id="inputStartDate" type="text"
+                                               [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
+                                              && editTaskForm.hasError('startDateMiss')}"
+                                               class="form-control" name="startDate"
+                                               bsDatepicker
+                                               formControlName="startDate" placeholder="01/12/2020">
+                                    </div>
+                                    <div class="form-group col-sm-4 text-left">
+                                        <label for="inputEndDateLabel">End date</label>
+                                        <input id="inputEndDate" type="text"
+                                               [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
+                                              && editTaskForm.hasError('endDateMiss')}"
+                                               class="form-control" name="endDate"
+                                               bsDatepicker
+                                               formControlName="endDate" placeholder="01/12/2020">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputFirstNameLabel">Description</label>
+                            <textarea [ngClass]="{'is-invalid':editTaskForm.get('description').errors
+                                      && editTaskForm.get('description').touched}"
+                                      class="form-control"
+                                      maxlength="1000"
+                                      formControlName="description" rows="3"
+                                      placeholder="What is the task about?"></textarea>
+                            <label class="small text-muted">{{editTaskForm.value.description.length}}/1000</label>
+                            <div class="invalid-feedback"
+                                 *ngIf="editTaskForm.get('description').errors
+                                    && editTaskForm.get('description').touched">Description must be from 1 to 1000
+                                characters long!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLocationLabel">Address</label>
+                            <input type="text"
+                                   [ngClass]="{'is-invalid':editTaskForm.get('location').errors
+                                    && editTaskForm.get('location').touched}"
+                                   class="form-control"
+                                   formControlName="location" placeholder="1234 Main St, Budapest, Hungary">
+                        </div>
+                        <br>
+                        <hr>
+                        <h4>Attachments</h4>
+                        <ul class="list text-left">
+                            <li *ngFor="let media of attachments; let i = index" class="list-item col-md-2">
+                                <div class="queue-element-container">
+                                    <button type="button" (click)="removeMediaFromTaskMedia(media)" class="ml-1 close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <img [src]="media.url" alt="{{'Image_' + media.id}}" class="img-thumbnail">
+                                </div>
+                            </li>
+                        </ul>
+                        <h5>Add attachments</h5>
+                        <div class="card-body mb-10">
+                            <app-media-upload #mediaUploader [hideUploadAllBtn]="true"
+                                              (uploadSuccessful)="mediaUploadedSuccessfully($event)"
+                                              [url]="this.uploaderUrl" [authToken]="this.authToken"></app-media-upload>
+                        </div>
+                        <div class="form-group text-right mt-2">
+                            <button type="submit" class="btn btn-success" [disabled]="editTaskForm.invalid"
+                                    type="submit">Save
+                            </button>
+                            <button type="button" class="btn btn-ligth" (click)="onCancelChanges()">Cancel</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group text-right mt-2">
-                  <button type="submit" class="btn btn-success" [disabled]="editTaskForm.invalid" type="submit" >Save</button>
-                  <button type="button" class="btn btn-ligth" (click)="onCancelChanges()">Cancel</button>
-                </div>
-              </form>
             </div>
-          </div>
-      </div>
-  </div>
+        </div>
+    </div>
 </div>

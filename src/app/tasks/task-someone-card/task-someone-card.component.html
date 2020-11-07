@@ -1,36 +1,93 @@
 <div class="card mt-2">
-  <div class="card-header">
-    <div class="row">
-        <div class="col-sm-10 text-left">
-          <h5>{{taskSomeone.title}}</h5>
-          <small class="text-muted">created {{taskSomeone?.createdOn | timeAgo}}</small>
-        </div>
-        <div *ngIf="!editMode" class="col-sm-2 text-left">
-          <img src="{{taskSomeone.user.profilePhoto?.url}}" alt="" width="30px" height="30">
-          <small class="ml-1 text-muted text-truncate">{{taskSomeone.user.givenName}}</small>
+    <div class="card-header">
+        <div class="row">
+            <div *ngIf="editMode" class="col-sm-12 text-left" style="display: contents;">
+                <div class="col-sm-9">
+                    <h5>{{taskSomeone.title}}</h5>
+                </div>
+                <div *ngIf="editMode" class="col-sm-3">
+                    <a href="#" class="btn btn-link btn-sm ml-3" [routerLink]="['/taskDetails/',taskSomeone.id]"
+                       routerLinkActive="router-link-active">
+                        <i class="fa fa-external-link mr-2" aria-hidden="true"></i> See Task Post
+                    </a>
+                </div>
+                <small class="col-sm-12 text-muted">created {{taskSomeone?.createdOn | timeAgo}}</small>
+            </div>
+            <div *ngIf="!editMode" class="col-sm-10 text-left ">
+                <div class="col-sm-10">
+                    <h5>{{taskSomeone.title}}</h5>
+                </div>
+                <small class="col-sm-10 text-muted">created {{taskSomeone?.createdOn | timeAgo}}</small>
+            </div>
+            <div *ngIf="!editMode" class="col-sm-2 text-left">
+                <img src="{{taskSomeone.user.profilePhoto?.url}}" alt="" width="30px" height="30">
+                <small class="ml-1 text-muted text-truncate">{{taskSomeone.user.givenName}}</small>
+            </div>
         </div>
     </div>
-  </div>
 
-  <div class="card-body">
-    <p class="card-text">{{taskSomeone.description}}</p>
-    <a *ngIf="!editMode" href="#" class="btn btn-primary" [routerLink]="['/taskDetails/',taskSomeone.id]" routerLinkActive="router-link-active" >
-      More information
-    </a>
-    <div *ngIf="editMode" class="d-inline-flex">
-      <button *ngIf="editMode" type="button" class="btn btn-light" (click)="open(editTaskModal, 'editTaskModal')" >
-        <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit information
-      </button>
-      <button *ngIf="editMode" type="button" class="btn btn-light ml-3" (click)="open(taskApplicationsModal, 'taskApplicationsModal')" >
-        <i class="fa fa-users mr-2" aria-hidden="true"></i>Check {{isOpenForApplications(taskSomeone) ? 'applicants' : 'participants'}} ({{isOpenForApplications(taskSomeone) ? taskSomeone.taskApplicants.length : taskSomeone.participants.length}})
-      </button>
+    <div class="card-body">
+        <p class="card-text">{{taskSomeone.description}}</p>
+        <a *ngIf="!editMode" href="#" class="btn btn-primary" [routerLink]="['/taskDetails/',taskSomeone.id]"
+           routerLinkActive="router-link-active">
+            More information
+        </a>
+        <div *ngIf="editMode" class="d-inline-flex">
+            <button type="button" class="btn btn-light" (click)="open(editTaskModal, 'editTaskModal')">
+                <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Edit information
+            </button>
+            <button type="button" class="btn btn-light ml-3"
+                    (click)="open(taskApplicationsModal, 'taskApplicationsModal')">
+                <i class="fa fa-users mr-2" aria-hidden="true"></i>
+                Check {{isOpenForApplications(taskSomeone) ? 'applicants' : 'participants'}}
+                                                                                ({{isOpenForApplications(taskSomeone)
+                                                                                ? taskSomeone.taskApplicants.length
+                                                                                : taskSomeone.participants.length}})
+            </button>
 
-      <ng-template #editTaskModal let-modal>
-        <app-edit-task [task]="taskSomeone" (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();" (cancelChanges)="modal.dismiss();"></app-edit-task>
-      </ng-template>
-      <ng-template #taskApplicationsModal let-modal>
-        <app-task-applicants-list [taskSomeone]="taskSomeone" (onCloseModal)="updateTaskSomeone($event);modal.dismiss();" (onUpdateTaskStatus)="updateTaskSomeone($event);" [showOnlyApprovedApplicants]="isOpenForApplications(taskSomeone)"></app-task-applicants-list>
-      </ng-template>
+            <div *ngIf="isCancelled(taskSomeone)" class="ml-3">
+                <div class="btn btn-{{getStateClass(taskSomeone.state)}}" style="pointer-events: none">
+                    {{getCurrentStateDescription(taskSomeone.state)}}
+                </div>
+            </div>
+
+            <div *ngIf="!isCancelled(taskSomeone)" class="ml-3 dropdown" dropdown>
+                <div class="btn btn-{{getStateClass(taskSomeone.state)}} dropdown-toggle " dropdownToggle>
+                    {{getCurrentStateDescription(taskSomeone.state)}}
+                </div>
+                <div class="dropdown-menu" *dropdownMenu>
+                    <div *ngIf="taskSomeone.nextState != null" style="display: grid;" >
+                        <button class="btn btn-{{getStateClass(taskSomeone.nextState, true)}}" (click)="changeTaskToNextStatus(taskSomeone)">
+                            <i class="{{getStateIconClass(taskSomeone.nextState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.nextState)}}
+                        </button>
+
+                    </div>
+                    <hr *ngIf="taskSomeone.previousState != null && taskSomeone.nextState != null" class="m-1">
+                    <div *ngIf="taskSomeone.previousState != null" style="display: grid;" >
+                        <button class="btn btn-{{getStateClass(taskSomeone.previousState, true)}}" (click)="changeTaskToPreviousState(taskSomeone)">
+                            <i class="{{getStateIconClass(taskSomeone.previousState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.previousState)}}
+                        </button>
+                    </div>
+                    <hr *ngIf="isCancellable(taskSomeone.state)" class="m-1">
+                    <div *ngIf="isCancellable(taskSomeone.state)" style="display: grid;" >
+                        <button class="btn btn-{{getStateClass(cancelledState, true)}}" (click)="changeTaskToCancelled(taskSomeone)">
+                            <i class="{{getStateIconClass(cancelledState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(cancelledState)}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #editTaskModal let-modal>
+                <app-edit-task [task]="taskSomeone"
+                               (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();"
+                               (cancelChanges)="modal.dismiss();"></app-edit-task>
+            </ng-template>
+            <ng-template #taskApplicationsModal let-modal>
+                <app-task-applicants-list [taskSomeone]="taskSomeone"
+                                          (onCloseModal)="updateTaskSomeone($event);modal.dismiss();"
+                                          (onUpdateTaskStatus)="updateTaskSomeone($event);"
+                                          [showOnlyApprovedApplicants]="isOpenForApplications(taskSomeone)"></app-task-applicants-list>
+            </ng-template>
+        </div>
     </div>
-  </div>
 </div>

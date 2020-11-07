@@ -10,6 +10,8 @@ export interface TaskSomeone {
   location: string;
   mediaList?: Media[];
   createdOn: Date;
-  dueDate: Date;
-  state: string;
+  frequency: string;
+  startDate: Date;
+  endDate: Date;
+  state: number;
 }

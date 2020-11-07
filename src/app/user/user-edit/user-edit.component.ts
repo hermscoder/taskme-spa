@@ -9,6 +9,7 @@ import { NgbPopover, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgTemplateOutlet } from '@angular/common';
 import { Media } from '../../_models/Media';
 import { BsDatepickerConfig } from 'ngx-bootstrap';
+import {DateUtils} from '../../_utils/DateUtils';
 
 @Component({
   selector: 'app-user-edit',
@@ -47,7 +48,7 @@ export class UserEditComponent implements OnInit {
 
     this.route.data.subscribe(data => {
       this.user = data['user'];
-      this.user.birthDate = new Date(this.user.birthDate);
+      this.user.birthDate = DateUtils.convertStringToDate(this.user.birthDate + '');
     });
     this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
 

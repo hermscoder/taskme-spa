@@ -5,6 +5,10 @@ import {TaskState} from '../../_models/TaskState';
 import {TaskSomeoneDetailsDTO} from '../../_models/TaskSomeoneDetailsDTO';
 import {TaskApplicationService} from '../../_services/task-application.service';
 import {TaskSomeoneService} from '../../_services/task-someone.service';
+import {PaginationInfo} from '../../_models/PaginationInfo';
+import {AlertifyService} from '../../_services/alertify.service';
+import {Observable} from 'rxjs';
+import {ChangeStateDTO} from '../../_models/ChangeStateDTO';
 
 @Component({
     selector: 'app-task-someone-card',
@@ -13,12 +17,13 @@ import {TaskSomeoneService} from '../../_services/task-someone.service';
 })
 export class TaskSomeoneCardComponent implements OnInit {
 
+    cancelledState = TaskState.CANCELLED;
     @Input() taskSomeone: TaskSomeone;
     @Input() editMode: boolean;
 
     @Output() taskUpdated = new EventEmitter<any>();
 
-    constructor(private modalService: NgbModal, private taskSomeoneService: TaskSomeoneService) {
+    constructor(private modalService: NgbModal, private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService) {
     }
 
     ngOnInit() {
@@ -55,4 +60,54 @@ export class TaskSomeoneCardComponent implements OnInit {
     isClosedForApplications(taskSomeone: TaskSomeoneDetailsDTO) {
         return this.taskSomeoneService.isClosedForApplications(taskSomeone);
     }
+
+    isCancelled(taskSomeone: TaskSomeoneDetailsDTO) {
+        return this.taskSomeoneService.isCancelled(taskSomeone);
+    }
+
+
+    getCurrentStateDescription(stateCode: number) {
+        return this.taskSomeoneService.getCurrentStateDescription(stateCode);
+    }
+
+    getStateOptionDescription(stateCode: number) {
+        return this.taskSomeoneService.getStateOptionDescription(stateCode);
+    }
+
+    changeTaskToNextStatus(taskSomeone: any) {
+        this.taskSomeoneService.changeTaskToNextState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+            this.taskSomeone = tasksomeoneRes;
+        }, error => {
+            this.alertify.error(error.message);
+        });
+    }
+
+    changeTaskToPreviousState(taskSomeone: any) {
+        this.taskSomeoneService.changeTaskToPreviousState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+            this.taskSomeone = tasksomeoneRes;
+        }, error => {
+            this.alertify.error(error.message);
+        });
+    }
+
+    changeTaskToCancelled(taskSomeone: any) {
+        this.taskSomeoneService.changeTaskToCancelled(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+            this.taskSomeone = tasksomeoneRes;
+        }, error => {
+            this.alertify.error(error.message);
+        });
+    }
+
+    getStateClass(stateCode: number, outline: boolean = false) {
+        return this.taskSomeoneService.getStateClass(stateCode, outline);
+    }
+
+    getStateIconClass(stateCode: number) {
+        return this.taskSomeoneService.getStateIconClass(stateCode);
+    }
+
+    isCancellable(stateCode: number) {
+        return stateCode >= TaskState.CREATED && stateCode < TaskState.DONE;
+    }
+
 }

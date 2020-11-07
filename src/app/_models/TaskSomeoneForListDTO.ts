@@ -9,6 +9,6 @@ export interface TaskSomeoneForListDTO {
   location: string;
   mediaList?: Media[];
   createdOn: Date;
-  dueDate: Date;
-  state: string;
+  endDate: Date;
+  state: number;
 }

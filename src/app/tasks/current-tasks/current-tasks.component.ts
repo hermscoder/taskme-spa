@@ -35,11 +35,11 @@ export class CurrentTasksComponent implements OnInit {
   }
 
   getRiskClass(task: TaskSomeoneDetailsDTO){
-  	if(!task.dueDate) {
+  	if(!task.endDate) {
   		return 'none';
   	}
 
-		var dateDiff = this.datediff( new Date(task.dueDate), new Date(task.createdOn) );
+		var dateDiff = this.datediff( new Date(task.endDate), new Date(task.createdOn) );
   	if(dateDiff < 5) {
   		return 'danger';
   	} else if(dateDiff < 10){

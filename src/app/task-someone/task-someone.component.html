@@ -2,63 +2,122 @@
     <div class="row ">
         <div class="col-sm-9">
             <div class="card">
-              <div class="card-header">
-                <h2 class="text-left text-primary">Task Someone</h2>
-              </div>
-              <div class="card-body mb-10" *ngIf="!this.uploaderAvailable">
-                <form [formGroup]=taskSomeoneForm (ngSubmit)="addTaskSomeone()">
-                  <div class="row">
-                    <div class="form-group col-sm-9">
-                      <label for="inputTitleLabel">Title</label>
-                      <input type="text"
-                              [ngClass]="{'is-invalid':taskSomeoneForm.get('title').errors
+                <div class="card-header">
+                    <h2 class="text-left text-primary">Task Someone</h2>
+                </div>
+                <div class="card-body mb-10" *ngIf="!this.uploaderAvailable">
+                    <form [formGroup]=taskSomeoneForm (ngSubmit)="addTaskSomeone()">
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="inputTitleLabel">Title</label>
+                                <input type="text"
+                                       [ngClass]="{'is-invalid':taskSomeoneForm.get('title').errors
                                           && taskSomeoneForm.get('title').touched}"
-                              class="form-control"
-                              formControlName="title" placeholder="Give it a flashy title!">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="inputDueDateLabel">Due date</label>
-                        <input id="inputDueDate" type="text"
-                                class="form-control"name="dueDate"
-                                bsDatepicker
-                                formControlName="dueDate" placeholder="01/12/2020">
-                    </div>
-                  </div>
+                                       class="form-control"
+                                       formControlName="title" placeholder="Give it a flashy title!">
+                            </div>
+                            <div class="col-sm-12">
+
+                                <div class="{{taskSomeoneForm.get('repeat').value ? 'col-sm-12' : 'col-sm-3'}}">
+                                    <div class="row">
+                                        <label for="checkRepeatLabel">Repeat</label>
+                                        <input id="checkRepeat" type="checkbox"
+                                               class="ml-2" name="repeat"
+                                               formControlName="repeat" placeholder="01/12/2020">
+                                    </div>
+                                    <div *ngIf="!taskSomeoneForm.get('repeat').value" class="row form-group text-left">
+                                        <label for="inputEndDateLabel">Due date</label>
+                                        <input id="inputEndDate" type="text"
+                                               [ngClass]="{'is-invalid': !taskSomeoneForm.get('repeat').value
+                                                  && taskSomeoneForm.hasError('endDateMiss')}"
+                                               class="form-control" name="endDate"
+                                               bsDatepicker
+                                               formControlName="endDate" placeholder="01/12/2020">
+                                    </div>
+                                    <div *ngIf="taskSomeoneForm.get('repeat').value" class="row ">
+                                        <div class="form-group col-sm-4 text-left">
+                                            <label for="inputFrequencyLabel">Frequency</label>
+                                            <select [ngClass]="{'is-invalid': taskSomeoneForm.get('repeat').value
+                                                  && taskSomeoneForm.hasError('frequencyMiss')}"
+                                                class="form-control" id="inputGroupSelect01"
+                                                    formControlName="frequency">
+                                                <option selected>Choose...</option>
+                                                <option value="1">Daily</option>
+                                                <option value="2">Monday-Friday</option>
+                                                <option value="3">Weekly</option>
+                                                <option value="4">Monthly</option>
+                                                <option value="5">Yearly</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-4 text-left">
+                                            <label for="inputStartDateLabel">Start date</label>
+                                            <input id="inputStartDate" type="text"
+                                                   [ngClass]="{'is-invalid': taskSomeoneForm.get('repeat').value
+                                                  && taskSomeoneForm.hasError('startDateMiss')}"
+                                                   class="form-control" name="startDate"
+                                                   bsDatepicker
+                                                   formControlName="startDate" placeholder="01/12/2020">
+                                        </div>
+                                        <div class="form-group col-sm-4 text-left">
+                                            <label for="inputEndDateLabel">End date</label>
+                                            <input id="inputEndDate" type="text"
+                                                   [ngClass]="{'is-invalid': taskSomeoneForm.get('repeat').value
+                                                  && taskSomeoneForm.hasError('endDateMiss')}"
+                                                   class="form-control" name="endDate"
+                                                   bsDatepicker
+                                                   formControlName="endDate" placeholder="01/12/2020">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
 
 
-                  <div class="form-group">
-                      <label for="inputFirstNameLabel">Description</label>
-                      <textarea [ngClass]="{'is-invalid':taskSomeoneForm.get('description').errors
+                        <div class="form-group">
+                            <label for="inputFirstNameLabel">Description</label>
+                            <textarea [ngClass]="{'is-invalid':taskSomeoneForm.get('description').errors
                                         && taskSomeoneForm.get('description').touched}"
-                                class="form-control"
-                                maxlength="1000"
-                                formControlName="description" 
-                                rows="5" 
-                                placeholder="What is the task about?"></textarea>
-                                <label class="small text-muted">{{taskSomeoneForm.value.description.length}}/1000</label>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputLocationLabel">Address</label>
-                    <input type="text"
-                            [ngClass]="{'is-invalid':taskSomeoneForm.get('location').errors
+                                      class="form-control"
+                                      maxlength="1000"
+                                      formControlName="description"
+                                      rows="5"
+                                      placeholder="What is the task about?"></textarea>
+                            <label class="small text-muted">{{taskSomeoneForm.value.description.length}}/1000</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputLocationLabel">Address</label>
+                            <input type="text"
+                                   [ngClass]="{'is-invalid':taskSomeoneForm.get('location').errors
                                       && taskSomeoneForm.get('location').touched}"
-                            class="form-control"
-                            formControlName="location" placeholder="1234 Main St, Budapest, Hungary">
-                  </div>
+                                   class="form-control"
+                                   formControlName="location" placeholder="1234 Main St, Budapest, Hungary">
+                        </div>
 
 
-                  <div class="form-group text-right mt-2">
-                    <button type="submit" class="btn btn-success" [disabled]="taskSomeoneForm.invalid" type="submit" >Next</button>
-                  </div>
-                </form>
-              </div>
-              <div class="card-body mb-10" *ngIf="this.uploaderAvailable">
-                  <h4 class="form-title">Media</h4>
-                  <label class="hint-message">The more details you provide, the faster you will find someone to accomplish your task!</label>
-                  <app-media-upload #mediaUploader (uploadSuccessful)="onMediaUploadSuccessfully();" [url]="this.baseUrl + 'logged/tasksomeone/' + this.taskSomeone.id + '/addMedia'" [authToken]="this.authToken"></app-media-upload>
-              </div>
+                        <div class="form-group text-right mt-2">
+                            <button type="submit" class="btn btn-success"
+                                    type="submit">Next
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body mb-10" *ngIf="this.uploaderAvailable">
+                    <h4 class="form-title">Media</h4>
+                    <label class="hint-message">The more details you provide, the faster you will find someone to
+                        accomplish your task!</label>
+                    <app-media-upload #mediaUploader (uploadSuccessful)="onTaskSomeoneCreatedSuccessfully();"
+                                      [url]="this.baseUrl + 'logged/tasksomeone/' + this.taskSomeone.id + '/addMedia'"
+                                      [authToken]="this.authToken"></app-media-upload>
+                    <div class="form-group text-right mt-2">
+                        <button *ngIf="this.uploaderAvailable" class="btn btn-outline-primary mt-1"
+                                (click)="onTaskSomeoneCreatedSuccessfully();">Skip
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-  </div>
+</div>
 

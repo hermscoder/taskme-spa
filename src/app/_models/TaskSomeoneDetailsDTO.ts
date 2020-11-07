@@ -6,7 +6,9 @@ export interface TaskSomeoneDetailsDTO {
   id: number;
   user: UserDTO;
   title: string;
-  dueDate: Date;
+  frequency: string;
+  startDate: Date;
+  endDate: Date;
   description: string;
   location: string;
   mediaList?: Media[];
@@ -15,5 +17,7 @@ export interface TaskSomeoneDetailsDTO {
   taskApplicants: TaskApplicationForListDTO[];
   alreadyApplied: boolean;
   participants: UserDTO[];
-  state: string;
+  state: number;
+  nextState: number;
+  previousState: number;
 }
