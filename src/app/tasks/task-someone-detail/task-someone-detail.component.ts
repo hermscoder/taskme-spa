@@ -11,6 +11,7 @@ import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SendMessageComponent } from '../../generics/send-message/send-message.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-task-someone-detail',
@@ -22,7 +23,7 @@ export class TaskSomeoneDetailComponent implements OnInit {
 
   constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService,
     private route: ActivatedRoute, private modalService: NgbModal, private messageService: MessageService,
-    private taskApplicationService: TaskApplicationService) { }
+    private taskApplicationService: TaskApplicationService, private _location: Location) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -45,5 +46,9 @@ export class TaskSomeoneDetailComponent implements OnInit {
     this.taskApplicationService.sendApplyMessageToTaskOwner(textMsg, this.taskSomeone.id).subscribe((result)=>{
       this.taskSomeone.alreadyApplied = true;
     });
+  }
+
+  backClicked() {
+    this._location.back();
   }
 }

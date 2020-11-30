@@ -7,6 +7,7 @@ import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {TaskSomeoneService} from '../_services/task-someone.service';
 import {Router} from '@angular/router';
 import {MediaUploadComponent} from '../media/media-upload/media-upload.component';
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-task-someone',
@@ -20,12 +21,17 @@ export class TaskSomeoneComponent implements OnInit {
     uploaderAvailable = false;
     taskSomeone: TaskSomeone;
     taskSomeoneForm: FormGroup;
-
+    bsConfig:  Partial<BsDatepickerConfig>;
+    
     constructor(private alertify: AlertifyService, private fb: FormBuilder, private taskSomeoneServive: TaskSomeoneService,
                 private router: Router) {
     }
 
     ngOnInit() {
+        this.bsConfig = {
+            containerClass: 'theme-blue',
+            dateInputFormat: 'DD/MM/YYYY'
+          };
         this.createRegisterForm();
     }
 

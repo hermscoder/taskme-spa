@@ -31,7 +31,7 @@
                                                [ngClass]="{'is-invalid': !taskSomeoneForm.get('repeat').value
                                                   && taskSomeoneForm.hasError('endDateMiss')}"
                                                class="form-control" name="endDate"
-                                               bsDatepicker
+                                               bsDatepicker [bsConfig]="bsConfig"
                                                formControlName="endDate" placeholder="01/12/2020">
                                     </div>
                                     <div *ngIf="taskSomeoneForm.get('repeat').value" class="row ">
@@ -55,7 +55,7 @@
                                                    [ngClass]="{'is-invalid': taskSomeoneForm.get('repeat').value
                                                   && taskSomeoneForm.hasError('startDateMiss')}"
                                                    class="form-control" name="startDate"
-                                                   bsDatepicker
+                                                   bsDatepicker [bsConfig]="bsConfig"
                                                    formControlName="startDate" placeholder="01/12/2020">
                                         </div>
                                         <div class="form-group col-sm-4 text-left">
@@ -64,7 +64,7 @@
                                                    [ngClass]="{'is-invalid': taskSomeoneForm.get('repeat').value
                                                   && taskSomeoneForm.hasError('endDateMiss')}"
                                                    class="form-control" name="endDate"
-                                                   bsDatepicker
+                                                   bsDatepicker [bsConfig]="bsConfig"
                                                    formControlName="endDate" placeholder="01/12/2020">
                                         </div>
                                     </div>
