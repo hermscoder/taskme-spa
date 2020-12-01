@@ -36,7 +36,7 @@
                                            [ngClass]="{'is-invalid': !editTaskForm.get('repeat').value
                                               && editTaskForm.hasError('endDateMiss')}"
                                            class="form-control" name="endDate"
-                                           bsDatepicker
+                                           bsDatepicker [bsConfig]="bsConfig"
                                            formControlName="endDate" placeholder="01/12/2020">
                                 </div>
                                 <div *ngIf="editTaskForm.get('repeat').value" class="row ">
@@ -58,7 +58,7 @@
                                                [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
                                               && editTaskForm.hasError('startDateMiss')}"
                                                class="form-control" name="startDate"
-                                               bsDatepicker
+                                               bsDatepicker [bsConfig]="bsConfig"
                                                formControlName="startDate" placeholder="01/12/2020">
                                     </div>
                                     <div class="form-group col-sm-4 text-left">
@@ -67,7 +67,7 @@
                                                [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
                                               && editTaskForm.hasError('endDateMiss')}"
                                                class="form-control" name="endDate"
-                                               bsDatepicker
+                                               bsDatepicker [bsConfig]="bsConfig"
                                                formControlName="endDate" placeholder="01/12/2020">
                                     </div>
                                 </div>

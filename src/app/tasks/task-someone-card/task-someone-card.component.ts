@@ -75,11 +75,37 @@ export class TaskSomeoneCardComponent implements OnInit {
     }
 
     changeTaskToNextStatus(taskSomeone: any) {
-        this.taskSomeoneService.changeTaskToNextState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
-            this.taskSomeone = tasksomeoneRes;
-        }, error => {
-            this.alertify.error(error.message);
-        });
+        let msg;
+        if(taskSomeone.state == TaskState.APPLICATIONS_OPEN){
+            msg = 'Are you sure that do you want to close the applications for this task?';
+        } else if (taskSomeone.state == TaskState.CREATED){
+            msg = 'Are you sure that do you want to open the applications for this task?';
+        } else if (taskSomeone.state == TaskState.APPLICATIONS_CLOSED){
+            msg = 'Confirm task start? ' +
+                    '<b>A message will automatically be sent to all ' +
+                    'the task participants</b>, warning them that the task has started.';
+                    
+            if(taskSomeone.frequency != null) {
+                msg += '<br> And <b>subtasks will be created</b> as well, accordinly to the specified task frequency.'
+            }
+        }
+        const that = this;
+        if(msg){
+            this.alertify.confirmation('Confirmation', msg, () => {
+                that.taskSomeoneService.changeTaskToNextState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+                    that.taskSomeone = tasksomeoneRes;
+                }, error => {
+                    that.alertify.error(error.message);
+                })
+            });
+        } else {
+            this.taskSomeoneService.changeTaskToNextState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+                that.taskSomeone = tasksomeoneRes;
+            }, error => {
+                that.alertify.error(error.message);
+            })           
+        }
+        
     }
 
     changeTaskToPreviousState(taskSomeone: any) {
@@ -91,10 +117,14 @@ export class TaskSomeoneCardComponent implements OnInit {
     }
 
     changeTaskToCancelled(taskSomeone: any) {
-        this.taskSomeoneService.changeTaskToCancelled(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
-            this.taskSomeone = tasksomeoneRes;
-        }, error => {
-            this.alertify.error(error.message);
+        const that = this;
+
+        this.alertify.confirmation('Confirmation', 'Are you sure that do you want to CANCEL this task? This can\'t be undone!', () => {
+            that.taskSomeoneService.changeTaskToCancelled(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
+                that.taskSomeone = tasksomeoneRes;
+            }, error => {
+                that.alertify.error(error.message);
+            })
         });
     }
 

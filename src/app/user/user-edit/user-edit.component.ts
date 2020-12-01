@@ -79,7 +79,7 @@ export class UserEditComponent implements OnInit {
   changePassword() {
     this.passChange = this.changPswdForm.value;
     this.passChange.id = this.user.id;
-    this.passChange.username = this.user.username;
+    this.passChange.username = this.authService.currentUser.username;
 
     this.userService.updateUserPassword(this.passChange).subscribe(() => {
       this.alertify.success('Password updated sucessfully!');
