@@ -10,6 +10,7 @@ import {BsDatepickerConfig} from 'ngx-bootstrap';
 import {FrequencyEnum} from '../../_models/FrequencyEnum';
 import {SelectableOptions} from '../../_interfaces/SelectableOption';
 import {DateUtils} from '../../_utils/DateUtils';
+import { TaskState } from 'src/app/_models/TaskState';
 
 @Component({
     selector: 'app-edit-task',
@@ -77,10 +78,15 @@ export class EditTaskComponent implements OnInit {
             frequency: [''],
             startDate: [new Date()],
             endDate: [],
-            state: [this.task.state]
+            state: [this.task.state],
+            alreadyStartedTask: [this.task.state >= TaskState.STARTED]
         }, {validator: this.checkRepeatRequiredFieldMatchValidator});
 
-        this.task.startDate = DateUtils.convertStringToDate(this.task.startDate + '');
+        if(this.task.startDate != null){
+            this.task.startDate = DateUtils.convertStringToDate(this.task.startDate + '');
+        } else {
+            this.task.startDate = new Date();
+        }
         this.task.endDate = DateUtils.convertStringToDate(this.task.endDate + '');
         // placing the value on the form
         this.editTaskForm.patchValue(this.task);

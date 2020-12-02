@@ -20,4 +20,6 @@ export interface TaskSomeoneDetailsDTO {
   state: number;
   nextState: number;
   previousState: number;
+  isSubTask: boolean;
+  subTasks: TaskSomeoneDetailsDTO[];
 }
