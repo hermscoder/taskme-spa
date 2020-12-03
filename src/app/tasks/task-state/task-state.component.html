@@ -1,0 +1,25 @@
+<div *ngIf="!isCancelled(taskSomeone)" class="ml-3 dropdown" dropdown>
+  <div class="btn btn-{{getStateClass(taskSomeone.state)}} dropdown-toggle " dropdownToggle>
+      {{getCurrentStateDescription(taskSomeone.state)}}
+  </div>
+  <div class="dropdown-menu" *dropdownMenu>
+      <div *ngIf="taskSomeone.nextState != null" style="display: grid;" >
+          <button class="btn btn-{{getStateClass(taskSomeone.nextState, true)}}" (click)="changeTaskToNextStatus(taskSomeone)">
+              <i class="{{getStateIconClass(taskSomeone.nextState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.nextState)}}
+          </button>
+
+      </div>
+      <hr *ngIf="taskSomeone.previousState != null && taskSomeone.nextState != null" class="m-1">
+      <div *ngIf="taskSomeone.previousState != null" style="display: grid;" >
+          <button class="btn btn-{{getStateClass(taskSomeone.previousState, true)}}" (click)="changeTaskToPreviousState(taskSomeone)">
+              <i class="{{getStateIconClass(taskSomeone.previousState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.previousState)}}
+          </button>
+      </div>
+      <hr *ngIf="canCancel(taskSomeone.state)" class="m-1">
+      <div *ngIf="canCancel(taskSomeone.state)" style="display: grid;" >
+          <button class="btn btn-{{getStateClass(cancelledState, true)}}" (click)="changeTaskToCancelled(taskSomeone)">
+              <i class="{{getStateIconClass(cancelledState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(cancelledState)}}
+          </button>
+      </div>
+  </div>
+</div>

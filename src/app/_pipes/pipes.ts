@@ -1,4 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import { DateUtils } from '../_utils/DateUtils';
 
 @Pipe({
     name: 'filterParticipant',
@@ -26,6 +27,31 @@ export class FilterUsersPipe implements PipeTransform {
             : applicationsArray.filter((application) => {
                 return (showOnlyApprovedApplicants && application.taskApplicationStatus === 'ACCEPTED') || (!showOnlyApprovedApplicants);
             });
+    }
+}
+
+@Pipe({
+    name: 'filterSubTasks',
+    pure: false
+})
+export class FilterSubTasksPipe implements PipeTransform {
+    transform(subTasksArray: any[], firstDate: Date, secondDate: Date): any {
+        if(firstDate && secondDate){
+            return subTasksArray.filter((subtask) => {
+                                        return (DateUtils.convertStringToDate(subtask.endDate) >= firstDate 
+                                        && DateUtils.convertStringToDate(subtask.endDate) <= secondDate);
+                                    });
+        } else if(firstDate) {
+            return subTasksArray.filter((subtask) => {
+                return (DateUtils.convertStringToDate(subtask.endDate) >= firstDate);
+            });
+        } else if(secondDate) {
+            return subTasksArray.filter((subtask) => {
+                return (DateUtils.convertStringToDate(subtask.endDate) <= secondDate);
+            });
+        } else {
+            subTasksArray;
+        }
     }
 }
 

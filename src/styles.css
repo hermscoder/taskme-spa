@@ -131,3 +131,6 @@ background-color: #fff;
   height: 40px;
 }
 
+.pe-none {
+  pointer-events:none;
+}

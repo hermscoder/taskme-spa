@@ -1,0 +1,69 @@
+<div class="card" style="max-height: 30rem;">
+	<div class="card-header application-card-header">
+		<div>
+			<button type="button" class="close mr-2" aria-label="Close" (click)="closeModal()">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<h4 class="text-truncate"  data-toggle="tooltip" title="Sub Tasks">
+			Sub Tasks
+		</h4>
+	</div>
+	<div class="card-body">
+		<div class="form-group row text-left">
+			<label class="col-sm-5 small text-muted">From:</label>
+			<label class="offset-sm-2 col-sm-5 small text-muted">To:</label>
+			<input id="inputFirstDateFilter" type="text" 
+					[(ngModel)]="inputFirstDateFilter"
+					class="form-control col-sm-4 ml-3" name="dateFilter"
+					bsDatepicker [bsConfig]="bsConfig"
+					placeholder="01/12/2020">
+			<i class="fa fa-ellipsis-h col-sm-3 text-center mt-2"></i>
+			<input id="inputSecondDateFilter" type="text" 
+					[(ngModel)]="inputSecondDateFilter"
+					class="form-control col-sm-4" name="dateFilter"
+					bsDatepicker [bsConfig]="bsConfig"
+					placeholder="31/12/2020">
+		</div>
+		<hr/>
+		<div class="overflow-auto" style="max-height: 16em;">
+			<div *ngFor="let subTask of taskSomeone.subTasks | filterSubTasks: inputFirstDateFilter: inputSecondDateFilter"
+					class="col-sm-12 d-inline-flex mb-2">
+	
+				<div class="col-sm-5 text-portion" data-toggle="tooltip" title="{{subTask.title}}">
+					<span>
+						{{subTask.title}}
+					</span>
+				</div>
+				<div class="col-sm-2">
+					<span>
+						{{ subTask.endDate | date: 'dd/MM/yyyy' }}
+					</span>
+				</div>
+				<div class="col-sm-3">
+					<app-task-state [taskSomeone]="subTask"  (taskUpdated)="onTaskUpdatedSuccessfully($event);"></app-task-state>
+				</div>
+
+				<div class="btn-group col-sm-2" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn-light" (click)="open(editTaskModal)" data-toggle="tooltip" title="See Details">
+						<i class="fa fa-external-link mr-2" aria-hidden="true"></i>
+					</button>
+					<button type="button" class="btn btn-light" (click)="open(editTaskModal)" data-toggle="tooltip" title="Edit information">
+						<i class="fa fa-pencil mr-2" aria-hidden="true"></i>
+					</button>	
+				</div>
+				<ng-template #editTaskModal let-modal>
+					<app-edit-task [task]="subTask"
+								   (saveSuccessfully)="onTaskUpdatedSuccessfully($event); modal.dismiss();"
+								   (cancelChanges)="modal.dismiss();"></app-edit-task>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<div class="card-footer" >
+		<button type="button" class="btn btn-light mr-3 pull-right" (click)="closeModal()" >
+			  Close
+		</button>
+	</div>
+</div>
+

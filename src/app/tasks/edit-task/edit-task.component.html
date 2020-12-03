@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="{{editTaskForm.get('repeat').value ? 'col-sm-12' : 'col-sm-3'}}">
-                                <div>
+                                <div *ngIf="!editTaskForm.get('isSubTask').value">
                                     <label for="checkRepeatLabel">Repeat</label>
                                     <input id="checkRepeat" type="checkbox" *ngIf="editTaskForm.value.alreadyStartedTask"
                                            class="ml-2" name="repeat"
@@ -71,7 +71,8 @@
                                         <label for="inputStartDateLabel">Start date</label>
                                         <input id="inputStartDate" type="text"
                                                [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
-                                              && editTaskForm.hasError('startDateMiss')}"
+                                              && editTaskForm.hasError('startDateMiss'),
+                                              'pe-none': editTaskForm.value.alreadyStartedTask}"
                                                class="form-control" name="startDate"
                                                bsDatepicker [bsConfig]="bsConfig"
                                                formControlName="startDate" placeholder="01/12/2020"  [readonly]="editTaskForm.value.alreadyStartedTask">
@@ -80,9 +81,10 @@
                                         <label for="inputEndDateLabel">End date</label>
                                         <input id="inputEndDate" type="text"
                                                [ngClass]="{'is-invalid': editTaskForm.get('repeat').value
-                                              && editTaskForm.hasError('endDateMiss')}"
+                                              && editTaskForm.hasError('endDateMiss'),
+                                              'pe-none': editTaskForm.value.alreadyStartedTask}"
                                                class="form-control" name="endDate"
-                                               bsDatepicker [bsConfig]="bsConfig"
+                                               bsDatepicker [bsConfig]="bsConfig" (style)="editTaskForm.value.alreadyStartedTask ? 'pointer-events: none' : ''"
                                                formControlName="endDate" placeholder="01/12/2020"  [readonly]="editTaskForm.value.alreadyStartedTask">
                                     </div>
                                 </div>

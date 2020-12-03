@@ -11,3 +11,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Problems with `ng serve`?
+Just give the pository a hard reset to ensure that that are no modification on the package.json files.
+> git reset --hard

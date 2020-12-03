@@ -47,13 +47,15 @@ import {TaskApplicationsComponent} from './tasks/task-applications/task-applicat
 import {TaskApplicationsResolver} from './_resolvers/task-applications.resolver';
 import {CurrentTasksResolver} from './_resolvers/current-tasks.resolver';
 import {TaskApplicationCardComponent} from './tasks/task-application-card/task-application-card.component';
-import {FilterParticipantPipe, FilterUsersPipe} from './_pipes/pipes';
+import {FilterParticipantPipe, FilterSubTasksPipe, FilterUsersPipe} from './_pipes/pipes';
 import {TaskApplicantsListComponent} from './tasks/task-applicants-list/task-applicants-list.component';
 import {SendMessageComponent} from './generics/send-message/send-message.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {MainPageComponent} from './main-page/main-page.component';
 import {CurrentTasksComponent} from './tasks/current-tasks/current-tasks.component';
 import {TaskState} from './_models/TaskState';
+import { SubtasksListComponent } from './tasks/subtasks-list/subtasks-list.component';
+import { TaskStateComponent } from './tasks/task-state/task-state.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -74,6 +76,7 @@ export function tokenGetter() {
         TimeAgoPipe,
         FilterParticipantPipe,
         FilterUsersPipe,
+        FilterSubTasksPipe,
         MediaGalleryComponent,
         UserEditComponent,
         PhotoEditorComponent,
@@ -89,7 +92,9 @@ export function tokenGetter() {
         SendMessageComponent,
         UserProfileComponent,
         MainPageComponent,
-        CurrentTasksComponent
+        CurrentTasksComponent,
+        SubtasksListComponent,
+        TaskStateComponent
     ],
     imports: [
         BrowserModule,

@@ -68,14 +68,17 @@
                             <i class="{{getStateIconClass(taskSomeone.previousState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.previousState)}}
                         </button>
                     </div>
-                    <hr *ngIf="isCancellable(taskSomeone.state)" class="m-1">
-                    <div *ngIf="isCancellable(taskSomeone.state)" style="display: grid;" >
+                    <hr *ngIf="canCancel(taskSomeone.state)" class="m-1">
+                    <div *ngIf="canCancel(taskSomeone.state)" style="display: grid;" >
                         <button class="btn btn-{{getStateClass(cancelledState, true)}}" (click)="changeTaskToCancelled(taskSomeone)">
                             <i class="{{getStateIconClass(cancelledState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(cancelledState)}}
                         </button>
                     </div>
                 </div>
             </div>
+            <button type="button" class="ml-3 btn btn-light" (click)="open(subTasksModal, 'subTasksModal')">
+                <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Sub Tasks
+            </button>
 
             <ng-template #editTaskModal let-modal>
                 <app-edit-task [task]="taskSomeone"
@@ -87,6 +90,10 @@
                                           (onCloseModal)="updateTaskSomeone($event);modal.dismiss();"
                                           (onUpdateTaskStatus)="updateTaskSomeone($event);"
                                           [showOnlyApprovedApplicants]="isOpenForApplications(taskSomeone)"></app-task-applicants-list>
+            </ng-template>
+            <ng-template #subTasksModal let-modal>
+                <app-subtasks-list [taskSomeone]="taskSomeone"
+                                          (onCloseModal)="updateTaskSomeone($event);modal.dismiss();"></app-subtasks-list>
             </ng-template>
         </div>
     </div>

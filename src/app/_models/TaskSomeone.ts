@@ -14,4 +14,5 @@ export interface TaskSomeone {
   startDate: Date;
   endDate: Date;
   state: number;
+  isSubTask: boolean;
 }

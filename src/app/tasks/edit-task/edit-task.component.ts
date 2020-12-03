@@ -79,13 +79,17 @@ export class EditTaskComponent implements OnInit {
             startDate: [new Date()],
             endDate: [],
             state: [this.task.state],
-            alreadyStartedTask: [this.task.state >= TaskState.STARTED]
+            alreadyStartedTask: [this.task.state >= TaskState.STARTED],
+            isSubTask: [this.task.isSubTask]
         }, {validator: this.checkRepeatRequiredFieldMatchValidator});
 
         if(this.task.startDate != null){
             this.task.startDate = DateUtils.convertStringToDate(this.task.startDate + '');
         } else {
-            this.task.startDate = new Date();
+            //set start date only if it's a parent task
+            if(!this.task.isSubTask){
+                this.task.startDate = new Date();
+            }
         }
         this.task.endDate = DateUtils.convertStringToDate(this.task.endDate + '');
         // placing the value on the form

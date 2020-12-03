@@ -40,6 +40,13 @@ export class TaskSomeoneCardComponent implements OnInit {
                 backdrop: 'static',
                 keyboard: true
             });
+        } else {
+            this.modalService.open(content, {
+                size: 'lg',
+                ariaLabelledBy: 'modal-basic-title',
+                backdrop: 'static',
+                keyboard: true
+            });
         }
     }
 
@@ -139,7 +146,7 @@ export class TaskSomeoneCardComponent implements OnInit {
         return this.taskSomeoneService.getStateIconClass(stateCode);
     }
 
-    isCancellable(stateCode: number) {
+    canCancel(stateCode: number) {
         return stateCode >= TaskState.CREATED && stateCode < TaskState.DONE;
     }
 
