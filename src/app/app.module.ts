@@ -45,17 +45,19 @@ import {ConversationService} from './_services/conversation.service';
 import {MessageService} from './_services/message.service';
 import {TaskApplicationsComponent} from './tasks/task-applications/task-applications.component';
 import {TaskApplicationsResolver} from './_resolvers/task-applications.resolver';
-import {CurrentTasksResolver} from './_resolvers/current-tasks.resolver';
 import {TaskApplicationCardComponent} from './tasks/task-application-card/task-application-card.component';
 import {FilterParticipantPipe, FilterSubTasksPipe, FilterUsersPipe} from './_pipes/pipes';
 import {TaskApplicantsListComponent} from './tasks/task-applicants-list/task-applicants-list.component';
 import {SendMessageComponent} from './generics/send-message/send-message.component';
 import {UserProfileComponent} from './user/user-profile/user-profile.component';
 import {MainPageComponent} from './main-page/main-page.component';
-import {CurrentTasksComponent} from './tasks/current-tasks/current-tasks.component';
 import {TaskState} from './_models/TaskState';
 import { SubtasksListComponent } from './tasks/subtasks-list/subtasks-list.component';
 import { TaskStateComponent } from './tasks/task-state/task-state.component';
+import { TaskAgendaComponent } from './tasks/task-agenda/task-agenda.component';
+import { PunctualTasksComponent } from './tasks/punctual-tasks/punctual-tasks.component';
+import { PunctualTasksResolver } from './_resolvers/punctual-tasks.resolver';
+import { TaskAgendaResolver } from './_resolvers/task-agenda.resolver';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -92,9 +94,10 @@ export function tokenGetter() {
         SendMessageComponent,
         UserProfileComponent,
         MainPageComponent,
-        CurrentTasksComponent,
         SubtasksListComponent,
-        TaskStateComponent
+        TaskStateComponent,
+        TaskAgendaComponent,
+        PunctualTasksComponent
     ],
     imports: [
         BrowserModule,
@@ -128,7 +131,8 @@ export function tokenGetter() {
         TaskSomeoneDetailResolver,
         CreatedTasksResolver,
         TaskApplicationsResolver,
-        CurrentTasksResolver,
+        TaskAgendaResolver,
+        PunctualTasksResolver,
         UserEditResolver,
         MessagesResolver,
         PreventUnsavedChanges

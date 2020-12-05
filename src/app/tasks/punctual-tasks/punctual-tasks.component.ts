@@ -6,14 +6,14 @@ import {Pageable} from 'src/app/_models/Pageable';
 import {PaginationInfo} from 'src/app/_models/PaginationInfo';
 import {ActivatedRoute} from '@angular/router';
 
-
 @Component({
-    selector: 'app-current-tasks',
-    templateUrl: './current-tasks.component.html',
-    styleUrls: ['./current-tasks.component.css']
+  selector: 'app-punctual-tasks',
+  templateUrl: './punctual-tasks.component.html',
+  styleUrls: ['./punctual-tasks.component.css']
 })
-export class CurrentTasksComponent implements OnInit {
-    currentTasks: TaskSomeoneDetailsDTO[];
+export class PunctualTasksComponent implements OnInit {
+
+    punctualTasks: TaskSomeoneDetailsDTO[];
 
     constructor(private taskSomeoneService: TaskSomeoneService, private alertify: AlertifyService, private route: ActivatedRoute) {
     }
@@ -23,14 +23,14 @@ export class CurrentTasksComponent implements OnInit {
 
     ngOnInit() {
         this.route.data.subscribe(data => {
-            this.currentTasks = data['currentTasksList'].content;
-            this.paginationInfo = new PaginationInfo(data['currentTasksList']);
+            this.punctualTasks = data['punctualTasksList'].content;
+            this.paginationInfo = new PaginationInfo(data['punctualTasksList']);
         });
     }
 
     listWithPagination(pageable: Pageable) {
         this.taskSomeoneService.listCurrentUserTasks(pageable).subscribe((page: any[]) => {
-            this.currentTasks = page['content'];
+            this.punctualTasks = page['content'];
             this.paginationInfo = new PaginationInfo(page);
         }, error => {
             this.alertify.error(error.message);
@@ -42,3 +42,4 @@ export class CurrentTasksComponent implements OnInit {
     }
 
 }
+

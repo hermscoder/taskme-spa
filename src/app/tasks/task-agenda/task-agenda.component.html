@@ -1,0 +1,38 @@
+<div class="container">
+	<div class="row">
+	  <div class="col-lg-8 col-md-6 col-sm-6">
+		<div class="form-group row text-left">
+			<label class="col-sm-5 small text-muted">From:</label>
+			<label class="offset-sm-2 col-sm-5 small text-muted">To:</label>
+			<input id="inputFromDateFilter" type="text" 
+					[(ngModel)]="fromDateFilter"
+					class="form-control col-sm-4 ml-3" name="fromDateFilter"
+					bsDatepicker [bsConfig]="bsConfig"
+					placeholder="01/12/2020">
+			<i class="fa fa-ellipsis-h col-sm-3 text-center mt-2"></i>
+			<input id="inputToDateFilter" type="text" 
+					[(ngModel)]="toDateFilter"
+					class="form-control col-sm-4" name="toDateFilter"
+					bsDatepicker [bsConfig]="bsConfig"
+					placeholder="31/12/2020">
+		</div>
+		<hr/>
+		<app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
+			<span *ngFor="let task of periodicTasks">
+				<div class="row inline-task d-flex align-items-center">
+					{{task.title}}
+
+					<div class="col-lg-3 small text-muted text-truncate">
+						Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
+						<br>
+						Created by: {{task.user.givenName}} {{task.user.familyName}}
+					</div>
+					<div class="col-lg-1 small text-muted">
+						Risk:
+					</div>
+				</div>
+			</span>
+		</app-generic-paginator>
+    </div>
+  </div>
+</div>

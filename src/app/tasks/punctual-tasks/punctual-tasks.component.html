@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-6">
+      <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
+        <span *ngFor="let task of punctualTasks" >
+        	<div class="row inline-task {{getRiskClass(task)}} d-flex align-items-center">
+        		<div class="col-lg-7 text-truncate" data-toggle="tooltip" title="Click to see details">
+					<a href="#"[routerLink]="['/taskDetails/',task.id]" routerLinkActive="router-link-active"  
+					data-toggle="tooltip" title="Click to see details">
+					{{task.title}}
+					</a>
+					
+				</div>
+        		<div class="col-lg-3 small text-muted text-truncate">
+        			Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
+        			<br>
+        			Created by: {{task.user.givenName}} {{task.user.familyName}}
+        		</div>
+        		<div class="col-lg-1 small text-muted">
+        			Risk:
+        		</div>
+        	</div>
+        </span>
+      </app-generic-paginator>
+    </div>
+  </div>
+</div>

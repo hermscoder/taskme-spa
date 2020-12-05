@@ -1,0 +1,48 @@
+.inline-task {
+	border: 1px solid;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: whitesmoke;
+	margin: 5px;
+}
+
+.inline-task::after {
+	content: 'risk';
+	color: transparent;
+	border: 1px solid;
+	border-radius: 50%;
+}
+
+.danger {
+	border-color: #f8cecc;
+}
+
+.danger::after {
+	border: 1px solid #b85450;
+	background-color: #f8cecc;
+}
+
+.attention {
+	border-color: #ffe6cc;
+}
+.attention::after {
+	border: 1px solid #e1ad32;
+	background-color: #ffe6cc;
+}
+
+.some {
+	border-color: #fff2cc;
+}
+.some::after {
+	border: 1px solid #d6b656;
+	background-color: #fff2cc;
+}
+
+.none {
+	border-color: #caddca;
+}
+.none::after {
+	border: 1px solid #82b366;
+	background-color: #caddca;
+}
+

@@ -12,6 +12,7 @@ import {Pageable} from '../_models/Pageable';
 import {TaskState} from '../_models/TaskState';
 import {ChangeStateDTO} from '../_models/ChangeStateDTO';
 import {FrequencyEnum} from '../_models/FrequencyEnum';
+import { DateUtils } from '../_utils/DateUtils';
 
 @Injectable({
     providedIn: 'root'
@@ -172,4 +173,27 @@ export class TaskSomeoneService implements GPaginator {
         return true;
     }
 
+    getPeriodTaskRisk(task: TaskSomeoneDetailsDTO) {
+        let startDate = DateUtils.convertStringToDate(task.startDate);
+        let endDate = DateUtils.convertStringToDate(task.endDate);
+
+        if (!task.endDate) {
+            return 'none';
+        }
+
+        let totalDaysOfTheTask = DateUtils.datediff(endDate, startDate);
+        let daysLeftTillDeadLine = DateUtils.datediff(endDate, new Date());
+
+        let daysLeftPercentual = (daysLeftTillDeadLine * 100)/totalDaysOfTheTask;
+        
+        if (daysLeftPercentual < 10) {
+            return 'danger';
+        } else if (daysLeftPercentual < 30) {
+            return 'attention';
+        } else if (daysLeftPercentual < 50) {
+            return 'some';
+        } else {
+            return 'none';
+        }
+    }
 }

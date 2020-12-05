@@ -13,8 +13,8 @@ import { CreatedTasksResolver } from './_resolvers/created-tasks.resolver';
 import { TaskApplicationsComponent } from './tasks/task-applications/task-applications.component';
 import { TaskApplicationsResolver } from './_resolvers/task-applications.resolver';
 
-import { CurrentTasksComponent } from './tasks/current-tasks/current-tasks.component';
-import { CurrentTasksResolver } from './_resolvers/current-tasks.resolver';
+import { PunctualTasksComponent } from './tasks/punctual-tasks/punctual-tasks.component';
+import { PunctualTasksResolver } from './_resolvers/punctual-tasks.resolver';
 
 import { MessagesComponent } from './messages/page/messages.component';
 import { MessagesResolver } from './_resolvers/messages.resolver';
@@ -26,6 +26,9 @@ import { MainPageComponent } from './main-page/main-page.component';
 
 import { AuthGuard } from './_guards/auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { TaskAgendaComponent } from './tasks/task-agenda/task-agenda.component';
+import { TaskAgendaResolver } from './_resolvers/task-agenda.resolver';
+
 
 
 export const appRoutes: Routes = [
@@ -43,7 +46,8 @@ export const appRoutes: Routes = [
       { path: 'createdTasks', component: CreatedTasksComponent },
       { path: 'taskApplications/:taskTitle', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
       { path: 'taskApplications', component: TaskApplicationsComponent, resolve: {taskApplications: TaskApplicationsResolver} },
-      { path: 'currentTasks', component: CurrentTasksComponent, resolve: {currentTasksList: CurrentTasksResolver} },
+      { path: 'punctualTasks', component: PunctualTasksComponent, resolve: {punctualTasksList: PunctualTasksResolver} },
+      { path: 'taskAgenda', component: TaskAgendaComponent, resolve: {periodicTasksList: TaskAgendaResolver} },
       { path: 'messages/:participantName', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'messages', component: MessagesComponent, resolve: {user: MessagesResolver} },
       { path: 'user/edit', component: UserEditComponent, resolve: {user: UserEditResolver}, canDeactivate: [PreventUnsavedChanges]},

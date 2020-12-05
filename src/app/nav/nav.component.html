@@ -20,9 +20,16 @@
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/taskApplications']">My Applications</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/currentTasks']">Current Tasks</a>
-      </li>
+      <li class="nav-item" routerLinkActive="active" class="dropdown" dropdown>
+        <a class="nav-link dropdown-toggle " dropdownToggle>
+          Current Tasks
+        </a>
+        <div class="dropdown-menu" *dropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/punctualTasks']">Punctual Tasks</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/taskAgenda']">Task Agenda</a>
+        </div>
+    </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
