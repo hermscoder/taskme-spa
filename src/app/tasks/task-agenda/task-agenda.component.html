@@ -1,38 +1,65 @@
 <div class="container">
 	<div class="row">
-	  <div class="col-lg-8 col-md-6 col-sm-6">
-		<div class="form-group row text-left">
-			<label class="col-sm-5 small text-muted">From:</label>
-			<label class="offset-sm-2 col-sm-5 small text-muted">To:</label>
-			<input id="inputFromDateFilter" type="text" 
-					[(ngModel)]="fromDateFilter"
-					class="form-control col-sm-4 ml-3" name="fromDateFilter"
-					bsDatepicker [bsConfig]="bsConfig"
-					placeholder="01/12/2020">
-			<i class="fa fa-ellipsis-h col-sm-3 text-center mt-2"></i>
-			<input id="inputToDateFilter" type="text" 
-					[(ngModel)]="toDateFilter"
-					class="form-control col-sm-4" name="toDateFilter"
-					bsDatepicker [bsConfig]="bsConfig"
-					placeholder="31/12/2020">
-		</div>
-		<hr/>
-		<app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
-			<span *ngFor="let task of periodicTasks">
-				<div class="row inline-task d-flex align-items-center">
-					{{task.title}}
-
-					<div class="col-lg-3 small text-muted text-truncate">
-						Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
-						<br>
-						Created by: {{task.user.givenName}} {{task.user.familyName}}
-					</div>
-					<div class="col-lg-1 small text-muted">
-						Risk:
-					</div>
+		<div class="col-lg-8 col-md-6 col-sm-6 row">
+			<div class="col-lg-12 card-header">
+				<h2>Agenda</h2>
+			</div>
+			<div class="card-body row">
+				<div class="col-lg-2 text-center">
+					<svg (click)="changeDatesToPreviousDatesPeriod()" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle mt-3 link-appearance" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+						  <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+					</svg>
+					<label class="col-lg-12 small text-muted">-{{diffBtwDatesInDays}} days</label>
 				</div>
-			</span>
-		</app-generic-paginator>
-    </div>
-  </div>
+				<div class="form-group row text-left col-lg-8">
+					<label class="col-sm-5 small text-muted">From:</label>
+					<label class="offset-sm-2 col-sm-5 small text-muted">To:</label>
+					<input id="inputFromDateFilter" type="text" [(ngModel)]="fromDateFilter" (ngModelChange)="onChangeDate($event)"
+						class="form-control col-sm-4 ml-3" name="fromDateFilter" bsDatepicker [bsConfig]="bsConfig"
+						placeholder="01/12/2020">
+					<i class="fa fa-ellipsis-h col-sm-3 text-center mt-2"></i>
+					<input id="inputToDateFilter" type="text" [(ngModel)]="toDateFilter" (ngModelChange)="onChangeDate($event)"
+						class="form-control col-sm-4" name="toDateFilter" bsDatepicker [bsConfig]="bsConfig" 
+						placeholder="31/12/2020">
+				</div>
+				<div class="col-lg-2 text-center">
+					<svg (click)="changeDatesToNextDatesPeriod()" width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle mt-3 link-appearance" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+						  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5A.5.5 0 0 0 4 8z"/>
+					</svg>
+					<label class="col-lg-12 small text-muted">+{{diffBtwDatesInDays}} days</label>
+				</div>
+				<div class="col-lg-12">
+					<app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo" [compactSearchInput]="true">
+							<div *ngFor="let date of dateArr" class="mb-3">
+								<h4>
+									{{date | date: 'dd/MM/yyyy' }}
+								</h4>
+								<span *ngFor="let task of getDateSubTasks(date)">
+									<div class="card-footer row {{getStateClass(task)}} mt-1 clickable-appearance" (click)="open(subTaskDetailsModal, task)">
+										<div class="row inline-task d-flex align-items-center">
+											{{task.title}}
+				
+											<div class="col-lg-3 small text-muted text-truncate">
+												Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
+												<br>
+												Created by: {{task.user.givenName}} {{task.user.familyName}}
+											</div>
+											<div class="col-lg-1 small text-muted">
+												Risk:
+											</div>
+										</div>
+									</div>
+								</span>
+							</div>
+					</app-generic-paginator>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+<ng-template #subTaskDetailsModal let-modal>
+	<app-subtask-details [subTask]="selectedSubTask"></app-subtask-details>
+</ng-template>

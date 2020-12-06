@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="ml-3 btn btn-light" (click)="open(subTasksModal, 'subTasksModal')">
+            <button *ngIf="showSubTasksButton(taskSomeone)" type="button" class="ml-3 btn btn-light" (click)="open(subTasksModal, 'subTasksModal')">
                 <i class="fa fa-pencil mr-2" aria-hidden="true"></i>Sub Tasks
             </button>
 

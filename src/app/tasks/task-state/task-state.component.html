@@ -1,4 +1,4 @@
-<div *ngIf="!isCancelled(taskSomeone)" class="ml-3 dropdown" dropdown>
+<div *ngIf="!isCancelled(taskSomeone) && !isOnlyDisplaying" class="{{styleClasses}} dropdown" dropdown>
   <div class="btn btn-{{getStateClass(taskSomeone.state)}} dropdown-toggle " dropdownToggle>
       {{getCurrentStateDescription(taskSomeone.state)}}
   </div>
@@ -22,4 +22,10 @@
           </button>
       </div>
   </div>
+</div>
+
+<div *ngIf="isCancelled(taskSomeone) || isOnlyDisplaying" class="{{styleClasses}}">
+    <div class="btn btn-{{getStateClass(taskSomeone.state)}} " style="pointer-events: none;">
+        {{getCurrentStateDescription(taskSomeone.state)}}
+    </div>
 </div>

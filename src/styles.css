@@ -134,3 +134,14 @@ background-color: #fff;
 .pe-none {
   pointer-events:none;
 }
+
+.clickable-appearance {
+  -webkit-transition: 0.5s;
+          transition: 0.5s;
+  cursor: pointer;
+}
+
+.clickable-appearance:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1)
+}

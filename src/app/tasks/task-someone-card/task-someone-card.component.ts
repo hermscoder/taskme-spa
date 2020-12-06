@@ -150,4 +150,7 @@ export class TaskSomeoneCardComponent implements OnInit {
         return stateCode >= TaskState.CREATED && stateCode < TaskState.DONE;
     }
 
+    showSubTasksButton(taskSomeone: any) {
+        return this.taskSomeoneService.isPeriodic(taskSomeone) && this.taskSomeone.state >= TaskState.STARTED;
+    }
 }

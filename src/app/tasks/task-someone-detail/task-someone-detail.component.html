@@ -62,28 +62,44 @@
       </div>
 
     </div>
-    <div *ngIf="!taskSomeone.ownTask" class="col-sm-2">
-      <div *ngIf="taskSomeone.alreadyApplied" class="small text-muted">
-        You already applied to this task! At any moment you will receive a feedback from the task creator.
-        <br/>
-        Check 
-        <a href="#" [routerLink]="['/taskApplications/', taskSomeone.title]" routerLinkActive="router-link-active" >
-          Your Applications 
-        </a> 
-        to see your applications details.
+    <div class="col-sm-2">
+      <div *ngIf="!isTaskOpenForApplications(taskSomeone)">
+        <label class="text-muted">Current State:</label>
+        <app-task-state [taskSomeone]="taskSomeone" [isOnlyDisplaying]="true" [styleClasses]="'ml-0'"></app-task-state>
+        <div *ngIf="!taskSomeone.ownTask" class="small text-muted">
+          You can only apply to tasks when their state is 'Open for Applications'.
+        </div>
+        <div *ngIf="taskSomeone.ownTask">
+          <a  class="btn btn-light mt-2" href="#" [routerLink]="['/createdTasks', taskSomeone.title]" routerLinkActive="router-link-active" > 
+            <i class="fa fa-pencil mr-2" aria-hidden="true"></i> Manage Task 
+          </a>
+        </div>
       </div>
-      <div *ngIf="!taskSomeone.alreadyApplied">
-        Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
-        <br/>
-        <button type="button" class="btn btn-primary" (click)="open(sendMessageModal, 'sendMessageModal')" >
-          <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
-        </button>
+      <div *ngIf="isTaskOpenForApplications(taskSomeone)">
+        <div *ngIf="!taskSomeone.ownTask">
+          <div *ngIf="taskSomeone.alreadyApplied" class="small text-muted">
+            You already applied to this task! At any moment you will receive a feedback from the task creator.
+            <br/>
+            Check 
+            <a href="#" [routerLink]="['/taskApplications/', taskSomeone.title]" routerLinkActive="router-link-active" >
+              Your Applications 
+            </a> 
+            to see your applications details.
+          </div>
+          <div *ngIf="!taskSomeone.alreadyApplied">
+            Willing to do this? Send a message to {{taskSomeone.user.givenName}}!
+            <br/>
+            <button type="button" class="btn btn-primary" (click)="open(sendMessageModal, 'sendMessageModal')" >
+              <i class="fa fa-comments mr-2" aria-hidden="true"></i>I'm interested!
+            </button>
+          </div>
+        </div>
+        <div *ngIf="taskSomeone.ownTask">
+          <a  class="btn btn-light " href="#" [routerLink]="['/createdTasks', taskSomeone.title]" routerLinkActive="router-link-active" > 
+            <i class="fa fa-pencil mr-2" aria-hidden="true"></i> Manage Task 
+          </a>
+        </div>
       </div>
-    </div>
-    <div *ngIf="taskSomeone.ownTask" class="col-sm-2">
-      <a  class="btn btn-light " href="#" [routerLink]="['/createdTasks', taskSomeone.title]" routerLinkActive="router-link-active" > 
-        <i class="fa fa-pencil mr-2" aria-hidden="true"></i> Manage Task 
-      </a>
     </div>
   </div>
 </div>

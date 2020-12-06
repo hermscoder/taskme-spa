@@ -1,9 +1,15 @@
 <form id="filterForm" (ngSubmit)="filterData()">
   <div class="form-group">
-    <label>Search for Title</label>
-    <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
+    <div *ngIf="!compactSearchInput">
+      <label>Search for Title</label>
+      <input type="text" class="form-control" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
+    </div>
+    <div *ngIf="compactSearchInput" class="row">
+      <input type="text" class="form-control col-lg-11" placeholder="Search for a task title" [(ngModel)]="pageable.searchTerm" name="searchTerm"/>
+      <button *ngIf="compactSearchInput" type="submit" class="btn btn-success col-lg-1" >Filter</button>  
+    </div>
     <div>
-      <button type="submit" class="btn btn-success mt-2" >Filter</button>  
+      <button type="submit" class="btn btn-success mt-2" *ngIf="!compactSearchInput">Filter</button>  
       <button *ngIf="filterFields.length > 0" 
               (click)="collapseOrNot($event, collapsibleContent)" 
               type="button" class="btn btn-link collapsible mt-2 ml-1">

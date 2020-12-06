@@ -181,8 +181,8 @@ export class TaskSomeoneService implements GPaginator {
             return 'none';
         }
 
-        let totalDaysOfTheTask = DateUtils.datediff(endDate, startDate);
-        let daysLeftTillDeadLine = DateUtils.datediff(endDate, new Date());
+        let totalDaysOfTheTask = DateUtils.datediffInDays(endDate, startDate);
+        let daysLeftTillDeadLine = DateUtils.datediffInDays(endDate, new Date());
 
         let daysLeftPercentual = (daysLeftTillDeadLine * 100)/totalDaysOfTheTask;
         

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SendMessageComponent } from '../../generics/send-message/send-message.component';
 import { Location } from '@angular/common';
+import { TaskState } from 'src/app/_models/TaskState';
 
 @Component({
   selector: 'app-task-someone-detail',
@@ -35,7 +36,7 @@ export class TaskSomeoneDetailComponent implements OnInit {
     // this.modalService.open(content, {size: 'sm', ariaLabelledBy: 'modal-basic-title', backdrop: 'static', keyboard: true});
     const modalRef = this.modalService.open(SendMessageComponent);
     modalRef.componentInstance.messageTo = this.taskSomeone.user.givenName;
-    modalRef.componentInstance.defaultMsg = 'Hello ' + this.taskSomeone.user.givenName + '! I saw that you created the task ' + this.taskSomeone.title + ' and I am interested in doing it.';
+    modalRef.componentInstance.defaultMsg = 'Hello ' + this.taskSomeone.user.givenName + '! I saw that you created the task ' + this.taskSomeone.title + ' and I\'m interested in doing it.';
     modalRef.result.then((result) => {
       this.sendInterestedMessage(result.msg);
     }, (reason) => {
@@ -50,5 +51,9 @@ export class TaskSomeoneDetailComponent implements OnInit {
 
   backClicked() {
     this._location.back();
+  }
+
+  isTaskOpenForApplications(taskSomeone: TaskSomeoneDetailsDTO){
+    return this.taskSomeoneService.isOpenForApplications(taskSomeone);
   }
 }

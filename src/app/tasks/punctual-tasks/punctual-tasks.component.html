@@ -3,12 +3,11 @@
     <div class="col-lg-8 col-md-6 col-sm-6">
       <app-generic-paginator (loadContent)="listWithPagination($event)" [paginationInfo]="paginationInfo">
         <span *ngFor="let task of punctualTasks" >
-        	<div class="row inline-task {{getRiskClass(task)}} d-flex align-items-center">
+        	<div class="row inline-task {{getRiskClass(task)}} d-flex align-items-center clickable-appearance" [routerLink]="['/taskDetails/',task.id]" routerLinkActive="router-link-active" data-toggle="tooltip" title="Click to see details">
         		<div class="col-lg-7 text-truncate" data-toggle="tooltip" title="Click to see details">
-					<a href="#"[routerLink]="['/taskDetails/',task.id]" routerLinkActive="router-link-active"  
-					data-toggle="tooltip" title="Click to see details">
-					{{task.title}}
-					</a>
+					<span>
+						{{task.title}}
+					</span>
 					
 				</div>
         		<div class="col-lg-3 small text-muted text-truncate">

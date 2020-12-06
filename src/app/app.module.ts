@@ -58,6 +58,7 @@ import { TaskAgendaComponent } from './tasks/task-agenda/task-agenda.component';
 import { PunctualTasksComponent } from './tasks/punctual-tasks/punctual-tasks.component';
 import { PunctualTasksResolver } from './_resolvers/punctual-tasks.resolver';
 import { TaskAgendaResolver } from './_resolvers/task-agenda.resolver';
+import { SubtaskDetailsComponent } from './tasks/subtask-details/subtask-details.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -97,7 +98,8 @@ export function tokenGetter() {
         SubtasksListComponent,
         TaskStateComponent,
         TaskAgendaComponent,
-        PunctualTasksComponent
+        PunctualTasksComponent,
+        SubtaskDetailsComponent
     ],
     imports: [
         BrowserModule,

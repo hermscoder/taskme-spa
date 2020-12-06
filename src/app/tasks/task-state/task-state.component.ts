@@ -15,6 +15,8 @@ export class TaskStateComponent implements OnInit {
 
 	cancelledState = TaskState.CANCELLED;
 	@Input() taskSomeone: TaskSomeone;
+	@Input() isOnlyDisplaying: boolean = false;
+	@Input() styleClasses: string = 'ml-3';
 
 	@Output() taskUpdated = new EventEmitter<any>();
 	

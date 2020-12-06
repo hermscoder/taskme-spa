@@ -8,7 +8,7 @@ export class DateUtils {
         return new Date(convDate.getTime() + Math.abs(convDate.getTimezoneOffset() * 60000));
     }
 
-    static datediff(first, second): number {
+    static datediffInDays(first, second): number {
         return Math.abs(Math.round((second - first) / (1000 * 60 * 60 * 24)));
     }
 

@@ -1,0 +1,36 @@
+.link-appearance {
+    color: #3282b1;    
+    cursor: pointer;
+}
+
+.link-appearance:hover {
+    color: #000000;
+}
+
+/* Created */
+.dark {
+    background-color: #f5f5f5;
+    border: #dad7d7 solid 1px;
+}
+
+/* Cancelled */
+.danger {
+    background-color: #f1dedd;
+    border: #eb9c98 solid 1px;
+}
+
+/* In progress */
+.info {
+    background-color: #d9edf7;
+    border: #aadcf5 solid 1px;
+}
+
+/* Done */
+.success {
+    background-color: #d9e7d9;
+    border: #a2c2a2 solid 1px;
+}
+
+.subTaskDetailsModal {
+	width: 600px;
+}
