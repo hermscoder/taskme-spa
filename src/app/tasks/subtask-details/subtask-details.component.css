@@ -1,0 +1,19 @@
+.commentDiv {
+
+}
+
+.commentDiv:hover {
+    background-color: #eeeeee;
+}
+
+
+.commentDiv:hover .delete-btn {
+    visibility: visible;    
+}
+
+.delete-btn {
+    visibility: hidden;
+    position: absolute;
+    top: 4px;
+    right:5px;
+}

@@ -21,7 +21,7 @@
                     <div class="form-group">
                       <i class='fa fa-file-text-o mr-1'></i><label>Description:</label>
                       <textarea class="form-control" rows="6"
-                                placeholder="What is the task about?">{{subTask.description}}</textarea>
+                                placeholder="What is the task about?" readonly>{{subTask.description}}</textarea>
                     </div>
                 </div>
             </div>
@@ -32,25 +32,36 @@
                 <div *ngIf="subTasksComments.length == 0">
                     <h3><span class="badge badge-light">No comments were added to this task yet.</span></h3>
                 </div>
-                <div *ngIf="subTasksComments.length > 0">
-                  <span  *ngFor="let comment of subTasksComments" class="row col-lg-12">
-                    <div class="col-lg-12 text-left">
-                      <img src="{{subTask.user.profilePhoto?.url}}" alt="" width="30px" height="30">
-                      <small class="ml-1 text-muted text-truncate">{{subTask.user.givenName}} - {{comment.sentTime | timeAgo}}</small>
+                <app-generic-paginator (loadContent)="listWithPagination($event)" 
+                  [paginationInfo]="paginationInfo" 
+                  [compactSearchInput]="true"
+                  [showSearchFilter]="false">
+                  <div *ngIf="subTasksComments.length > 0">
+                      <span  *ngFor="let comment of subTasksComments" class="row col-lg-12 pt-1 commentDiv">
+                        <div class="col-lg-12 text-left">
+                          <img src="{{subTask.user.profilePhoto?.url}}" alt="" width="30px" height="30">
+                          <small class="ml-1 text-muted text-truncate">{{comment.userSender.givenName}} - {{comment.sentTime | timeAgo}}</small>
+                        </div>
+                        <div class="col-lg-12 text-left">
+                          <label class="ml-5">{{comment.content}}</label>
+                        </div>
+                        <i class='fa fa-trash-o delete-btn clickable-appearance' 
+                            data-toggle="tooltip" title="Delete Comment"
+                            *ngIf="canDeleteComment(comment)"
+                            (click)="deleteComment(comment.id)"></i>
+                      </span>
                     </div>
-                    <div class="col-lg-12 text-left">
-                      <label class="ml-5">{{comment.content}}</label>
-                    </div>
-                  </span>
-                </div>
+                  </app-generic-paginator>
                 <hr/>
-                <div class="form-group">
-                  <textarea class="form-control" rows="2" #commentMsgTxtArea
-                            placeholder="Add some comment here..."></textarea>
+                <div>
+                  <div class="form-group">
+                    <textarea class="form-control" rows="2" #commentMsgTxtArea
+                              placeholder="Add some comment here..."></textarea>
+                  </div>
+                  <button type="button" class="btn btn-primary" (click)="addComment(commentMsgTxtArea)" >
+                    <i class="fa fa-comments mt-2" aria-hidden="true"></i> Add comment
+                  </button>
                 </div>
-                <button type="button" class="btn btn-primary" (click)="addComment(commentMsgTxtArea)" >
-                  <i class="fa fa-comments mt-2" aria-hidden="true"></i>Add comment
-                </button>
               </div>
             </div>
         </div>

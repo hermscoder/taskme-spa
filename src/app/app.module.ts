@@ -59,6 +59,7 @@ import { PunctualTasksComponent } from './tasks/punctual-tasks/punctual-tasks.co
 import { PunctualTasksResolver } from './_resolvers/punctual-tasks.resolver';
 import { TaskAgendaResolver } from './_resolvers/task-agenda.resolver';
 import { SubtaskDetailsComponent } from './tasks/subtask-details/subtask-details.component';
+import { UserRateComponent } from './user/user-rate/user-rate.component';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -99,7 +100,8 @@ export function tokenGetter() {
         TaskStateComponent,
         TaskAgendaComponent,
         PunctualTasksComponent,
-        SubtaskDetailsComponent
+        SubtaskDetailsComponent,
+        UserRateComponent
     ],
     imports: [
         BrowserModule,

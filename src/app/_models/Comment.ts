@@ -2,12 +2,18 @@ import { User } from "./User";
 import { UserDTO } from "./UserDTO";
 
 export class Comment {
-  content: string;
-  userSender: UserDTO;
-  sentTime: Date;
+    id: number;
+    content: string;
+    userSender: UserDTO;
+    sentTime: Date;
+    taskSomeoneId: number;
 
-  contructor(content: string, sentTime: Date, userSender: UserDTO) {
-  	this.content = content;
-  	this.sentTime = sentTime;
-  };
+    static factory(content: string, sentTime: Date, userSender: UserDTO, tasksomeoneId: number): Comment {
+        let comment = new Comment();
+        comment.content = content;
+        comment.sentTime = sentTime;
+        comment.userSender = userSender;
+        comment.taskSomeoneId = tasksomeoneId;
+        return comment;
+    };
 }

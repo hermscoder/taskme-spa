@@ -10,4 +10,6 @@ export class UserDTO {
   birthDate: number;
   createdOn: Date;
   profilePhoto: Media;
+  numberOfTasksCreated: number;
+  rateAvg: number;
 }

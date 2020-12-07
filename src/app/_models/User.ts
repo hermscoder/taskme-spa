@@ -10,4 +10,6 @@ export interface User {
   birthDate: number;
   createdOn: Date;
   profilePhoto: Media;
+  numberOfTasksCreated: number;
+  rateAvg: number;
 }

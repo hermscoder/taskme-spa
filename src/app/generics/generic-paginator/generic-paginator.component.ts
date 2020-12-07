@@ -19,6 +19,7 @@ export class GenericPaginatorComponent implements OnInit {
 	@Input() initValueSearchTerm: string;
 	@Input() filterFields: FilterField[] = [];
 	@Input() compactSearchInput: boolean = false;
+	@Input() showSearchFilter: boolean = true;
 	constructor() { }
 
 	ngOnInit() {

@@ -20,13 +20,15 @@ export class SubtasksListComponent implements OnInit {
 	inputFirstDateFilter: Date;
 	inputSecondDateFilter: Date;
 	bsConfig:  Partial<BsDatepickerConfig>;
-
+	selectedSubTask: TaskSomeoneDetailsDTO;
 	
 
 	constructor(private modalService: NgbModal, private alertify: AlertifyService, private taskSomeoneService: TaskSomeoneService) {
 	}
 	
 	ngOnInit() {
+		this.selectedSubTask = null;
+
 		this.bsConfig = {
 			containerClass: 'theme-blue',
 			dateInputFormat: 'DD/MM/YYYY'
@@ -51,15 +53,25 @@ export class SubtasksListComponent implements OnInit {
 		}
 	}
 	
-	open(content) {
- 		this.modalService.open(content, {
-			 size: 'lg', 
-			 ariaLabelledBy: 'modal-basic-title',
-			 backdrop: 'static',
-			 keyboard: false
+	open(content, selectedTask: TaskSomeoneDetailsDTO = null) {
+		if(selectedTask != null){
+			this.selectedSubTask = selectedTask;
+			this.modalService.open(content, {
+				size: 'lg',
+				windowClass: 'subTaskDetailsModal',
+				ariaLabelledBy: 'modal-basic-title',
+				backdrop: 'static',
+				keyboard: true
 			});
+		} else {
+			this.modalService.open(content, {
+				size: 'lg', 
+				ariaLabelledBy: 'modal-basic-title',
+				backdrop: 'static',
+				keyboard: false
+			   });
+		}
         
 	}
-	
 	
 }

@@ -1,0 +1,62 @@
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}
+
+.rating-0s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2606\2606\2606\2606\2606";
+    position: absolute;
+}
+
+.rating-1s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2605\2606\2606\2606\2606";
+    position: absolute;
+}
+
+.rating-2s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2605\2605\2606\2606\2606";
+    position: absolute;
+}
+
+.rating-3s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2605\2605\2605\2606\2606";
+    position: absolute;
+}
+
+.rating-4s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2605\2605\2605\2605\2606";
+    position: absolute;
+}
+
+.rating-5s:after {
+    display: inline-flex;
+    position: relative;
+    width: 1.1em;
+    content: "\2605\2605\2605\2605\2605";
+    position: absolute;
+}

@@ -45,7 +45,7 @@
 				</div>
 
 				<div class="btn-group col-sm-2" role="group" aria-label="Basic example">
-					<button type="button" class="btn btn-light" (click)="open(editTaskModal)" data-toggle="tooltip" title="See Details">
+					<button type="button" class="btn btn-light" (click)="open(subTaskDetailsModal, subTask)" data-toggle="tooltip" title="See Details">
 						<i class="fa fa-external-link mr-2" aria-hidden="true"></i>
 					</button>
 					<button type="button" class="btn btn-light" (click)="open(editTaskModal)" data-toggle="tooltip" title="Edit information">
@@ -67,3 +67,17 @@
 	</div>
 </div>
 
+
+<ng-template #subTaskDetailsModal let-modal>
+	<div style="position: absolute;margin-left: 97%;">
+		<button type="button" class="close mr-2 clickable-appearance" aria-label="Close"  (click)="modal.dismiss();">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<app-subtask-details [subTask]="selectedSubTask"></app-subtask-details>
+	<div>
+		<button type="button" class="btn btn-light" (click)="modal.dismiss();" style="margin-left: 89%;margin-top: -13%;position: relative;">
+			Close
+		</button>
+	</div>
+</ng-template>

@@ -38,16 +38,13 @@
 								</h4>
 								<span *ngFor="let task of getDateSubTasks(date)">
 									<div class="card-footer row {{getStateClass(task)}} mt-1 clickable-appearance" (click)="open(subTaskDetailsModal, task)">
-										<div class="row inline-task d-flex align-items-center">
-											{{task.title}}
-				
-											<div class="col-lg-3 small text-muted text-truncate">
-												Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
-												<br>
-												Created by: {{task.user.givenName}} {{task.user.familyName}}
+										<div class="row col-lg-12 inline-task d-flex align-items-center">
+											
+											<div class="col-lg-9 text-truncate">
+												{{task.title}}
 											</div>
-											<div class="col-lg-1 small text-muted">
-												Risk:
+											<div class="col-lg-3 small text-muted text-truncate">
+												Created by: {{task.user.givenName}} {{task.user.familyName}}
 											</div>
 										</div>
 									</div>
@@ -61,5 +58,15 @@
 </div>
 
 <ng-template #subTaskDetailsModal let-modal>
+	<div style="position: absolute;margin-left: 97%;">
+		<button type="button" class="close mr-2 clickable-appearance" aria-label="Close"  (click)="modal.dismiss();">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	</div>
 	<app-subtask-details [subTask]="selectedSubTask"></app-subtask-details>
+	<div>
+		<button type="button" class="btn btn-light" (click)="modal.dismiss();" style="margin-left: 89%;margin-top: -13%;position: relative;">
+			Close
+		</button>
+	</div>
 </ng-template>

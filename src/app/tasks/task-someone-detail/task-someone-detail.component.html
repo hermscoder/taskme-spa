@@ -48,12 +48,14 @@
                 <img src="{{taskSomeone.user.profilePhoto.url}}" alt="{{taskSomeone.user.givenName}}" width="60px" height="60px">
                 {{taskSomeone.user.givenName}} {{taskSomeone.user.familyName}}
                 <p class="card-text">
+                  Classification:
+                  <app-user-rate [user]="taskSomeone.user" [editable]="false"></app-user-rate> 
                   <br/>
                   Age: {{taskSomeone.user.birthDate | timeAgo | slice:0:2}}
                   <br/>
                   Contact: {{taskSomeone.user.contact}}
                   <br/>
-                  Tasks: <font color="red"> 21</font>
+                  Created tasks: {{taskSomeone.user.numberOfTasksCreated}}
                 </p>
               </div>
             </div>

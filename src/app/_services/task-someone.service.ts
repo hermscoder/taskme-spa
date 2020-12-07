@@ -116,7 +116,7 @@ export class TaskSomeoneService implements GPaginator {
         } else if (stateCode === TaskState.APPLICATIONS_OPEN) {
             return 'Open for Applications';
         } else if (stateCode === TaskState.APPLICATIONS_CLOSED) {
-            return 'Closed Applications';
+            return 'Close Applications';
         } else if (stateCode === TaskState.STARTED) {
             return 'Start';
         } else if (stateCode === TaskState.DONE) {
