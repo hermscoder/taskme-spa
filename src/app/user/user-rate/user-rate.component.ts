@@ -19,8 +19,10 @@ export class UserRateComponent implements OnInit {
 	}
 
 	rate(rate: number) {
-		this.userService.rateUser(this.user.id, rate).subscribe(()=>{
-		  this.alertify.success("User rated sucessfully!");
+		this.userService.rateUser(this.user.id, rate).subscribe((res) => {
+			this.user.rateAvg = (res as UserDTO).rateAvg;
+			this.editable = false;
+			this.alertify.success("User rated sucessfully!");
 		});
 	}
 

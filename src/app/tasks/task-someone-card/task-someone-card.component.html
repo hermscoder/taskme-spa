@@ -57,7 +57,7 @@
                 </div>
                 <div class="dropdown-menu" *dropdownMenu>
                     <div *ngIf="taskSomeone.nextState != null" style="display: grid;" >
-                        <button class="btn btn-{{getStateClass(taskSomeone.nextState, true)}}" (click)="changeTaskToNextStatus(taskSomeone)">
+                        <button class="btn btn-{{getStateClass(taskSomeone.nextState, true)}}" (click)="changeTaskToNextStatus(taskSomeone, rateParticipantsModal)">
                             <i class="{{getStateIconClass(taskSomeone.nextState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.nextState)}}
                         </button>
 
@@ -94,6 +94,23 @@
             <ng-template #subTasksModal let-modal>
                 <app-subtasks-list [taskSomeone]="taskSomeone"
                                           (onCloseModal)="updateTaskSomeone($event);modal.dismiss();"></app-subtasks-list>
+            </ng-template>
+            <ng-template #rateParticipantsModal let-modal >
+                <div class="container mt-4" id="subTaskDetails">
+                    <h3>Rate the participants</h3>
+                    <hr/>
+                    <span *ngFor="let participant of taskSomeone.participants">
+                        <h5>{{participant.givenName + ' ' + participant.familyName}}</h5>
+                        <span style="font-size: 20px;">
+                            <app-user-rate [user]="participant" [editable]="true"></app-user-rate> 
+                        </span>
+                    </span>
+                    <div class="pull-right">
+                        <button type="button" class="mb-3 btn btn-light" (click)="modal.dismiss();">
+                            Close
+                        </button>
+                    </div>
+                </div>
             </ng-template>
         </div>
     </div>

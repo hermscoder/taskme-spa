@@ -40,7 +40,14 @@ export class TaskSomeoneCardComponent implements OnInit {
                 backdrop: 'static',
                 keyboard: true
             });
-        } else {
+        } else if(modalName == 'rateParticipantsModal'){
+            this.modalService.open(content, {
+                size: 'sm',
+                windowClass: 'rateParticipantsModal',
+                ariaLabelledBy: 'modal-basic-title',
+                backdrop: 'static'
+            });
+         } else {
             this.modalService.open(content, {
                 size: 'lg',
                 ariaLabelledBy: 'modal-basic-title',
@@ -81,7 +88,7 @@ export class TaskSomeoneCardComponent implements OnInit {
         return this.taskSomeoneService.getStateOptionDescription(stateCode);
     }
 
-    changeTaskToNextStatus(taskSomeone: any) {
+    changeTaskToNextStatus(taskSomeone: any, modalContent: any) {
         let msg;
         if(taskSomeone.isSubTask === false){
             if(taskSomeone.state == TaskState.APPLICATIONS_OPEN){
@@ -96,6 +103,8 @@ export class TaskSomeoneCardComponent implements OnInit {
                 if(taskSomeone.frequency != null) {
                     msg += '<br> And <b>subtasks will be created</b> as well, accordinly to the specified task frequency.'
                 }
+            } else if (taskSomeone.state == TaskState.STARTED){
+                msg = 'Confirm the task conclusion? <br>Make sure to <b>finish all subtasks</b> from this task in order to conclude it.';
             }
         }
         
@@ -104,6 +113,10 @@ export class TaskSomeoneCardComponent implements OnInit {
             this.alertify.confirmation('Confirmation', msg, () => {
                 that.taskSomeoneService.changeTaskToNextState(taskSomeone.id).subscribe((tasksomeoneRes: any) => {
                     that.taskSomeone = tasksomeoneRes;
+
+                    if(that.taskSomeone.state == TaskState.DONE) {
+                        this.open(modalContent, 'rateParticipantsModal');
+                    }
                 }, error => {
                     that.alertify.error(error.message);
                 })

@@ -18,7 +18,7 @@
     position: relative;
     width: 1.1em;
     content: "\2606\2606\2606\2606\2606";
-    position: absolute;
+    /* position: absolute; */
 }
 
 .rating-1s:after {
@@ -26,7 +26,7 @@
     position: relative;
     width: 1.1em;
     content: "\2605\2606\2606\2606\2606";
-    position: absolute;
+    /* position: absolute; */
 }
 
 .rating-2s:after {
@@ -34,7 +34,7 @@
     position: relative;
     width: 1.1em;
     content: "\2605\2605\2606\2606\2606";
-    position: absolute;
+    /* position: absolute; */
 }
 
 .rating-3s:after {
@@ -42,7 +42,7 @@
     position: relative;
     width: 1.1em;
     content: "\2605\2605\2605\2606\2606";
-    position: absolute;
+    /* position: absolute; */
 }
 
 .rating-4s:after {
@@ -50,7 +50,7 @@
     position: relative;
     width: 1.1em;
     content: "\2605\2605\2605\2605\2606";
-    position: absolute;
+    /* position: absolute; */
 }
 
 .rating-5s:after {
@@ -58,5 +58,5 @@
     position: relative;
     width: 1.1em;
     content: "\2605\2605\2605\2605\2605";
-    position: absolute;
+    /* position: absolute; */
 }
