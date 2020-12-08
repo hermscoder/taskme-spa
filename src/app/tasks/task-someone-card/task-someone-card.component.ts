@@ -104,7 +104,10 @@ export class TaskSomeoneCardComponent implements OnInit {
                     msg += '<br> And <b>subtasks will be created</b> as well, accordinly to the specified task frequency.'
                 }
             } else if (taskSomeone.state == TaskState.STARTED){
-                msg = 'Confirm the task conclusion? <br>Make sure to <b>finish all subtasks</b> from this task in order to conclude it.';
+                msg = 'Confirm the task conclusion?';
+                if(taskSomeone.subTasks.length > 0){
+                    msg +='<br>Make sure to <b>finish all subtasks</b> from this task in order to conclude it.';
+                }    
             }
         }
         

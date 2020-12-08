@@ -12,6 +12,8 @@
                         <h4>Personal Data</h4>
                         <hr class="h-ruler details">
                         <p class="card-text">
+                            Classification:
+                            <app-user-rate [user]="user" [editable]="false"></app-user-rate> 
                             Age: {{user.birthDate | timeAgo | slice:0:2}}
                             <br/>
                             Contact: {{user.contact}}
@@ -20,15 +22,7 @@
                     </div>
                 </div>
             </tab>
-            <tab heading="Experiences">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Experiences</h4>
-                        <hr class="h-ruler location">
-                        <p class="card-text">{{user.experience}}</p>
-                    </div>
-                </div>
-            </tab>
+
             <tab heading="Previous tasks">
                 <div class="card">
                     <div class="card-body">

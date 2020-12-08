@@ -8,6 +8,7 @@ import {TaskApplicationService} from '../../_services/task-application.service';
 import {TaskSomeoneService} from '../../_services/task-someone.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SendMessageComponent} from '../../generics/send-message/send-message.component';
+import { TaskState } from 'src/app/_models/TaskState';
 
 @Component({
     selector: 'app-task-applicants-list',
@@ -135,5 +136,9 @@ export class TaskApplicantsListComponent implements OnInit {
 
     isClosedForApplications(taskSomeone: TaskSomeoneDetailsDTO) {
         return this.taskSomeoneService.isClosedForApplications(taskSomeone);
+    }
+
+    areApplicationsClosed(taskSomeone: TaskSomeoneDetailsDTO) {
+        return taskSomeone.state >= TaskState.APPLICATIONS_CLOSED;
     }
 }

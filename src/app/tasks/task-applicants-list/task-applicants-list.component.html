@@ -22,10 +22,13 @@
                         class="col-sm-12 d-inline-flex mb-2 applicant-container
                         {{selectedApplicant?.id == applicant.user.id ?  'selected-applicant' : ''}}">
 
-                      <div [class]="isClosedForApplications(taskSomeone) ? 'col-sm-6' : 'col-sm-8'">
+                      <div [class]="areApplicationsClosed(taskSomeone) ? 'col-sm-6' : 'col-sm-8'">
                           <div class="applicant-thumb" (click)="changeSelectedApplicant(applicant.user)">
                                     <img src="{{applicant.user.profilePhoto.url}}" alt="" class="applicant-img" >
-                                    {{applicant.user.givenName + ' ' + applicant.user.familyName }}
+                                    <div class="d-table-cell">
+                                        {{applicant.user.givenName + ' ' + applicant.user.familyName }} 
+                                        <app-user-rate [user]="applicant.user" [editable]="false" style="font-size: 13px;"></app-user-rate>
+                                    </div>
                           </div>
                       </div>
                       <div *ngIf="applicant.taskApplicationStatus == 'PENDING' && isOpenForApplications(taskSomeone)" class="col-sm-4" style="margin-top: 2px;">
@@ -36,7 +39,7 @@
                                 Accept
                           </button>
                       </div>
-                      <div *ngIf="isClosedForApplications(taskSomeone)"  class="col-sm-2 p-1 "  style="display: grid;">
+                      <div *ngIf="areApplicationsClosed(taskSomeone)"  class="col-sm-2 p-1 "  style="display: grid;">
                           <a  type="button" class="btn btn-outline-primary pull-left" (click)="closeModal()" [routerLink]="['/messages/', applicant.user.givenName]">
                               Message
                               <i class="fa fa-comment-o fa-lg ml-1" aria-hidden="true"></i>
