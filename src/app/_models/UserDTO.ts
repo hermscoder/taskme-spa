@@ -12,4 +12,5 @@ export class UserDTO {
   profilePhoto: Media;
   numberOfTasksCreated: number;
   rateAvg: number;
+  description: string;
 }

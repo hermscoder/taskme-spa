@@ -83,6 +83,18 @@
       <div class="invalid-feedback"
               *ngIf="registerForm.get('birthDate').touched && registerForm.get('birthDate').hasError('required')">Mandatory field</div>
     </div>
+    
+    <div class="form-group col-md-12">
+        <label for="inputDescriptionLabel">Description</label>
+        <textarea [ngClass]="{'is-invalid':registerForm.get('description').errors
+                    && registerForm.get('description').touched}"
+                  class="form-control"
+                  maxlength="1000"
+                  formControlName="description"
+                  rows="5"
+                  placeholder="Describe yourself! This description will be displayed for those who want to know more about you and your skills."></textarea>
+        <label class="small text-muted">{{registerForm.value.description.length}}/1000</label>
+    </div>
   </div>
   <div class="form-group text-center mb-5">
     <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid" type="submit" >Sign up</button>

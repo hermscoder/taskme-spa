@@ -12,4 +12,5 @@ export interface User {
   profilePhoto: Media;
   numberOfTasksCreated: number;
   rateAvg: number;
+  description: string;
 }

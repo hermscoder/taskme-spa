@@ -12,12 +12,16 @@
                         <h4>Personal Data</h4>
                         <hr class="h-ruler details">
                         <p class="card-text">
-                            Classification:
+                            <label class="font-weight-bold">Classification:</label>
                             <app-user-rate [user]="user" [editable]="false"></app-user-rate> 
-                            Age: {{user.birthDate | timeAgo | slice:0:2}}
+                            <label class="font-weight-bold">Age: </label>
+                            {{user.birthDate | timeAgo | slice:0:2}}
                             <br/>
-                            Contact: {{user.contact}}
+                            <label class="font-weight-bold">Contact:</label>
+                            {{user.contact}}
                             <br/>
+                            <label class="font-weight-bold">Description:</label><br/>
+                            {{user.description}}
                         </p>
                     </div>
                 </div>
@@ -37,6 +41,9 @@
                                 See More
                             </a>
                         </p>
+                        <h5 *ngIf="user?.previousTasks.length == 0">
+                            This user didn't have previous tasks. <span class="font-italic">Maybe you can give him a chance!</span>
+                        </h5>
                     </div>
                 </div>
             </tab>
