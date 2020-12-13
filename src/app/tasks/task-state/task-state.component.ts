@@ -94,7 +94,7 @@ export class TaskStateComponent implements OnInit {
 		});
 	}
 
-	isCancelled(taskSomeone: TaskSomeoneDetailsDTO) {
+	isCancelled(taskSomeone: any) {
 		return this.taskSomeoneService.isCancelled(taskSomeone);
 	}
 
