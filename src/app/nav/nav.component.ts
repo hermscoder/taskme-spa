@@ -26,7 +26,7 @@ export class NavComponent implements OnInit {
     }, error => {
       this.alertify.error(error.message);
     }, () => {
-      this.router.navigate(['/findTasks']);
+      this.router.navigate(['/mainPage']);
     });
   }
 
