@@ -37,6 +37,7 @@ export class TaskSomeoneDetailComponent implements OnInit {
     const modalRef = this.modalService.open(SendMessageComponent);
     modalRef.componentInstance.messageTo = this.taskSomeone.user.givenName;
     modalRef.componentInstance.defaultMsg = 'Hello ' + this.taskSomeone.user.givenName + '! I saw that you created the task ' + this.taskSomeone.title + ' and I\'m interested in doing it.';
+    modalRef.componentInstance.msgStateType = 'AP';//Applying
     modalRef.result.then((result) => {
       this.sendInterestedMessage(result.msg);
     }, (reason) => {

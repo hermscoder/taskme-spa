@@ -8,7 +8,7 @@ import { AlertifyService } from '../../_services/alertify.service';
   styleUrls: ['./send-message.component.css']
 })
 export class SendMessageComponent implements OnInit {
-	@Input() msgStateType: string; //A - Acceptation, D - Declined, A - Applying
+	@Input() msgStateType: string; //A - Acceptation, D - Declined, AP - Applying
 	@Input() relatedId: string
 	@Input() messageTo: string;
 	@Input() defaultMsg: string;
@@ -38,6 +38,8 @@ export class SendMessageComponent implements OnInit {
     var confirmationMsg = '';
     if(msgStateType == 'A'){
       confirmationMsg = 'Do you confirm that <b>' + this.messageTo + '</b> is a good candidate for your task and you will approve this application?';
+    } else if (msgStateType == 'AP') {
+      confirmationMsg = 'Do you confirm that you want to apply for this task and send a message to <b>' + this.messageTo + '</b>?';
     } else {
       confirmationMsg = 'Do you confirm that <b>' + this.messageTo + '</b> is not suitable for your task and you will decline this application?';
     }
