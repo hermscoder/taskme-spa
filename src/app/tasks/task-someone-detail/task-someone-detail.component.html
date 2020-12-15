@@ -110,6 +110,7 @@
   <app-send-message [defaultMsg]="'Hello ' + taskSomeone.user.givenName + '! I saw that you created the task ' + taskSomeone.title + ' and I am interested in doing it.'" 
                     [messageTo]="taskSomeone.user.givenName" 
                     (onSend)="sendInterestedMessage($event, modal);" 
+                    [msgStateType]="A"
                     (onCancel)="modal.dismiss()">
   </app-send-message>
 </ng-template>
