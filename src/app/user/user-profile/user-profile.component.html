@@ -12,7 +12,7 @@
                         <h4>Personal Data</h4>
                         <hr class="h-ruler details">
                         <p class="card-text">
-                            <label class="font-weight-bold">Classification:</label>
+                            <label class="font-weight-bold mb-0">Classification:</label>
                             <app-user-rate [user]="user" [editable]="false"></app-user-rate> 
                             <label class="font-weight-bold">Age: </label>
                             {{user.birthDate | timeAgo | slice:0:2}}
