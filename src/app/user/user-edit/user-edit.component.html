@@ -136,7 +136,7 @@
                           maxlength="1000"
                           rows="5"
                           placeholder="Describe yourself! This description will be displayed for those who want to know more about you and your skills.">{{user.description}}</textarea>
-                <label class="small text-muted">{{user.description.length}}/1000</label>
+                <label class="small text-muted">{{user.description?.length + 0}}/1000</label>
               </div>
               <div class="form-group text-right">
                 <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success" >Save Changes</button>
