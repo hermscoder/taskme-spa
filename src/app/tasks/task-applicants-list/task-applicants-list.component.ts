@@ -42,7 +42,7 @@ export class TaskApplicantsListComponent implements OnInit {
         if (newStatus == 'A') {
             modalRef.componentInstance.defaultMsg = 'Hey ' + applicant.user.givenName + ', I choose you to do the task \'' + taskSomeone.title + '\'!';
         } else if (newStatus == 'D') {
-            modalRef.componentInstance.defaultMsg = 'Hello ' + applicant.user.givenName + ', I am sorry to say this, but another person got approved to do the task \'' + taskSomeone.title + '\'. But let\'s keep in touch, ok? See ya!';
+            modalRef.componentInstance.defaultMsg = 'Hello ' + applicant.user.givenName + ', I am sorry to say this, but another person got approved to do the task \'' + taskSomeone.title + '\'. But let\'s keep in touch!';
         }
 
         modalRef.result.then((result) => {
