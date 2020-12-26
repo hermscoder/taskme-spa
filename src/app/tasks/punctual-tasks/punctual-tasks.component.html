@@ -11,12 +11,20 @@
 					
 				</div>
         		<div class="col-lg-3 small text-muted text-truncate">
-        			Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
+					<span *ngIf="outDatedTask(task);else dueDate">
+						Outdated <b>{{task?.endDate | timeAgo}}</b>
+					</span>
+					<ng-template #dueDate>
+						Due date in <b>{{(task?.endDate | timeAgo).replace('ago', '')}}</b>
+					</ng-template>
+					
         			<br>
         			Created by: {{task.user.givenName}} {{task.user.familyName}}
         		</div>
         		<div class="col-lg-1 small text-muted">
-        			Risk:
+        			<span *ngIf="!outDatedTask(task)">
+						Risk:
+					</span>
         		</div>
         	</div>
         </span>

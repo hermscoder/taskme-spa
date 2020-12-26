@@ -38,7 +38,7 @@ export class CurrentTasksComponent implements OnInit {
     }
 
     getRiskClass(task: TaskSomeoneDetailsDTO) {
-        return this.taskSomeoneService.getPeriodTaskRisk(task);
+        return this.taskSomeoneService.getPunctualTaskRisk(task);
     }
 
 }

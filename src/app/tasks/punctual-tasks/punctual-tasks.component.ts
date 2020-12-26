@@ -5,6 +5,7 @@ import {AlertifyService} from '../../_services/alertify.service';
 import {Pageable} from 'src/app/_models/Pageable';
 import {PaginationInfo} from 'src/app/_models/PaginationInfo';
 import {ActivatedRoute} from '@angular/router';
+import { DateUtils } from 'src/app/_utils/DateUtils';
 
 @Component({
   selector: 'app-punctual-tasks',
@@ -38,7 +39,15 @@ export class PunctualTasksComponent implements OnInit {
     }
 
     getRiskClass(task: TaskSomeoneDetailsDTO) {
-        return this.taskSomeoneService.getPeriodTaskRisk(task);
+        return this.taskSomeoneService.getPunctualTaskRisk(task);
+    }
+
+    outDatedTask(task) {
+        let diffInDays = DateUtils.datediffInDays(new Date(), new Date(task.endDate), false);
+        if(diffInDays < 0)
+            return true;
+        else
+            return false;
     }
 
 }

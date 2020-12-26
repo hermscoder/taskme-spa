@@ -46,3 +46,12 @@
 	background-color: #caddca;
 }
 
+.outdated {
+	border-color: #1d1d1c00;
+}
+.outdated::after {
+	border: 1px solid #3a3a3900;
+	background-color: #47474700;
+}
+
+

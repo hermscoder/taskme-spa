@@ -173,7 +173,7 @@ export class TaskSomeoneService implements GPaginator {
         return true;
     }
 
-    getPeriodTaskRisk(task: TaskSomeoneDetailsDTO) {
+    getPunctualTaskRisk(task: TaskSomeoneDetailsDTO) {
         let startDate = DateUtils.convertStringToDate(task.startDate);
         let endDate = DateUtils.convertStringToDate(task.endDate);
 
@@ -182,7 +182,12 @@ export class TaskSomeoneService implements GPaginator {
         }
 
         let totalDaysOfTheTask = DateUtils.datediffInDays(endDate, startDate);
-        let daysLeftTillDeadLine = DateUtils.datediffInDays(endDate, new Date());
+        let daysLeftTillDeadLine = DateUtils.datediffInDays(new Date(), endDate, false);
+
+        let outdated = daysLeftTillDeadLine < 0;
+        if(outdated) {
+            return 'outdated'
+        }
 
         let daysLeftPercentual = (daysLeftTillDeadLine * 100)/totalDaysOfTheTask;
         
