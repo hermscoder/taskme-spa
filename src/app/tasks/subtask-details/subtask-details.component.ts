@@ -91,4 +91,10 @@ export class SubtaskDetailsComponent implements OnInit {
 		return comment.userSender.id == currentUser.id || this.subTask.user.id == currentUser.id;
 	}
 
+	getCurrentStateDescription(stateCode: number) {
+        return this.taskSomeoneServive.getCurrentStateDescription(stateCode);
+    }
+    getStateClass(stateCode: number, outline: boolean = false) {
+        return this.taskSomeoneServive.getStateClass(stateCode, outline);
+    }
 }

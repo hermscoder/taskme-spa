@@ -9,14 +9,20 @@
                 <div class="card-body mb-10">
                     <div class="form-group row">
                       <label class="col-lg-2"><i class='fa fa-user-o'></i>  Creator:</label>
-                      <label class="col-lg-10"><i class='fa fa-map-marker'></i> Location:</label>
+                      <label class="col-lg-7"><i class='fa fa-map-marker'></i> Location:</label>
+                      <label class="col-lg-3"><i class='fa fa-map-marker'></i> State:</label>
                       <div class="col-lg-2 text-left">
                         <img src="{{subTask.user.profilePhoto?.url}}" alt="" width="30px" height="30">
                         <small class="ml-1 text-muted text-truncate">{{subTask.user.givenName}}</small>
                       </div>
-                      <div class="col-lg-10">
+                      <div class="col-lg-7">
                         <a [href]="getGoogleMapsUrl(subTask.location)" target="_blank">{{subTask.location}}</a>
                       </div>
+                      <div class="form-group col-lg-3">
+                        <div class="badge badge-{{getStateClass(subTask.state)}} col-sm-12" style="font-size: inherit;pointer-events: none">
+                            {{getCurrentStateDescription(subTask.state)}}
+                        </div>
+                    </div>
                     </div>
                     <div class="form-group">
                       <i class='fa fa-file-text-o mr-1'></i><label>Description:</label>

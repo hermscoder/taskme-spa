@@ -40,11 +40,14 @@
 									<div class="card-footer row {{getStateClass(task)}} mt-1 clickable-appearance" (click)="open(subTaskDetailsModal, task)">
 										<div class="row col-lg-12 inline-task d-flex align-items-center">
 											
-											<div class="col-lg-9 text-truncate">
+											<div class="col-lg-7 text-truncate">
 												{{task.title}}
 											</div>
 											<div class="col-lg-3 small text-muted text-truncate">
 												Created by: {{task.user.givenName}} {{task.user.familyName}}
+											</div>
+											<div class="col-lg-2 small text-truncate">
+												<app-task-state [taskSomeone]="task" [isOnlyDisplaying]="true" [styleClasses]="'ml-0'"></app-task-state>
 											</div>
 										</div>
 									</div>
