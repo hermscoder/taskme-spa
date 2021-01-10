@@ -110,13 +110,17 @@ export class TaskSomeoneService implements GPaginator {
         }
     }
 
-    getStateOptionDescription(stateCode: number) {
+    getStateOptionDescription(stateCode: number, taskSomeone: any = null) {
         if (stateCode === TaskState.CREATED) {
             return 'Created';
         } else if (stateCode === TaskState.APPLICATIONS_OPEN) {
             return 'Open for Applications';
         } else if (stateCode === TaskState.APPLICATIONS_CLOSED) {
-            return 'Close Applications';
+            if(taskSomeone && taskSomeone.state > stateCode) {
+                return 'Applications Closed';
+            } else {
+                return 'Close Applications';
+            }
         } else if (stateCode === TaskState.STARTED) {
             return 'Start';
         } else if (stateCode === TaskState.DONE) {

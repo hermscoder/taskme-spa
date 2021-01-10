@@ -12,7 +12,7 @@
       <hr *ngIf="taskSomeone.previousState != null && taskSomeone.nextState != null" class="m-1">
       <div *ngIf="taskSomeone.previousState != null" style="display: grid;" >
           <button class="btn btn-{{getStateClass(taskSomeone.previousState, true)}}" (click)="changeTaskToPreviousState(taskSomeone)">
-              <i class="{{getStateIconClass(taskSomeone.previousState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.previousState)}}
+              <i class="{{getStateIconClass(taskSomeone.previousState)}} mr-1" aria-hidden="true"></i> {{getStateOptionDescription(taskSomeone.previousState, taskSomeone)}}
           </button>
       </div>
       <hr *ngIf="canCancel(taskSomeone.state)" class="m-1">

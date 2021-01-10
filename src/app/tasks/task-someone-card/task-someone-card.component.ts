@@ -84,8 +84,8 @@ export class TaskSomeoneCardComponent implements OnInit {
         return this.taskSomeoneService.getCurrentStateDescription(stateCode);
     }
 
-    getStateOptionDescription(stateCode: number) {
-        return this.taskSomeoneService.getStateOptionDescription(stateCode);
+    getStateOptionDescription(stateCode: number, taskSomeone: any) {
+        return this.taskSomeoneService.getStateOptionDescription(stateCode, taskSomeone);
     }
 
     changeTaskToNextStatus(taskSomeone: any, modalContent: any) {
