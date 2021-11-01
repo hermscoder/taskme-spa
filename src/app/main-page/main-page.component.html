@@ -1,68 +1,73 @@
 <div class="container col-lg-9 mt-5">
-      <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/findTasks']" routerLinkActive="router-link-active">
-            <i class="fa fa-search primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Find tasks</h4>
-            <p class="mt-3 mb-4">Do you have spare time? Great! Make the better out of it and start helping others today!</p>
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/taskSomeone']" routerLinkActive="router-link-active">
-            <i class="fa fa-shopping-basket primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Task Someone</h4>
-            <p class="mt-3 mb-4">Are you in trouble? Need some help? Create a task and find someone to get it done for you!</p>
-          </div>
-        </div>
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/findTasks']" routerLinkActive="router-link-active">
+        <i class="fa fa-search primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Find tasks</h4>
+        <p class="mt-3 mb-4">Do you have spare time? Great! Make the better out of it and start helping others today!
+        </p>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/taskSomeone']" routerLinkActive="router-link-active">
+        <i class="fa fa-shopping-basket primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Task Someone</h4>
+        <p class="mt-3 mb-4">Are you in trouble? Need some help? Create a task and find someone to get it done for you!
+        </p>
+      </div>
+    </div>
 
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/punctualTasks']" routerLinkActive="router-link-active">
-            <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Punctual Tasks</h4>
-            <p class="mt-3 mb-4">Check all the punctual tasks assigned to you and their due dates.
-            </p>
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/taskAgenda']" routerLinkActive="router-link-active">
-            <i class="fa fa-calendar primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Task Agenda</h4>
-            <p class="mt-3 mb-4">All your periodic tasks in one single place!</p>
-          </div>
-        </div>
-        
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/punctualTasks']"
+        routerLinkActive="router-link-active">
+        <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Punctual Tasks</h4>
+        <p class="mt-3 mb-4">Check all the punctual tasks assigned to you and their due dates.
+        </p>
       </div>
-      <div class="card-deck mb-3 text-center">
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/createdTasks']" routerLinkActive="router-link-active">
-            <i class="fa fa-comments-o primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Messages</h4>
-            <p class="mt-3 mb-4">Keep in touch with task creators and don't miss future opportunities.
-            </p>
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/createdTasks']" routerLinkActive="router-link-active">
-            <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Manage Created Tasks</h4>
-            <p class="mt-3 mb-4">Manage how your created task is going, change status and add comments to it.
-            </p>
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/messages']" routerLinkActive="router-link-active">
-            <i class="fa fa-file-text-o primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Your applications</h4>
-            <p class="mt-3 mb-4">Check the status of your appplications.</p>
-          </div>
-        </div>
-        <div class="card mb-4 box-shadow">
-          <div class="card-body clickable-appearance" [routerLink]="['/user/edit']" routerLinkActive="router-link-active">
-            <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
-            <h4 class="card-title pricing-card-title">Profile</h4>
-            <p class="mt-3 mb-4">Want to add some juicy information to your profile? Go ahead!
-            </p>
-          </div>
-        </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/taskAgenda']" routerLinkActive="router-link-active">
+        <i class="fa fa-calendar primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Task Agenda</h4>
+        <p class="mt-3 mb-4">All your periodic tasks in one single place!</p>
       </div>
+    </div>
+
+  </div>
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/messages']" routerLinkActive="router-link-active">
+        <i class="fa fa-comments-o primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Messages</h4>
+        <p class="mt-3 mb-4">Keep in touch with task creators and don't miss future opportunities.
+        </p>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/createdTasks']"
+        routerLinkActive="router-link-active">
+        <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Manage Created Tasks</h4>
+        <p class="mt-3 mb-4">Manage how your created task is going, change status and add comments to it.
+        </p>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/taskApplications']"
+        routerLinkActive="router-link-active">
+        <i class="fa fa-file-text-o primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Your applications</h4>
+        <p class="mt-3 mb-4">Check the status of your appplications.</p>
+      </div>
+    </div>
+    <div class="card mb-4 box-shadow">
+      <div class="card-body clickable-appearance" [routerLink]="['/user/edit']" routerLinkActive="router-link-active">
+        <i class="fa fa-dot-circle-o primary big-icon" aria-hidden="true"></i>
+        <h4 class="card-title pricing-card-title">Profile</h4>
+        <p class="mt-3 mb-4">Want to add some juicy information to your profile? Go ahead!
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
