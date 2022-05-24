@@ -1,5 +1,11 @@
 # TaskmeSpa
 
+That a single page application, developed in angular, pointing to a Java Rest API on heroku, that is on my github as well (taskme-app).If you want to check the result till now, check the website (maybe it will take time to load, because of the heroku initialization).
+
+https://taskme-spa.herokuapp.com/
+
+
+## Configuration
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
 
 ## Development server
